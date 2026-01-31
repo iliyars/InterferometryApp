@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug InterferometryApp (x64)",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}\\x64\\Debug\\InterferometryApp.exe",
+      "cwd": "${workspaceFolder}\\x64\\Debug",
+      "preLaunchTask": "Build (x64 Debug) - MSBuild"
+    }
+  ]
+}

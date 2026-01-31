@@ -1,0 +1,591 @@
+Folder PATH listing for volume Data
+Volume serial number is 08E4-C6D1
+D:.
+¦   CMakeLists.txt
+¦   InterferometryApp.sln
+¦   InterferometryApp.vcxproj
+¦   InterferometryApp.vcxproj.filters
+¦   InterferometryApp.vcxproj.user
+¦   tree.txt
+¦   
++---build
++---docs
++---external
+¦   L---opencv
+¦       +---bin
+¦       ¦       opencv_annotation.exe
+¦       ¦       opencv_interactive-calibration.exe
+¦       ¦       opencv_model_diagnostics.exe
+¦       ¦       opencv_version.exe
+¦       ¦       opencv_version_win32.exe
+¦       ¦       opencv_videoio_ffmpeg4120_64.dll
+¦       ¦       opencv_visualisation.exe
+¦       ¦       opencv_world4120.dll
+¦       ¦       opencv_world4120.pdb
+¦       ¦       opencv_world4120d.dll
+¦       ¦       opencv_world4120d.pdb
+¦       ¦       
+¦       +---lib
+¦       ¦       OpenCVConfig-version.cmake
+¦       ¦       OpenCVConfig.cmake
+¦       ¦       OpenCVModules-debug.cmake
+¦       ¦       OpenCVModules-release.cmake
+¦       ¦       OpenCVModules.cmake
+¦       ¦       opencv_world4120.lib
+¦       ¦       opencv_world4120d.lib
+¦       ¦       
+¦       L---opencv2
+¦           ¦   calib3d.hpp
+¦           ¦   core.hpp
+¦           ¦   cvconfig.h
+¦           ¦   dnn.hpp
+¦           ¦   features2d.hpp
+¦           ¦   flann.hpp
+¦           ¦   gapi.hpp
+¦           ¦   highgui.hpp
+¦           ¦   imgcodecs.hpp
+¦           ¦   imgproc.hpp
+¦           ¦   ml.hpp
+¦           ¦   objdetect.hpp
+¦           ¦   opencv.hpp
+¦           ¦   opencv_modules.hpp
+¦           ¦   photo.hpp
+¦           ¦   stitching.hpp
+¦           ¦   video.hpp
+¦           ¦   videoio.hpp
+¦           ¦   world.hpp
+¦           ¦   
+¦           +---calib3d
+¦           ¦       calib3d.hpp
+¦           ¦       calib3d_c.h
+¦           ¦       
+¦           +---core
+¦           ¦   ¦   affine.hpp
+¦           ¦   ¦   async.hpp
+¦           ¦   ¦   base.hpp
+¦           ¦   ¦   bindings_utils.hpp
+¦           ¦   ¦   bufferpool.hpp
+¦           ¦   ¦   check.hpp
+¦           ¦   ¦   core.hpp
+¦           ¦   ¦   core_c.h
+¦           ¦   ¦   cuda.hpp
+¦           ¦   ¦   cuda.inl.hpp
+¦           ¦   ¦   cuda_stream_accessor.hpp
+¦           ¦   ¦   cuda_types.hpp
+¦           ¦   ¦   cvdef.h
+¦           ¦   ¦   cvstd.hpp
+¦           ¦   ¦   cvstd.inl.hpp
+¦           ¦   ¦   cvstd_wrapper.hpp
+¦           ¦   ¦   cv_cpu_dispatch.h
+¦           ¦   ¦   cv_cpu_helper.h
+¦           ¦   ¦   directx.hpp
+¦           ¦   ¦   dualquaternion.hpp
+¦           ¦   ¦   dualquaternion.inl.hpp
+¦           ¦   ¦   eigen.hpp
+¦           ¦   ¦   fast_math.hpp
+¦           ¦   ¦   mat.hpp
+¦           ¦   ¦   mat.inl.hpp
+¦           ¦   ¦   matx.hpp
+¦           ¦   ¦   matx.inl.hpp
+¦           ¦   ¦   neon_utils.hpp
+¦           ¦   ¦   ocl.hpp
+¦           ¦   ¦   ocl_genbase.hpp
+¦           ¦   ¦   opengl.hpp
+¦           ¦   ¦   operations.hpp
+¦           ¦   ¦   optim.hpp
+¦           ¦   ¦   ovx.hpp
+¦           ¦   ¦   persistence.hpp
+¦           ¦   ¦   quaternion.hpp
+¦           ¦   ¦   quaternion.inl.hpp
+¦           ¦   ¦   saturate.hpp
+¦           ¦   ¦   simd_intrinsics.hpp
+¦           ¦   ¦   softfloat.hpp
+¦           ¦   ¦   sse_utils.hpp
+¦           ¦   ¦   traits.hpp
+¦           ¦   ¦   types.hpp
+¦           ¦   ¦   types_c.h
+¦           ¦   ¦   utility.hpp
+¦           ¦   ¦   va_intel.hpp
+¦           ¦   ¦   version.hpp
+¦           ¦   ¦   vsx_utils.hpp
+¦           ¦   ¦   
+¦           ¦   +---cuda
+¦           ¦   ¦   ¦   block.hpp
+¦           ¦   ¦   ¦   border_interpolate.hpp
+¦           ¦   ¦   ¦   color.hpp
+¦           ¦   ¦   ¦   common.hpp
+¦           ¦   ¦   ¦   datamov_utils.hpp
+¦           ¦   ¦   ¦   dynamic_smem.hpp
+¦           ¦   ¦   ¦   emulation.hpp
+¦           ¦   ¦   ¦   filters.hpp
+¦           ¦   ¦   ¦   funcattrib.hpp
+¦           ¦   ¦   ¦   functional.hpp
+¦           ¦   ¦   ¦   limits.hpp
+¦           ¦   ¦   ¦   reduce.hpp
+¦           ¦   ¦   ¦   saturate_cast.hpp
+¦           ¦   ¦   ¦   scan.hpp
+¦           ¦   ¦   ¦   simd_functions.hpp
+¦           ¦   ¦   ¦   transform.hpp
+¦           ¦   ¦   ¦   type_traits.hpp
+¦           ¦   ¦   ¦   utility.hpp
+¦           ¦   ¦   ¦   vec_distance.hpp
+¦           ¦   ¦   ¦   vec_math.hpp
+¦           ¦   ¦   ¦   vec_traits.hpp
+¦           ¦   ¦   ¦   warp.hpp
+¦           ¦   ¦   ¦   warp_reduce.hpp
+¦           ¦   ¦   ¦   warp_shuffle.hpp
+¦           ¦   ¦   ¦   
+¦           ¦   ¦   L---detail
+¦           ¦   ¦           color_detail.hpp
+¦           ¦   ¦           reduce.hpp
+¦           ¦   ¦           reduce_key_val.hpp
+¦           ¦   ¦           transform_detail.hpp
+¦           ¦   ¦           type_traits_detail.hpp
+¦           ¦   ¦           vec_distance_detail.hpp
+¦           ¦   ¦           
+¦           ¦   +---detail
+¦           ¦   ¦       async_promise.hpp
+¦           ¦   ¦       dispatch_helper.impl.hpp
+¦           ¦   ¦       exception_ptr.hpp
+¦           ¦   ¦       
+¦           ¦   +---hal
+¦           ¦   ¦       hal.hpp
+¦           ¦   ¦       interface.h
+¦           ¦   ¦       intrin.hpp
+¦           ¦   ¦       intrin_avx.hpp
+¦           ¦   ¦       intrin_avx512.hpp
+¦           ¦   ¦       intrin_cpp.hpp
+¦           ¦   ¦       intrin_forward.hpp
+¦           ¦   ¦       intrin_lasx.hpp
+¦           ¦   ¦       intrin_legacy_ops.h
+¦           ¦   ¦       intrin_lsx.hpp
+¦           ¦   ¦       intrin_math.hpp
+¦           ¦   ¦       intrin_msa.hpp
+¦           ¦   ¦       intrin_neon.hpp
+¦           ¦   ¦       intrin_rvv071.hpp
+¦           ¦   ¦       intrin_rvv_scalable.hpp
+¦           ¦   ¦       intrin_sse.hpp
+¦           ¦   ¦       intrin_sse_em.hpp
+¦           ¦   ¦       intrin_vsx.hpp
+¦           ¦   ¦       intrin_wasm.hpp
+¦           ¦   ¦       msa_macros.h
+¦           ¦   ¦       simd_utils.impl.hpp
+¦           ¦   ¦       
+¦           ¦   +---opencl
+¦           ¦   ¦   ¦   ocl_defs.hpp
+¦           ¦   ¦   ¦   opencl_info.hpp
+¦           ¦   ¦   ¦   opencl_svm.hpp
+¦           ¦   ¦   ¦   
+¦           ¦   ¦   L---runtime
+¦           ¦   ¦       ¦   opencl_clblas.hpp
+¦           ¦   ¦       ¦   opencl_clfft.hpp
+¦           ¦   ¦       ¦   opencl_core.hpp
+¦           ¦   ¦       ¦   opencl_core_wrappers.hpp
+¦           ¦   ¦       ¦   opencl_gl.hpp
+¦           ¦   ¦       ¦   opencl_gl_wrappers.hpp
+¦           ¦   ¦       ¦   opencl_svm_20.hpp
+¦           ¦   ¦       ¦   opencl_svm_definitions.hpp
+¦           ¦   ¦       ¦   opencl_svm_hsa_extension.hpp
+¦           ¦   ¦       ¦   
+¦           ¦   ¦       L---autogenerated
+¦           ¦   ¦               opencl_clblas.hpp
+¦           ¦   ¦               opencl_clfft.hpp
+¦           ¦   ¦               opencl_core.hpp
+¦           ¦   ¦               opencl_core_wrappers.hpp
+¦           ¦   ¦               opencl_gl.hpp
+¦           ¦   ¦               opencl_gl_wrappers.hpp
+¦           ¦   ¦               
+¦           ¦   +---parallel
+¦           ¦   ¦   ¦   parallel_backend.hpp
+¦           ¦   ¦   ¦   
+¦           ¦   ¦   L---backend
+¦           ¦   ¦           parallel_for.openmp.hpp
+¦           ¦   ¦           parallel_for.tbb.hpp
+¦           ¦   ¦           
+¦           ¦   L---utils
+¦           ¦           allocator_stats.hpp
+¦           ¦           allocator_stats.impl.hpp
+¦           ¦           filesystem.hpp
+¦           ¦           fp_control_utils.hpp
+¦           ¦           instrumentation.hpp
+¦           ¦           logger.defines.hpp
+¦           ¦           logger.hpp
+¦           ¦           logtag.hpp
+¦           ¦           tls.hpp
+¦           ¦           trace.hpp
+¦           ¦           
+¦           +---dnn
+¦           ¦   ¦   all_layers.hpp
+¦           ¦   ¦   dict.hpp
+¦           ¦   ¦   dnn.hpp
+¦           ¦   ¦   dnn.inl.hpp
+¦           ¦   ¦   layer.details.hpp
+¦           ¦   ¦   layer.hpp
+¦           ¦   ¦   shape_utils.hpp
+¦           ¦   ¦   version.hpp
+¦           ¦   ¦   
+¦           ¦   L---utils
+¦           ¦           debug_utils.hpp
+¦           ¦           inference_engine.hpp
+¦           ¦           
+¦           +---features2d
+¦           ¦   ¦   features2d.hpp
+¦           ¦   ¦   
+¦           ¦   L---hal
+¦           ¦           interface.h
+¦           ¦           
+¦           +---flann
+¦           ¦       allocator.h
+¦           ¦       all_indices.h
+¦           ¦       any.h
+¦           ¦       autotuned_index.h
+¦           ¦       composite_index.h
+¦           ¦       config.h
+¦           ¦       defines.h
+¦           ¦       dist.h
+¦           ¦       dummy.h
+¦           ¦       dynamic_bitset.h
+¦           ¦       flann.hpp
+¦           ¦       flann_base.hpp
+¦           ¦       general.h
+¦           ¦       ground_truth.h
+¦           ¦       heap.h
+¦           ¦       hierarchical_clustering_index.h
+¦           ¦       index_testing.h
+¦           ¦       kdtree_index.h
+¦           ¦       kdtree_single_index.h
+¦           ¦       kmeans_index.h
+¦           ¦       linear_index.h
+¦           ¦       logger.h
+¦           ¦       lsh_index.h
+¦           ¦       lsh_table.h
+¦           ¦       matrix.h
+¦           ¦       miniflann.hpp
+¦           ¦       nn_index.h
+¦           ¦       object_factory.h
+¦           ¦       params.h
+¦           ¦       random.h
+¦           ¦       result_set.h
+¦           ¦       sampling.h
+¦           ¦       saving.h
+¦           ¦       simplex_downhill.h
+¦           ¦       timer.h
+¦           ¦       
+¦           +---gapi
+¦           ¦   ¦   core.hpp
+¦           ¦   ¦   garg.hpp
+¦           ¦   ¦   garray.hpp
+¦           ¦   ¦   gasync_context.hpp
+¦           ¦   ¦   gcall.hpp
+¦           ¦   ¦   gcommon.hpp
+¦           ¦   ¦   gcompiled.hpp
+¦           ¦   ¦   gcompiled_async.hpp
+¦           ¦   ¦   gcompoundkernel.hpp
+¦           ¦   ¦   gcomputation.hpp
+¦           ¦   ¦   gcomputation_async.hpp
+¦           ¦   ¦   gframe.hpp
+¦           ¦   ¦   gkernel.hpp
+¦           ¦   ¦   gmat.hpp
+¦           ¦   ¦   gmetaarg.hpp
+¦           ¦   ¦   gopaque.hpp
+¦           ¦   ¦   gproto.hpp
+¦           ¦   ¦   gscalar.hpp
+¦           ¦   ¦   gstreaming.hpp
+¦           ¦   ¦   gtransform.hpp
+¦           ¦   ¦   gtyped.hpp
+¦           ¦   ¦   gtype_traits.hpp
+¦           ¦   ¦   imgproc.hpp
+¦           ¦   ¦   infer.hpp
+¦           ¦   ¦   media.hpp
+¦           ¦   ¦   opencv_includes.hpp
+¦           ¦   ¦   operators.hpp
+¦           ¦   ¦   ot.hpp
+¦           ¦   ¦   render.hpp
+¦           ¦   ¦   rmat.hpp
+¦           ¦   ¦   s11n.hpp
+¦           ¦   ¦   stereo.hpp
+¦           ¦   ¦   video.hpp
+¦           ¦   ¦   
+¦           ¦   +---cpu
+¦           ¦   ¦       core.hpp
+¦           ¦   ¦       gcpukernel.hpp
+¦           ¦   ¦       imgproc.hpp
+¦           ¦   ¦       ot.hpp
+¦           ¦   ¦       stereo.hpp
+¦           ¦   ¦       video.hpp
+¦           ¦   ¦       
+¦           ¦   +---fluid
+¦           ¦   ¦       core.hpp
+¦           ¦   ¦       gfluidbuffer.hpp
+¦           ¦   ¦       gfluidkernel.hpp
+¦           ¦   ¦       imgproc.hpp
+¦           ¦   ¦       
+¦           ¦   +---gpu
+¦           ¦   ¦       core.hpp
+¦           ¦   ¦       ggpukernel.hpp
+¦           ¦   ¦       imgproc.hpp
+¦           ¦   ¦       
+¦           ¦   +---infer
+¦           ¦   ¦       bindings_ie.hpp
+¦           ¦   ¦       bindings_onnx.hpp
+¦           ¦   ¦       bindings_ov.hpp
+¦           ¦   ¦       ie.hpp
+¦           ¦   ¦       onnx.hpp
+¦           ¦   ¦       ov.hpp
+¦           ¦   ¦       parsers.hpp
+¦           ¦   ¦       
+¦           ¦   +---oak
+¦           ¦   ¦       infer.hpp
+¦           ¦   ¦       oak.hpp
+¦           ¦   ¦       
+¦           ¦   +---ocl
+¦           ¦   ¦       core.hpp
+¦           ¦   ¦       goclkernel.hpp
+¦           ¦   ¦       imgproc.hpp
+¦           ¦   ¦       
+¦           ¦   +---own
+¦           ¦   ¦       assert.hpp
+¦           ¦   ¦       convert.hpp
+¦           ¦   ¦       cvdefs.hpp
+¦           ¦   ¦       exports.hpp
+¦           ¦   ¦       mat.hpp
+¦           ¦   ¦       saturate.hpp
+¦           ¦   ¦       scalar.hpp
+¦           ¦   ¦       types.hpp
+¦           ¦   ¦       
+¦           ¦   +---plaidml
+¦           ¦   ¦       core.hpp
+¦           ¦   ¦       gplaidmlkernel.hpp
+¦           ¦   ¦       plaidml.hpp
+¦           ¦   ¦       
+¦           ¦   +---python
+¦           ¦   ¦       python.hpp
+¦           ¦   ¦       
+¦           ¦   +---render
+¦           ¦   ¦       render.hpp
+¦           ¦   ¦       render_types.hpp
+¦           ¦   ¦       
+¦           ¦   +---s11n
+¦           ¦   ¦       base.hpp
+¦           ¦   ¦       
+¦           ¦   +---streaming
+¦           ¦   ¦   ¦   cap.hpp
+¦           ¦   ¦   ¦   desync.hpp
+¦           ¦   ¦   ¦   format.hpp
+¦           ¦   ¦   ¦   meta.hpp
+¦           ¦   ¦   ¦   queue_source.hpp
+¦           ¦   ¦   ¦   source.hpp
+¦           ¦   ¦   ¦   sync.hpp
+¦           ¦   ¦   ¦   
+¦           ¦   ¦   +---gstreamer
+¦           ¦   ¦   ¦       gstreamerpipeline.hpp
+¦           ¦   ¦   ¦       gstreamersource.hpp
+¦           ¦   ¦   ¦       
+¦           ¦   ¦   L---onevpl
+¦           ¦   ¦           accel_types.hpp
+¦           ¦   ¦           cfg_params.hpp
+¦           ¦   ¦           data_provider_interface.hpp
+¦           ¦   ¦           default.hpp
+¦           ¦   ¦           device_selector_interface.hpp
+¦           ¦   ¦           source.hpp
+¦           ¦   ¦           
+¦           ¦   L---util
+¦           ¦           any.hpp
+¦           ¦           compiler_hints.hpp
+¦           ¦           copy_through_move.hpp
+¦           ¦           optional.hpp
+¦           ¦           throw.hpp
+¦           ¦           type_traits.hpp
+¦           ¦           util.hpp
+¦           ¦           variant.hpp
+¦           ¦           
+¦           +---highgui
+¦           ¦       highgui.hpp
+¦           ¦       highgui_c.h
+¦           ¦       
+¦           +---imgcodecs
+¦           ¦   ¦   imgcodecs.hpp
+¦           ¦   ¦   imgcodecs_c.h
+¦           ¦   ¦   ios.h
+¦           ¦   ¦   macosx.h
+¦           ¦   ¦   
+¦           ¦   L---legacy
+¦           ¦           constants_c.h
+¦           ¦           
+¦           +---imgproc
+¦           ¦   ¦   bindings.hpp
+¦           ¦   ¦   imgproc.hpp
+¦           ¦   ¦   imgproc_c.h
+¦           ¦   ¦   segmentation.hpp
+¦           ¦   ¦   types_c.h
+¦           ¦   ¦   
+¦           ¦   +---detail
+¦           ¦   ¦       gcgraph.hpp
+¦           ¦   ¦       legacy.hpp
+¦           ¦   ¦       
+¦           ¦   L---hal
+¦           ¦           hal.hpp
+¦           ¦           interface.h
+¦           ¦           
+¦           +---ml
+¦           ¦       ml.hpp
+¦           ¦       ml.inl.hpp
+¦           ¦       
+¦           +---objdetect
+¦           ¦       aruco_board.hpp
+¦           ¦       aruco_detector.hpp
+¦           ¦       aruco_dictionary.hpp
+¦           ¦       barcode.hpp
+¦           ¦       charuco_detector.hpp
+¦           ¦       detection_based_tracker.hpp
+¦           ¦       face.hpp
+¦           ¦       graphical_code_detector.hpp
+¦           ¦       objdetect.hpp
+¦           ¦       
+¦           +---photo
+¦           ¦   ¦   cuda.hpp
+¦           ¦   ¦   photo.hpp
+¦           ¦   ¦   
+¦           ¦   L---legacy
+¦           ¦           constants_c.h
+¦           ¦           
+¦           +---stitching
+¦           ¦   ¦   warpers.hpp
+¦           ¦   ¦   
+¦           ¦   L---detail
+¦           ¦           autocalib.hpp
+¦           ¦           blenders.hpp
+¦           ¦           camera.hpp
+¦           ¦           exposure_compensate.hpp
+¦           ¦           matchers.hpp
+¦           ¦           motion_estimators.hpp
+¦           ¦           seam_finders.hpp
+¦           ¦           timelapsers.hpp
+¦           ¦           util.hpp
+¦           ¦           util_inl.hpp
+¦           ¦           warpers.hpp
+¦           ¦           warpers_inl.hpp
+¦           ¦           
+¦           +---video
+¦           ¦   ¦   background_segm.hpp
+¦           ¦   ¦   tracking.hpp
+¦           ¦   ¦   video.hpp
+¦           ¦   ¦   
+¦           ¦   +---detail
+¦           ¦   ¦       tracking.detail.hpp
+¦           ¦   ¦       
+¦           ¦   L---legacy
+¦           ¦           constants_c.h
+¦           ¦           
+¦           L---videoio
+¦               ¦   registry.hpp
+¦               ¦   videoio.hpp
+¦               ¦   videoio_c.h
+¦               ¦   
+¦               L---legacy
+¦                       constants_c.h
+¦                       
++---include
+¦   +---App
+¦   ¦       framework.h
+¦   ¦       InterferometryApp.h
+¦   ¦       pch.h
+¦   ¦       Resource.h
+¦   ¦       targetver.h
+¦   ¦       
+¦   +---Common
+¦   ¦       Constants.h
+¦   ¦       Types.h
+¦   ¦       
+¦   +---Core
+¦   ¦       ImageLoader.h
+¦   ¦       
+¦   +---Dialogs
+¦   +---GUI
+¦   ¦   ¦   ChildFrm.h
+¦   ¦   ¦   InterferometryAppDoc.h
+¦   ¦   ¦   InterferometryAppView.h
+¦   ¦   ¦   MainFrm.h
+¦   ¦   ¦   
+¦   ¦   +---Controls
+¦   ¦   ¦       ViewTree.h
+¦   ¦   ¦       
+¦   ¦   L---Panels
+¦   ¦           ClassView.h
+¦   ¦           FileView.h
+¦   ¦           OutputWnd.h
+¦   ¦           PropertiesWnd.h
+¦   ¦           
+¦   +---Math
+¦   L---Utils
++---Interfer.2E5F2FA6
+¦   L---x64
+¦       L---Debug
+¦           ¦   InterferometryApp.log
+¦           ¦   
+¦           L---Interfer.2E5F2FA6.tlog
+¦                   CL.command.1.tlog
+¦                   InterferometryApp.lastbuildstate
+¦                   unsuccessfulbuild
+¦                   
++---lib
++---resources
+¦   ¦   InterferometryApp.rc
+¦   ¦   InterferometryApp.rc2
+¦   ¦   
+¦   +---bitmaps
+¦   ¦       classview.bmp
+¦   ¦       classview_hc.bmp
+¦   ¦       explorer.bmp
+¦   ¦       explorer_hc.bmp
+¦   ¦       fileview.bmp
+¦   ¦       fileview_hc.bmp
+¦   ¦       menuimages.bmp
+¦   ¦       menuimages_hc.bmp
+¦   ¦       properties.bmp
+¦   ¦       properties_hc.bmp
+¦   ¦       sort.bmp
+¦   ¦       sort_hc.bmp
+¦   ¦       Toolbar.bmp
+¦   ¦       Toolbar256.bmp
+¦   ¦       userimages.bmp
+¦   ¦       
+¦   +---icons
+¦   ¦       class_view.ico
+¦   ¦       class_view_hc.ico
+¦   ¦       file_view.ico
+¦   ¦       file_view_hc.ico
+¦   ¦       InterferometryApp.ico
+¦   ¦       InterferometryAppDoc.ico
+¦   ¦       output_wnd.ico
+¦   ¦       output_wnd_hc.ico
+¦   ¦       properties_wnd.ico
+¦   ¦       properties_wnd_hc.ico
+¦   ¦       
+¦   L---test_images
++---src
+¦   +---App
+¦   ¦       InterferometryApp.cpp
+¦   ¦       pch.cpp
+¦   ¦       
+¦   +---Core
+¦   +---Dialogs
+¦   +---GUI
+¦   ¦   ¦   ChildFrm.cpp
+¦   ¦   ¦   InterferometryAppDoc.cpp
+¦   ¦   ¦   InterferometryAppView.cpp
+¦   ¦   ¦   MainFrm.cpp
+¦   ¦   ¦   
+¦   ¦   +---Controls
+¦   ¦   ¦       ViewTree.cpp
+¦   ¦   ¦       
+¦   ¦   L---Panels
+¦   ¦           ClassView.cpp
+¦   ¦           FileView.cpp
+¦   ¦           OutputWnd.cpp
+¦   ¦           PropertiesWnd.cpp
+¦   ¦           
+¦   +---Math
+¦   L---Utils
+L---x64
+    L---Debug

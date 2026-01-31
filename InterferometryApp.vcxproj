@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{2E5F2FA6-392C-3380-E6CF-64903BF6BE10}</ProjectGuid>
+    <Keyword>MFCProj</Keyword>
+    <RootNamespace>InterferometryApp</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <!-- ============================================ -->
+  <!-- Debug x64 Configuration -->
+  <!-- ============================================ -->
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)include\App;$(ProjectDir)include\GUI;$(ProjectDir)include\Core;$(ProjectDir)include\Common;$(ProjectDir)external\opencv;$(ProjectDir)external\opencv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>opencv_world4120d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)external\opencv\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>
+      $(ProjectDir)include;
+      $(ProjectDir)include\App;
+      $(IntDir);
+      %(AdditionalIncludeDirectories)
+      </AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>xcopy /y /d "$(ProjectDir)external\opencv\bin\opencv_world4120d.dll" "$(OutDir)"
+xcopy /y /d "$(ProjectDir)external\opencv\bin\opencv_videoio_ffmpeg4120_64.dll" "$(OutDir)"
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <!-- ============================================ -->
+  <!-- Debug Win32 Configuration -->
+  <!-- ============================================ -->
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)include\App;$(ProjectDir)include\GUI;$(ProjectDir)include\Core;$(ProjectDir)include\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>
+      $(ProjectDir)include;
+      $(ProjectDir)include\App;
+      $(IntDir);
+      %(AdditionalIncludeDirectories)
+      </AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <!-- ============================================ -->
+  <!-- Release Win32 Configuration -->
+  <!-- ============================================ -->
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)include\App;$(ProjectDir)include\GUI;$(ProjectDir)include\Core;$(ProjectDir)include\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <!-- ============================================ -->
+  <!-- Release x64 Configuration -->
+  <!-- ============================================ -->
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>
+      $(ProjectDir)include;
+      $(ProjectDir)include\App;
+      $(ProjectDir)include\GUI;
+      $(ProjectDir)include\Core;
+      $(ProjectDir)include\Common;
+      $(ProjectDir)external\opencv\include;
+      %(AdditionalIncludeDirectories)
+      </AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>opencv_world4120.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)external\opencv\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>xcopy /y /d "$(ProjectDir)external\opencv\bin\opencv_world4120.dll" "$(OutDir)"
+xcopy /y /d "$(ProjectDir)external\opencv\bin\opencv_videoio_ffmpeg4120_64.dll" "$(OutDir)"
+</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Копирование Opencv dll в Output dir</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <!-- ============================================ -->
+  <!-- Header Files -->
+  <!-- ============================================ -->
+  <ItemGroup>
+    <ClInclude Include="include\App\framework.h" />
+    <ClInclude Include="include\App\InterferometryApp.h" />
+    <ClInclude Include="include\App\pch.h" />
+    <ClInclude Include="include\App\Resource.h" />
+    <ClInclude Include="include\App\targetver.h" />
+    <ClInclude Include="include\Common\Constants.h" />
+    <ClInclude Include="include\Common\Types.h" />
+    <ClInclude Include="include\Core\ImageLoader.h" />
+    <ClInclude Include="include\GUI\ChildFrm.h" />
+    <ClInclude Include="include\GUI\Controls\ViewTree.h" />
+    <ClInclude Include="include\GUI\InterferometryAppDoc.h" />
+    <ClInclude Include="include\GUI\InterferometryAppView.h" />
+    <ClInclude Include="include\GUI\MainFrm.h" />
+    <ClInclude Include="include\GUI\Panels\ClassView.h" />
+    <ClInclude Include="include\GUI\Panels\FileView.h" />
+    <ClInclude Include="include\GUI\Panels\OutputWnd.h" />
+    <ClInclude Include="include\GUI\Panels\PropertiesWnd.h" />
+  </ItemGroup>
+  <!-- ============================================ -->
+  <!-- Source Files -->
+  <!-- ============================================ -->
+  <ItemGroup>
+    <ClCompile Include="src\App\InterferometryApp.cpp" />
+    <!-- ⚠️ ВАЖНО: pch.cpp должен создавать PCH -->
+    <ClCompile Include="src\App\pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\GUI\ChildFrm.cpp" />
+    <ClCompile Include="src\GUI\Controls\ViewTree.cpp" />
+    <ClCompile Include="src\GUI\InterferometryAppDoc.cpp" />
+    <ClCompile Include="src\GUI\InterferometryAppView.cpp" />
+    <ClCompile Include="src\GUI\MainFrm.cpp" />
+    <ClCompile Include="src\GUI\Panels\ClassView.cpp" />
+    <ClCompile Include="src\GUI\Panels\FileView.cpp" />
+    <ClCompile Include="src\GUI\Panels\OutputWnd.cpp" />
+    <ClCompile Include="src\GUI\Panels\PropertiesWnd.cpp" />
+  </ItemGroup>
+  <!-- ============================================ -->
+  <!-- Resource Files -->
+  <!-- ============================================ -->
+  <ItemGroup>
+    <ResourceCompile Include="resources\InterferometryApp.rc" />
+  </ItemGroup>
+  <!-- ============================================ -->
+  <!-- Image Resources -->
+  <!-- ============================================ -->
+  <ItemGroup>
+    <Image Include="resources\bitmaps\classview.bmp" />
+    <Image Include="resources\bitmaps\classview_hc.bmp" />
+    <Image Include="resources\icons\class_view.ico" />
+    <Image Include="resources\icons\class_view_hc.ico" />
+    <Image Include="resources\bitmaps\explorer.bmp" />
+    <Image Include="resources\bitmaps\explorer_hc.bmp" />
+    <Image Include="resources\bitmaps\fileview.bmp" />
+    <Image Include="resources\bitmaps\fileview_hc.bmp" />
+    <Image Include="resources\icons\file_view.ico" />
+    <Image Include="resources\icons\file_view_hc.ico" />
+    <Image Include="resources\icons\InterferometryApp.ico" />
+    <Image Include="resources\icons\InterferometryAppDoc.ico" />
+    <Image Include="resources\bitmaps\menuimages.bmp" />
+    <Image Include="resources\bitmaps\menuimages_hc.bmp" />
+    <Image Include="resources\icons\output_wnd.ico" />
+    <Image Include="resources\icons\output_wnd_hc.ico" />
+    <Image Include="resources\bitmaps\properties.bmp" />
+    <Image Include="resources\bitmaps\properties_hc.bmp" />
+    <Image Include="resources\icons\properties_wnd.ico" />
+    <Image Include="resources\icons\properties_wnd_hc.ico" />
+    <Image Include="resources\bitmaps\sort.bmp" />
+    <Image Include="resources\bitmaps\sort_hc.bmp" />
+    <Image Include="resources\bitmaps\Toolbar.bmp" />
+    <Image Include="resources\bitmaps\Toolbar256.bmp" />
+    <Image Include="resources\bitmaps\userimages.bmp" />
+  </ItemGroup>
+  <!-- ============================================ -->
+  <!-- Additional Resource Files -->
+  <!-- ============================================ -->
+  <ItemGroup>
+    <None Include="resources\InterferometryApp.rc2" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

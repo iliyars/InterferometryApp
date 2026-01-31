@@ -1,0 +1,31 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build x64 Debug (MSBuild)",
+      "type": "shell",
+      "command": "pwsh",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-Command",
+        "$vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\\Installer\\vswhere.exe'; $msbuild = & $vswhere -latest -products * -requires Microsoft.Component.MSBuild -find 'MSBuild\\**\\Bin\\MSBuild.exe' | Select-Object -First 1; & $msbuild \"${workspaceFolder}\\InterferometryApp.sln\" /m /p:Configuration=Debug /p:Platform=x64"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Build x64 Release (MSBuild)",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-Command",
+        "$msbuild = & \"${env:ProgramFiles(x86)}\\Microsoft Visual Studio\\Installer\\vswhere.exe\" -latest -products * -requires Microsoft.Component.MSBuild -find MSBuild\\**\\Bin\\MSBuild.exe; & $msbuild \"${workspaceFolder}\\InterferometryApp.sln\" /m /p:Configuration=Release /p:Platform=x64"
+      ],
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}
