@@ -267,6 +267,7 @@ xcopy /y /d "$(ProjectDir)external\opencv\bin\opencv_videoio_ffmpeg4120_64.dll" 
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Core\ImageLoader.cpp" />
     <ClCompile Include="src\GUI\ChildFrm.cpp" />
     <ClCompile Include="src\GUI\Controls\ViewTree.cpp" />
     <ClCompile Include="src\GUI\InterferometryAppDoc.cpp" />

@@ -1,4 +1,4 @@
-
+﻿
 // InterferometryAppView.cpp : implementation of the CInterferometryAppView class
 //
 
@@ -29,6 +29,7 @@ BEGIN_MESSAGE_MAP(CInterferometryAppView, CView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CInterferometryAppView::OnFilePrintPreview)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
+	ON_COMMAND(ID_FILE_OPEN, &CInterferometryAppView::OnFileOpen)
 END_MESSAGE_MAP()
 
 // CInterferometryAppView construction/destruction
@@ -36,6 +37,7 @@ END_MESSAGE_MAP()
 CInterferometryAppView::CInterferometryAppView() noexcept
 {
 	// TODO: add construction code here
+	m_hasImage = false;
 
 }
 
@@ -53,7 +55,7 @@ BOOL CInterferometryAppView::PreCreateWindow(CREATESTRUCT& cs)
 
 // CInterferometryAppView drawing
 
-void CInterferometryAppView::OnDraw(CDC* /*pDC*/)
+void CInterferometryAppView::OnDraw(CDC* pDC)
 {
 	CInterferometryAppDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
@@ -61,6 +63,45 @@ void CInterferometryAppView::OnDraw(CDC* /*pDC*/)
 		return;
 
 	// TODO: add draw code for native data here
+	CRect rect;
+	GetClientRect(&rect);
+
+	if (m_hasImage) {
+		CString info;
+		info.Format(_T("✓ ImageLoader Test Success!\nImage: %d x %d pixels\nPress Ctrl+O to load another"),
+			m_imageLoader.GetWidth(),
+			m_imageLoader.GetHeight());
+
+		CRect textRect = rect;
+		textRect.bottom = 30;
+		pDC->DrawText(info, &textRect, DT_CENTER | DT_TOP);
+		// Попытаемся нарисовать изображение
+		HBITMAP hBitmap = m_imageLoader.CreateHBITMAP();
+		if (hBitmap) {
+			CDC dcMem;
+			dcMem.CreateCompatibleDC(pDC);
+			HBITMAP hOldBitmap = (HBITMAP)dcMem.SelectObject(hBitmap);
+
+			int width = m_imageLoader.GetWidth();
+			int height = m_imageLoader.GetHeight();
+
+			// Рисуем изображение под текстом
+			pDC->BitBlt(10, 60, width, height, &dcMem, 0, 0, SRCCOPY);
+
+			dcMem.SelectObject(hOldBitmap);
+			DeleteObject(hBitmap);
+		}
+	}
+	else
+	{
+		// Если нет изображения, показываем инструкцию
+		CString msg = _T("ImageLoader Integration Test\n\n")
+			_T("Press Ctrl+O or File → Open to load an image\n")
+			_T("Supported formats: BMP, JPG, PNG\n\n")
+			_T("This tests that ImageLoader.cpp is properly linked.");
+
+		pDC->DrawText(msg, &rect, DT_CENTER | DT_VCENTER);
+	}
 }
 
 
@@ -126,3 +167,41 @@ CInterferometryAppDoc* CInterferometryAppView::GetDocument() const // non-debug 
 
 
 // CInterferometryAppView message handlers
+
+void CInterferometryAppView::OnFileOpen()
+{
+	// Диалог выбора файла
+	CFileDialog dlg(TRUE, _T("bmp"), NULL,
+		OFN_FILEMUSTEXIST | OFN_HIDEREADONLY,
+		_T("Image Files (*.bmp;*.jpg;*.png)|*.bmp;*.jpg;*.png|All Files (*.*)|*.*||"));
+
+	if (dlg.DoModal() == IDOK) {
+		CString filePath = dlg.GetPathName();
+
+		// Конвертировать CString в std::wstring
+		std::wstring wFilePath(filePath);
+
+		// Загрузить через ImageLoader
+		if (m_imageLoader.Load(wFilePath)) {
+			m_hasImage = true;
+
+			// Показать информацию
+			CString msg;
+			msg.Format(_T("✓ Image loaded successfully!\n\n")
+				_T("Width:    %d pixels\n")
+				_T("Height:   %d pixels\n")
+				_T("ImageLoader is working correctly!"),
+				m_imageLoader.GetWidth(),
+				m_imageLoader.GetHeight());
+				//m_imageLoader.GetCha());
+			AfxMessageBox(msg);
+
+			// Перерисовать
+			Invalidate();
+		}
+		else {
+			m_hasImage = false;
+			AfxMessageBox(_T("✗ Failed to load image!\n\nCheck that the file is a valid BMP/JPG/PNG."));
+		}
+	}
+}

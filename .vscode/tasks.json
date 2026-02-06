@@ -2,20 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build x64 Debug (MSBuild)",
-      "type": "shell",
-      "command": "pwsh",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-Command",
-        "$vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\\Installer\\vswhere.exe'; $msbuild = & $vswhere -latest -products * -requires Microsoft.Component.MSBuild -find 'MSBuild\\**\\Bin\\MSBuild.exe' | Select-Object -First 1; & $msbuild \"${workspaceFolder}\\InterferometryApp.sln\" /m /p:Configuration=Debug /p:Platform=x64"
-      ],
-      "problemMatcher": "$msCompile"
-    },
-    {
-      "label": "Build x64 Release (MSBuild)",
+      "label": "Build x64 Debug",
       "type": "shell",
       "command": "powershell",
       "args": [
@@ -23,9 +10,170 @@
         "-ExecutionPolicy",
         "Bypass",
         "-Command",
-        "$msbuild = & \"${env:ProgramFiles(x86)}\\Microsoft Visual Studio\\Installer\\vswhere.exe\" -latest -products * -requires Microsoft.Component.MSBuild -find MSBuild\\**\\Bin\\MSBuild.exe; & $msbuild \"${workspaceFolder}\\InterferometryApp.sln\" /m /p:Configuration=Release /p:Platform=x64"
+        "$ErrorActionPreference='Stop'; $pf86=[Environment]::GetFolderPath('ProgramFilesX86'); $vsWhere=Join-Path $pf86 'Microsoft Visual Studio\\Installer\\vswhere.exe'; $msbuild=& $vsWhere -latest -products * -requires Microsoft.Component.MSBuild -find 'MSBuild\\**\\Bin\\MSBuild.exe' | Select-Object -First 1; Write-Host \"Building with MSBuild: $msbuild\" -ForegroundColor Cyan; & $msbuild '${workspaceFolder}\\InterferometryApp.sln' /p:Configuration=Debug /p:Platform=x64 /v:minimal /m; exit $LASTEXITCODE"
       ],
-      "problemMatcher": "$msCompile"
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "problemMatcher": {
+        "owner": "cpp",
+        "fileLocation": ["relative", "${workspaceFolder}"],
+        "pattern": {
+          "regexp": "^(.*)\\((\\d+)\\):\\s+(warning|error)\\s+(\\w+\\d+):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "severity": 3,
+          "code": 4,
+          "message": 5
+        }
+      }
+    },
+    {
+      "label": "Build x64 Release",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-Command",
+        "$ErrorActionPreference='Stop'; $pf86=[Environment]::GetFolderPath('ProgramFilesX86'); $vsWhere=Join-Path $pf86 'Microsoft Visual Studio\\Installer\\vswhere.exe'; $msbuild=& $vsWhere -latest -products * -requires Microsoft.Component.MSBuild -find 'MSBuild\\**\\Bin\\MSBuild.exe' | Select-Object -First 1; Write-Host \"Building with MSBuild: $msbuild\" -ForegroundColor Cyan; & $msbuild '${workspaceFolder}\\InterferometryApp.sln' /p:Configuration=Release /p:Platform=x64 /v:minimal /m; exit $LASTEXITCODE"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "problemMatcher": {
+        "owner": "cpp",
+        "fileLocation": ["relative", "${workspaceFolder}"],
+        "pattern": {
+          "regexp": "^(.*)\\((\\d+)\\):\\s+(warning|error)\\s+(\\w+\\d+):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "severity": 3,
+          "code": 4,
+          "message": 5
+        }
+      }
+    },
+    {
+      "label": "Rebuild x64 Debug",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-Command",
+        "$ErrorActionPreference='Stop'; $pf86=[Environment]::GetFolderPath('ProgramFilesX86'); $vsWhere=Join-Path $pf86 'Microsoft Visual Studio\\Installer\\vswhere.exe'; $msbuild=& $vsWhere -latest -products * -requires Microsoft.Component.MSBuild -find 'MSBuild\\**\\Bin\\MSBuild.exe' | Select-Object -First 1; Write-Host \"Rebuilding with MSBuild: $msbuild\" -ForegroundColor Cyan; & $msbuild '${workspaceFolder}\\InterferometryApp.sln' /t:Rebuild /p:Configuration=Debug /p:Platform=x64 /v:minimal /m; exit $LASTEXITCODE"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "problemMatcher": {
+        "owner": "cpp",
+        "fileLocation": ["relative", "${workspaceFolder}"],
+        "pattern": {
+          "regexp": "^(.*)\\((\\d+)\\):\\s+(warning|error)\\s+(\\w+\\d+):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "severity": 3,
+          "code": 4,
+          "message": 5
+        }
+      }
+    },
+    {
+      "label": "Clean x64 Debug",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-Command",
+        "$ErrorActionPreference='Stop'; $pf86=[Environment]::GetFolderPath('ProgramFilesX86'); $vsWhere=Join-Path $pf86 'Microsoft Visual Studio\\Installer\\vswhere.exe'; $msbuild=& $vsWhere -latest -products * -requires Microsoft.Component.MSBuild -find 'MSBuild\\**\\Bin\\MSBuild.exe' | Select-Object -First 1; Write-Host \"Cleaning with MSBuild: $msbuild\" -ForegroundColor Cyan; & $msbuild '${workspaceFolder}\\InterferometryApp.sln' /t:Clean /p:Configuration=Debug /p:Platform=x64; exit $LASTEXITCODE"
+      ],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build x64 Debug (Verbose)",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-Command",
+        "$ErrorActionPreference='Stop'; $pf86=[Environment]::GetFolderPath('ProgramFilesX86'); $vsWhere=Join-Path $pf86 'Microsoft Visual Studio\\Installer\\vswhere.exe'; $msbuild=& $vsWhere -latest -products * -requires Microsoft.Component.MSBuild -find 'MSBuild\\**\\Bin\\MSBuild.exe' | Select-Object -First 1; Write-Host \"Building with MSBuild (Verbose): $msbuild\" -ForegroundColor Cyan; & $msbuild '${workspaceFolder}\\InterferometryApp.sln' /p:Configuration=Debug /p:Platform=x64 /v:detailed /m /fl /flp:LogFile='${workspaceFolder}\\build.log;Verbosity=detailed'; exit $LASTEXITCODE"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "problemMatcher": {
+        "owner": "cpp",
+        "fileLocation": ["relative", "${workspaceFolder}"],
+        "pattern": {
+          "regexp": "^(.*)\\((\\d+)\\):\\s+(warning|error)\\s+(\\w+\\d+):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "severity": 3,
+          "code": 4,
+          "message": 5
+        }
+      }
+    },
+    {
+      "label": "Run Application (Debug)",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-Command",
+        "if (Test-Path '${workspaceFolder}\\x64\\Debug\\InterferometryApp.exe') { Start-Process '${workspaceFolder}\\x64\\Debug\\InterferometryApp.exe' } else { Write-Host 'Executable not found. Build the project first.' -ForegroundColor Red }"
+      ],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false
+      },
+      "problemMatcher": []
     }
   ]
 }

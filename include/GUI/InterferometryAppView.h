@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "ImageLoader.h"
+
 
 class CInterferometryAppView : public CView
 {
@@ -42,7 +44,12 @@ protected:
 	afx_msg void OnFilePrintPreview();
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
+	afx_msg void OnFileOpen();
 	DECLARE_MESSAGE_MAP()
+
+private:
+	Interferometry::ImageLoader m_imageLoader;
+	bool m_hasImage;
 };
 
 #ifndef _DEBUG  // debug version in InterferometryAppView.cpp

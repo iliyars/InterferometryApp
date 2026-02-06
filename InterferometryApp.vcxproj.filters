@@ -1,68 +1,69 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="ChildFrm.cpp" />
-    <ClCompile Include="ClassView.cpp" />
-    <ClCompile Include="FileView.cpp" />
-    <ClCompile Include="InterferometryApp.cpp" />
-    <ClCompile Include="InterferometryAppDoc.cpp" />
-    <ClCompile Include="InterferometryAppView.cpp" />
-    <ClCompile Include="MainFrm.cpp" />
-    <ClCompile Include="OutputWnd.cpp" />
-    <ClCompile Include="pch.cpp" />
-    <ClCompile Include="PropertiesWnd.cpp" />
-    <ClCompile Include="ViewTree.cpp" />
     <ClCompile Include="src\App\InterferometryApp.cpp" />
     <ClCompile Include="src\App\pch.cpp" />
+    <ClCompile Include="src\GUI\ChildFrm.cpp" />
+    <ClCompile Include="src\GUI\Controls\ViewTree.cpp" />
+    <ClCompile Include="src\GUI\InterferometryAppDoc.cpp" />
+    <ClCompile Include="src\GUI\InterferometryAppView.cpp" />
+    <ClCompile Include="src\GUI\MainFrm.cpp" />
+    <ClCompile Include="src\GUI\Panels\ClassView.cpp" />
+    <ClCompile Include="src\GUI\Panels\FileView.cpp" />
+    <ClCompile Include="src\GUI\Panels\OutputWnd.cpp" />
+    <ClCompile Include="src\GUI\Panels\PropertiesWnd.cpp" />
+    <ClCompile Include="src\Core\ImageLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ChildFrm.h" />
-    <ClInclude Include="ClassView.h" />
-    <ClInclude Include="FileView.h" />
-    <ClInclude Include="framework.h" />
-    <ClInclude Include="InterferometryApp.h" />
-    <ClInclude Include="InterferometryAppDoc.h" />
-    <ClInclude Include="InterferometryAppView.h" />
-    <ClInclude Include="MainFrm.h" />
-    <ClInclude Include="OutputWnd.h" />
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="PropertiesWnd.h" />
-    <ClInclude Include="Resource.h" />
-    <ClInclude Include="targetver.h" />
-    <ClInclude Include="ViewTree.h" />
     <ClInclude Include="include\App\framework.h" />
+    <ClInclude Include="include\App\InterferometryApp.h" />
+    <ClInclude Include="include\App\pch.h" />
+    <ClInclude Include="include\App\Resource.h" />
+    <ClInclude Include="include\App\targetver.h" />
+    <ClInclude Include="include\Common\Constants.h" />
+    <ClInclude Include="include\Common\Types.h" />
+    <ClInclude Include="include\Core\ImageLoader.h" />
+    <ClInclude Include="include\GUI\ChildFrm.h" />
+    <ClInclude Include="include\GUI\Controls\ViewTree.h" />
+    <ClInclude Include="include\GUI\InterferometryAppDoc.h" />
+    <ClInclude Include="include\GUI\InterferometryAppView.h" />
+    <ClInclude Include="include\GUI\MainFrm.h" />
+    <ClInclude Include="include\GUI\Panels\ClassView.h" />
+    <ClInclude Include="include\GUI\Panels\FileView.h" />
+    <ClInclude Include="include\GUI\Panels\OutputWnd.h" />
+    <ClInclude Include="include\GUI\Panels\PropertiesWnd.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="InterferometryApp.rc" />
+    <ResourceCompile Include="resources\InterferometryApp.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\classview.bmp" />
-    <Image Include="res\classview_hc.bmp" />
-    <Image Include="res\class_view.ico" />
-    <Image Include="res\class_view_hc.ico" />
-    <Image Include="res\explorer.bmp" />
-    <Image Include="res\explorer_hc.bmp" />
-    <Image Include="res\fileview.bmp" />
-    <Image Include="res\fileview_hc.bmp" />
-    <Image Include="res\file_view.ico" />
-    <Image Include="res\file_view_hc.ico" />
-    <Image Include="res\InterferometryApp.ico" />
-    <Image Include="res\InterferometryAppDoc.ico" />
-    <Image Include="res\menuimages.bmp" />
-    <Image Include="res\menuimages_hc.bmp" />
-    <Image Include="res\output_wnd.ico" />
-    <Image Include="res\output_wnd_hc.ico" />
-    <Image Include="res\properties.bmp" />
-    <Image Include="res\properties_hc.bmp" />
-    <Image Include="res\properties_wnd.ico" />
-    <Image Include="res\properties_wnd_hc.ico" />
-    <Image Include="res\sort.bmp" />
-    <Image Include="res\sort_hc.bmp" />
-    <Image Include="res\Toolbar.bmp" />
-    <Image Include="res\Toolbar256.bmp" />
-    <Image Include="res\userimages.bmp" />
+    <Image Include="resources\bitmaps\classview.bmp" />
+    <Image Include="resources\bitmaps\classview_hc.bmp" />
+    <Image Include="resources\icons\class_view.ico" />
+    <Image Include="resources\icons\class_view_hc.ico" />
+    <Image Include="resources\bitmaps\explorer.bmp" />
+    <Image Include="resources\bitmaps\explorer_hc.bmp" />
+    <Image Include="resources\bitmaps\fileview.bmp" />
+    <Image Include="resources\bitmaps\fileview_hc.bmp" />
+    <Image Include="resources\icons\file_view.ico" />
+    <Image Include="resources\icons\file_view_hc.ico" />
+    <Image Include="resources\icons\InterferometryApp.ico" />
+    <Image Include="resources\icons\InterferometryAppDoc.ico" />
+    <Image Include="resources\bitmaps\menuimages.bmp" />
+    <Image Include="resources\bitmaps\menuimages_hc.bmp" />
+    <Image Include="resources\icons\output_wnd.ico" />
+    <Image Include="resources\icons\output_wnd_hc.ico" />
+    <Image Include="resources\bitmaps\properties.bmp" />
+    <Image Include="resources\bitmaps\properties_hc.bmp" />
+    <Image Include="resources\icons\properties_wnd.ico" />
+    <Image Include="resources\icons\properties_wnd_hc.ico" />
+    <Image Include="resources\bitmaps\sort.bmp" />
+    <Image Include="resources\bitmaps\sort_hc.bmp" />
+    <Image Include="resources\bitmaps\Toolbar.bmp" />
+    <Image Include="resources\bitmaps\Toolbar256.bmp" />
+    <Image Include="resources\bitmaps\userimages.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\InterferometryApp.rc2" />
+    <None Include="resources\InterferometryApp.rc2" />
   </ItemGroup>
 </Project>

@@ -1,16 +1,29 @@
 {
     "configurations": [
         {
-            "name": "Win32",
+            "name": "x64-MSVC",
+            "intelliSenseMode": "windows-msvc-x64",
+            "compilerPath": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/external/opencv",
-                "${workspaceFolder}/external/opencv/opencv2"
+                "${workspaceFolder}/include/App",
+                "${workspaceFolder}/include/Core",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/ucrt",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/um",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/winrt",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/shared",
+                "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.44.35207\\include",
+                "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.44.35207\\atlmfc\\include"
             ],
             "defines": [
                 "_DEBUG",
+                "_AFXDLL",
+                "_UNICODE",
                 "UNICODE",
-                "_UNICODE"
+                "_WINDOWS",
+                "WIN32",
+                "_WIN64"
             ],
             "windowsSdkVersion": "10.0.26100.0"
         }
