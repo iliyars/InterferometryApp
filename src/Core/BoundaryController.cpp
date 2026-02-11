@@ -1,7 +1,7 @@
 // BoundaryController.cpp
 // Реализация интерактивного контроллера границ
 // Портировано из SCAN360/MARKER.C функция set_ell()
-
+#include "pch.h"
 #include "BoundaryController.h"
 
 namespace Interferometry {

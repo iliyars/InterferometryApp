@@ -1,7 +1,7 @@
 // EllipseBoundary.cpp
 // Реализация класса для установки элептических границ
 // Портировано из SCAN360/MARKER.C
-
+#include "pch.h"
 #include <EllipseBoundary.h>
 
 #include <algorithm>
@@ -79,8 +79,8 @@ void CEllipseBoundary::ApplyOuterEllipse(const EllipseParams& ellipse) {
   }
 
   // Вычислить границы для строк внутри эллипса
-  int edge = std::min(y_center + b, m_imageHeight - 1);
-  for (int i = std::max(0, y_center - b); i < edge; i++) {
+  int edge = (std::min)(y_center + b, m_imageHeight - 1);
+  for (int i = (std::max)(0, y_center - b); i < edge; i++) {
     float x1, x2;
     CalculateEllipsePoints(ellipse, i, x1, x2);
 
@@ -124,8 +124,8 @@ void CEllipseBoundary::ApplyInnerEllipse(const EllipseParams& ellipse) {
   }
 
   // Вычислить границы для строк внутри эллипса
-  int edge = std::min(y_centr + b, m_imageHeight - 1);
-  for (int i = std::max(0, y_centr - b); i < edge; i++) {
+  int edge = (std::min)(y_centr + b, m_imageHeight - 1);
+  for (int i = (std::max)(0, y_centr - b); i < edge; i++) {
     float x1, x2;
     CalculateEllipsePoints(ellipse, i, x1, x2);
 

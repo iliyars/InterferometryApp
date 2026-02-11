@@ -9,6 +9,13 @@
 #include <string>
 #include <vector>
 
+namespace cv {
+class Mat;
+}
+
+namespace Interferometry {
+
+class CEllipseBoundary;
 // Точка линии
 struct CTracerPoint {
   int x;
@@ -52,6 +59,13 @@ class CFringeTracer {
   CFringeTracer();
   ~CFringeTracer();
 
+  // Инициализация трассировщика с изображением и границами
+  void Initialize(const cv::Mat& image, const CEllipseBoundary& boundary);
+  // Проверка инициализации
+  bool IsInitialize() const { return m_image != nullptr; }
+
+  std::vector<CTracerPoint> TraceLine(int startX, int startY);
+
   // Установка изображения
   void SetImage(const uint8_t* imageData, int width, int height,
                 int strideBytes);
@@ -60,7 +74,7 @@ class CFringeTracer {
   void SetParams(const CTracerParams& params);
   CTracerParams& GetParams() { return m_params; }
 
-  // Главная функция трассировки одной линии
+  // Главная функция трассировки одной линии (низкоуровневый метод)
   bool TraceLine(int startX, int startY, std::vector<CTracerPoint>& outPoints);
 
   // Проверка, находится ли точка внутри изображения
@@ -75,6 +89,9 @@ class CFringeTracer {
   int m_width = 0;
   int m_height = 0;
   int m_stride = 0;
+
+  // Границы (для проверки IsInside)
+  const CEllipseBoundary* m_boundary = nullptr;
 
   // Парметры
   CTracerParams m_params;
@@ -137,3 +154,4 @@ class CFringeTracer {
   void LinStepToBoundary(int x1, int y1, int x2, int y2, int& outX,
                          int& outY) const;
 };
+}  // namespace Interferometry

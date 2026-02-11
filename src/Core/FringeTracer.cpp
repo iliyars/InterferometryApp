@@ -1,11 +1,17 @@
 // FringeTracer.cpp
 // Реализация алгоритма трассировки полос интерферограмм
 // Портировано из SCAN360/STEP.C
+#include "pch.h"
 
 #include "FringeTracer.h"
 
 #include <algorithm>
 #include <cfloat>
+#include <opencv2/opencv.hpp>
+
+#include "EllipseBoundary.h"
+
+namespace Interferometry {
 
 CFringeTracer::CFringeTracer()
     : m_image(NULL),
@@ -16,6 +22,54 @@ CFringeTracer::CFringeTracer()
       m_curDirection(0) {}
 
 CFringeTracer::~CFringeTracer() {}
+
+void CFringeTracer::Initialize(const cv::Mat& image,
+                               const CEllipseBoundary& boundary) {
+  // Проверить что изображение в правильном формате
+  if (image.empty()) {
+    m_lastError = "Empty image";
+    return;
+  }
+
+  // Проверить что изображение grayscale
+  if (image.channels() != 1) {
+    m_lastError = "Image must be grayscale (1 channel)";
+    return;
+  }
+
+  // Проверить что изображение непрерывное (continuous)
+  if (!image.isContinuous()) {
+    m_lastError = "Image must be continuous";
+    return;
+  }
+
+  // Установить указатель на данном изобравжении
+  m_image = image.data;
+  m_width = image.cols;
+  m_height = image.rows;
+  m_stride = (int)image.step;
+
+  m_boundary = &boundary;
+
+  m_lastError.clear();
+}
+
+std::vector<CTracerPoint> CFringeTracer::TraceLine(int startX, int startY) {
+  std::vector<CTracerPoint> result;
+  // Проверить инициализацию
+  if (!m_image) {
+    m_lastError = "Tracer not initialized. Call Initialize() first.";
+    return result;  // Пустой вектор
+  }
+
+  // Вызвать оригинальный метод TraceLine
+  if (TraceLine(startX, startY, result)) {
+    return result;  // Успех!
+  }
+
+  // Ошибка - вернуть пустой вектор
+  return std::vector<CTracerPoint>();
+}
 
 void CFringeTracer::SetImage(const uint8_t* imageData, int width, int height,
                              int strideBytes) {
@@ -30,7 +84,18 @@ void CFringeTracer::SetParams(const CTracerParams& params) {
 }
 
 bool CFringeTracer::IsInside(int x, int y) const {
-  return (x >= 0 && x < m_width && y >= 0 && y < m_height);
+  // Базовая проверка границ изображения
+  if (x < 0 || x >= m_width || y < 0 || y >= m_height) {
+    return false;
+  }
+
+  // Если границы установлены - проверить и их
+  if (m_boundary != nullptr) {
+    return m_boundary->IsInside(x, y);
+  }
+
+  // Границы не установлены - просто проверяем границы изображения
+  return true;
 }
 
 //=========================================================
@@ -590,3 +655,4 @@ void CFringeTracer::DirectionToVector(int direction, int& dx, int& dy) const {
       break;
   }
 }
+}  // namespace Interferometry

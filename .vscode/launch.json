@@ -1,46 +1,58 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "Debug x64",
-      "type": "cppvsdbg",
-      "request": "launch",
-      "program": "${workspaceFolder}/x64/Debug/InterferometryApp.exe",
-      "args": [],
-      "stopAtEntry": false,
-      "cwd": "${workspaceFolder}/x64/Debug",
-      "environment": [],
-      "console": "externalTerminal",
-      "preLaunchTask": "Build x64 Debug"
-    },
-    {
-      "name": "Debug x64 (No Build)",
-      "type": "cppvsdbg",
-      "request": "launch",
-      "program": "${workspaceFolder}/x64/Debug/InterferometryApp.exe",
-      "args": [],
-      "stopAtEntry": false,
-      "cwd": "${workspaceFolder}/x64/Debug",
-      "environment": [],
-      "console": "externalTerminal"
-    },
-    {
-      "name": "Release x64",
-      "type": "cppvsdbg",
-      "request": "launch",
-      "program": "${workspaceFolder}/x64/Release/InterferometryApp.exe",
-      "args": [],
-      "stopAtEntry": false,
-      "cwd": "${workspaceFolder}/x64/Release",
-      "environment": [],
-      "console": "externalTerminal",
-      "preLaunchTask": "Build x64 Release"
-    },
-    {
-      "name": "Attach to Process",
-      "type": "cppvsdbg",
-      "request": "attach",
-      "processId": "${command:pickProcess}"
-    }
-  ]
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug x64",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/x64/Debug/InterferometryApp.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "console": "externalTerminal",
+            "preLaunchTask": "Build Debug x64"
+        },
+        {
+            "name": "Debug x64 (без пересборки)",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/x64/Debug/InterferometryApp.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "console": "externalTerminal"
+        },
+        {
+            "name": "Release x64",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/x64/Release/InterferometryApp.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "console": "externalTerminal",
+            "preLaunchTask": "Build Release x64"
+        },
+        {
+            "name": "Debug Win32",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/Build/Debug/InterferometryApp.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "console": "externalTerminal",
+            "preLaunchTask": "Build Debug Win32"
+        },
+        {
+            "name": "Присоединиться к процессу",
+            "type": "cppvsdbg",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        }
+    ]
 }

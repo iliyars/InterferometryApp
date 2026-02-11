@@ -47,6 +47,9 @@
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\obj\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -76,6 +79,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -85,6 +89,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <!-- ============================================ -->
   <!-- Debug x64 Configuration -->
@@ -244,7 +249,12 @@ xcopy /y /d "$(ProjectDir)external\opencv\bin\opencv_videoio_ffmpeg4120_64.dll" 
     <ClInclude Include="include\App\targetver.h" />
     <ClInclude Include="include\Common\Constants.h" />
     <ClInclude Include="include\Common\Types.h" />
+    <ClInclude Include="include\Core\BoundaryController.h" />
+    <ClInclude Include="include\Core\BoundaryRenderer.h" />
+    <ClInclude Include="include\Core\EllipseBoundary.h" />
+    <ClInclude Include="include\Core\FringeTracer.h" />
     <ClInclude Include="include\Core\ImageLoader.h" />
+    <ClInclude Include="include\Core\TracingTypes.h" />
     <ClInclude Include="include\GUI\ChildFrm.h" />
     <ClInclude Include="include\GUI\Controls\ViewTree.h" />
     <ClInclude Include="include\GUI\InterferometryAppDoc.h" />
@@ -254,6 +264,7 @@ xcopy /y /d "$(ProjectDir)external\opencv\bin\opencv_videoio_ffmpeg4120_64.dll" 
     <ClInclude Include="include\GUI\Panels\FileView.h" />
     <ClInclude Include="include\GUI\Panels\OutputWnd.h" />
     <ClInclude Include="include\GUI\Panels\PropertiesWnd.h" />
+    <ClInclude Include="resources\resource.h" />
   </ItemGroup>
   <!-- ============================================ -->
   <!-- Source Files -->
@@ -267,6 +278,10 @@ xcopy /y /d "$(ProjectDir)external\opencv\bin\opencv_videoio_ffmpeg4120_64.dll" 
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Core\BoundaryController.cpp" />
+    <ClCompile Include="src\Core\BoundaryRenderer.cpp" />
+    <ClCompile Include="src\Core\EllipseBoundary.cpp" />
+    <ClCompile Include="src\Core\FringeTracer.cpp" />
     <ClCompile Include="src\Core\ImageLoader.cpp" />
     <ClCompile Include="src\GUI\ChildFrm.cpp" />
     <ClCompile Include="src\GUI\Controls\ViewTree.cpp" />

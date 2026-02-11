@@ -26,11 +26,11 @@ struct FringePoint {
       : x(_x), y(_y), width(0), intensity(0), order(-1) {}
 };
 
-// Линия полосы
-using FringeLine = std::vector<FringePoint>;
+// // Линия полосы
+// using FringeLine = std::vector<FringePoint>;
 
-// Набор линий
-using FringeSet = std::vector<FringeLine>;
+// // Набор линий
+// using FringeSet = std::vector<FringeLine>;
 
 // Параметры элипса
 struct Ellipse {

@@ -1,7 +1,7 @@
 // BoundaryRenderer.cpp
 // Реализация отрисовки границ
 // Визуализация из MARKER.C
-
+#include "pch.h"
 #include "BoundaryRenderer.h"
 
 #include <cmath>

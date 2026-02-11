@@ -26,7 +26,38 @@
                 "_WIN64"
             ],
             "windowsSdkVersion": "10.0.26100.0"
-        }
+        },
+        {
+      "name": "x64",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "${workspaceFolder}/include",
+        "${workspaceFolder}/include/App",
+        "${workspaceFolder}/include/GUI",
+        "${workspaceFolder}/include/Core",
+        "${workspaceFolder}/include/Common",
+        "${workspaceFolder}/include/Dialogs",
+        "${workspaceFolder}/include/Math",
+        "${workspaceFolder}/include/Utils",
+        "${workspaceFolder}/external/opencv/include",
+        "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/ucrt",
+        "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/um",
+        "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/winrt",
+        "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/shared"
+      ],
+      "defines": [
+        "_DEBUG",
+        "_WINDOWS",
+        "UNICODE",
+        "_UNICODE",
+        "_AFXDLL"
+      ],
+      "windowsSdkVersion": "10.0.26100.0",
+      "compilerPath": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+      "cStandard": "c17",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "windows-msvc-x64"
+    }
     ],
     "version": 4
 }

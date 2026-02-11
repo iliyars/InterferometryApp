@@ -13,6 +13,10 @@
     <ClCompile Include="src\GUI\Panels\OutputWnd.cpp" />
     <ClCompile Include="src\GUI\Panels\PropertiesWnd.cpp" />
     <ClCompile Include="src\Core\ImageLoader.cpp" />
+    <ClCompile Include="src\Core\FringeTracer.cpp" />
+    <ClCompile Include="src\Core\BoundaryController.cpp" />
+    <ClCompile Include="src\Core\BoundaryRenderer.cpp" />
+    <ClCompile Include="src\Core\EllipseBoundary.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\App\framework.h" />
@@ -32,6 +36,12 @@
     <ClInclude Include="include\GUI\Panels\FileView.h" />
     <ClInclude Include="include\GUI\Panels\OutputWnd.h" />
     <ClInclude Include="include\GUI\Panels\PropertiesWnd.h" />
+    <ClInclude Include="resources\resource.h" />
+    <ClInclude Include="include\Core\BoundaryController.h" />
+    <ClInclude Include="include\Core\BoundaryRenderer.h" />
+    <ClInclude Include="include\Core\EllipseBoundary.h" />
+    <ClInclude Include="include\Core\FringeTracer.h" />
+    <ClInclude Include="include\Core\TracingTypes.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resources\InterferometryApp.rc" />
