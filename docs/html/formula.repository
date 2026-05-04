@@ -1,0 +1,4 @@
+\_form#0:\[  \frac{(x - centerX)^2}{semiAxisA^2} + \frac{(y - centerY)^2}{semiAxisB^2} = 1
+\]
+\_form#1:\[  x = a \cdot \sqrt{1 - \frac{(row - cy)^2}{b^2}}
+\]

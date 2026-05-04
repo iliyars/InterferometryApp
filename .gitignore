@@ -112,6 +112,12 @@ ipch/
 *.VC.db
 *.VC.VC.opendb
 
+CMakeFiles/
+build_test/
+docs/html/
+*.bmp
+*.rar
+
 # Visual Studio profiler
 *.psess
 *.vsp

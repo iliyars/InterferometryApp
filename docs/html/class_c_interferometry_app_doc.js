@@ -1,0 +1,25 @@
+var class_c_interferometry_app_doc =
+[
+    [ "CInterferometryAppDoc", "class_c_interferometry_app_doc.html#aaa306b25cbf8ab2fbe2a3b55bbe2950b", null ],
+    [ "~CInterferometryAppDoc", "class_c_interferometry_app_doc.html#ac3c49e1ca417b3ae7dcbbd04fd55cb65", null ],
+    [ "AddBoundaryPoint", "class_c_interferometry_app_doc.html#a8a567abf3aed05f54eecc501efaa9307", null ],
+    [ "ClearBoundaries", "class_c_interferometry_app_doc.html#a5fcc8c40da46cfc873802bc79b60dc6c", null ],
+    [ "ClearFringeLines", "class_c_interferometry_app_doc.html#aca27d220d6385b5a554fb6e07f72cb0f", null ],
+    [ "ClearImage", "class_c_interferometry_app_doc.html#af31c787d2da3fe2cf099147b1f6fe123", null ],
+    [ "FitEllipse", "class_c_interferometry_app_doc.html#a545c76479a4a0c0c3ae1974012f55fdc", null ],
+    [ "GetBoundary", "class_c_interferometry_app_doc.html#a7c750adac2f51b1c028b6f2bdbb19115", null ],
+    [ "GetBoundaryStatus", "class_c_interferometry_app_doc.html#ae4ab836365ea5cee2bc93b1ba9f78c33", null ],
+    [ "GetFringeLineCount", "class_c_interferometry_app_doc.html#afb2e2ce8d2679667e34cadaa902dd91d", null ],
+    [ "GetFringeLines", "class_c_interferometry_app_doc.html#aa2dee67a36d8572c5f474bb403fab220", null ],
+    [ "GetImageLoader", "class_c_interferometry_app_doc.html#a08f5d88c4ee1d2b933e9e1ba48fcc240", null ],
+    [ "GetImageLoader", "class_c_interferometry_app_doc.html#aa5f12c194a00592615b9691c9174d134", null ],
+    [ "GetInnerEllipsePoints", "class_c_interferometry_app_doc.html#a42c5af1df910142a22e28d22a72ebcd8", null ],
+    [ "GetOuterEllipsePoints", "class_c_interferometry_app_doc.html#ae8d9ecde81b5a01659f1f7687546f118", null ],
+    [ "HasImage", "class_c_interferometry_app_doc.html#a7f40390bce8604a255ac8025246cc796", null ],
+    [ "HasInnerBoundary", "class_c_interferometry_app_doc.html#acccc6add4e887a6219110b231ece230b", null ],
+    [ "HasOuterBoundary", "class_c_interferometry_app_doc.html#a86bff5d5324b10919f6996c3d6c95cce", null ],
+    [ "LoadImage", "class_c_interferometry_app_doc.html#ac29637e69f090091c321fcd657d4f628", null ],
+    [ "OnNewDocument", "class_c_interferometry_app_doc.html#a2bf32244d7e65f8f3bc2cb3fec6eb9a6", null ],
+    [ "Serialize", "class_c_interferometry_app_doc.html#a22eb3f04c186a1a540d93204092012ad", null ],
+    [ "TraceFringe", "class_c_interferometry_app_doc.html#a2e6c801c5106cf358edab72d9533fdb1", null ]
+];

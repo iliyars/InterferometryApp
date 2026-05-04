@@ -1,15 +1,708 @@
-Folder PATH listing for volume Data
-Volume serial number is 08E4-C6D1
-D:.
-¦   CMakeLists.txt
+Folder PATH listing for volume Storage
+Volume serial number is EEAA-D64C
+E:.
+¦   .gitattributes
+¦   .gitignore
+¦   build_diagnostic.log
+¦   check-environment.bat
+¦   diagnose.ps1
+¦   Doxyfile
 ¦   InterferometryApp.sln
 ¦   InterferometryApp.vcxproj
 ¦   InterferometryApp.vcxproj.filters
 ¦   InterferometryApp.vcxproj.user
 ¦   tree.txt
 ¦   
++---.vscode
+¦       c_cpp_properties.json
+¦       launch.json
+¦       settings.json
+¦       tasks.json
+¦       
 +---build
+¦   ¦   ALL_BUILD.vcxproj
+¦   ¦   ALL_BUILD.vcxproj.filters
+¦   ¦   build.ninja
+¦   ¦   CMakeCache.txt
+¦   ¦   cmake_install.cmake
+¦   ¦   Project.sln
+¦   ¦   ZERO_CHECK.vcxproj
+¦   ¦   ZERO_CHECK.vcxproj.filters
+¦   ¦   
+¦   +---.cmake
+¦   ¦   L---api
+¦   ¦       L---v1
+¦   ¦           +---query
+¦   ¦           ¦   L---client-vscode
+¦   ¦           ¦           query.json
+¦   ¦           ¦           
+¦   ¦           L---reply
+¦   ¦                   cache-v2-436f30ca328809c9fdb9.json
+¦   ¦                   cmakeFiles-v1-43db633bb15e25e61781.json
+¦   ¦                   codemodel-v2-c0a52dcac1db5d7c3077.json
+¦   ¦                   directory-.-Debug-f6f22219c74102c3da70.json
+¦   ¦                   index-2026-02-10T12-26-01-0933.json
+¦   ¦                   toolchains-v1-68c4d5d6fb8d3ee785c7.json
+¦   ¦                   
+¦   +---CMakeFiles
+¦   ¦   ¦   cmake.check_cache
+¦   ¦   ¦   CMakeConfigureLog.yaml
+¦   ¦   ¦   generate.stamp
+¦   ¦   ¦   generate.stamp.depend
+¦   ¦   ¦   generate.stamp.list
+¦   ¦   ¦   InstallScripts.json
+¦   ¦   ¦   rules.ninja
+¦   ¦   ¦   TargetDirectories.txt
+¦   ¦   ¦   
+¦   ¦   +---4.1.1-msvc1
+¦   ¦   ¦   ¦   CMakeCCompiler.cmake
+¦   ¦   ¦   ¦   CMakeCXXCompiler.cmake
+¦   ¦   ¦   ¦   CMakeDetermineCompilerABI_C.bin
+¦   ¦   ¦   ¦   CMakeDetermineCompilerABI_CXX.bin
+¦   ¦   ¦   ¦   CMakeRCCompiler.cmake
+¦   ¦   ¦   ¦   CMakeSystem.cmake
+¦   ¦   ¦   ¦   VCTargetsPath.txt
+¦   ¦   ¦   ¦   VCTargetsPath.vcxproj
+¦   ¦   ¦   ¦   
+¦   ¦   ¦   +---CompilerIdC
+¦   ¦   ¦   ¦   ¦   CMakeCCompilerId.c
+¦   ¦   ¦   ¦   ¦   CompilerIdC.exe
+¦   ¦   ¦   ¦   ¦   CompilerIdC.vcxproj
+¦   ¦   ¦   ¦   ¦   
+¦   ¦   ¦   ¦   +---Debug
+¦   ¦   ¦   ¦   ¦   ¦   CMakeCCompilerId.obj
+¦   ¦   ¦   ¦   ¦   ¦   CompilerIdC.exe.recipe
+¦   ¦   ¦   ¦   ¦   ¦   
+¦   ¦   ¦   ¦   ¦   L---CompilerIdC.tlog
+¦   ¦   ¦   ¦   ¦           CL.command.1.tlog
+¦   ¦   ¦   ¦   ¦           Cl.items.tlog
+¦   ¦   ¦   ¦   ¦           CL.read.1.tlog
+¦   ¦   ¦   ¦   ¦           CL.write.1.tlog
+¦   ¦   ¦   ¦   ¦           CompilerIdC.lastbuildstate
+¦   ¦   ¦   ¦   ¦           link.command.1.tlog
+¦   ¦   ¦   ¦   ¦           link.read.1.tlog
+¦   ¦   ¦   ¦   ¦           link.secondary.1.tlog
+¦   ¦   ¦   ¦   ¦           link.write.1.tlog
+¦   ¦   ¦   ¦   ¦           
+¦   ¦   ¦   ¦   L---tmp
+¦   ¦   ¦   +---CompilerIdCXX
+¦   ¦   ¦   ¦   ¦   CMakeCXXCompilerId.cpp
+¦   ¦   ¦   ¦   ¦   CompilerIdCXX.exe
+¦   ¦   ¦   ¦   ¦   CompilerIdCXX.vcxproj
+¦   ¦   ¦   ¦   ¦   
+¦   ¦   ¦   ¦   +---Debug
+¦   ¦   ¦   ¦   ¦   ¦   CMakeCXXCompilerId.obj
+¦   ¦   ¦   ¦   ¦   ¦   CompilerIdCXX.exe.recipe
+¦   ¦   ¦   ¦   ¦   ¦   
+¦   ¦   ¦   ¦   ¦   L---CompilerIdCXX.tlog
+¦   ¦   ¦   ¦   ¦           CL.command.1.tlog
+¦   ¦   ¦   ¦   ¦           Cl.items.tlog
+¦   ¦   ¦   ¦   ¦           CL.read.1.tlog
+¦   ¦   ¦   ¦   ¦           CL.write.1.tlog
+¦   ¦   ¦   ¦   ¦           CompilerIdCXX.lastbuildstate
+¦   ¦   ¦   ¦   ¦           link.command.1.tlog
+¦   ¦   ¦   ¦   ¦           link.read.1.tlog
+¦   ¦   ¦   ¦   ¦           link.secondary.1.tlog
+¦   ¦   ¦   ¦   ¦           link.write.1.tlog
+¦   ¦   ¦   ¦   ¦           
+¦   ¦   ¦   ¦   L---tmp
+¦   ¦   ¦   +---Debug
+¦   ¦   ¦   L---VCTargetsPath
+¦   ¦   ¦       L---Debug
+¦   ¦   ¦           ¦   VCTargetsPath.recipe
+¦   ¦   ¦           ¦   
+¦   ¦   ¦           L---VCTargetsPath.tlog
+¦   ¦   ¦                   VCTargetsPath.lastbuildstate
+¦   ¦   ¦                   
+¦   ¦   +---4.2.3
+¦   ¦   ¦   ¦   CMakeCCompiler.cmake
+¦   ¦   ¦   ¦   CMakeCXXCompiler.cmake
+¦   ¦   ¦   ¦   CMakeDetermineCompilerABI_C.bin
+¦   ¦   ¦   ¦   CMakeDetermineCompilerABI_CXX.bin
+¦   ¦   ¦   ¦   CMakeRCCompiler.cmake
+¦   ¦   ¦   ¦   CMakeSystem.cmake
+¦   ¦   ¦   ¦   
+¦   ¦   ¦   +---CompilerIdC
+¦   ¦   ¦   ¦   ¦   CMakeCCompilerId.c
+¦   ¦   ¦   ¦   ¦   CMakeCCompilerId.exe
+¦   ¦   ¦   ¦   ¦   CMakeCCompilerId.obj
+¦   ¦   ¦   ¦   ¦   
+¦   ¦   ¦   ¦   L---tmp
+¦   ¦   ¦   L---CompilerIdCXX
+¦   ¦   ¦       ¦   CMakeCXXCompilerId.cpp
+¦   ¦   ¦       ¦   CMakeCXXCompilerId.exe
+¦   ¦   ¦       ¦   CMakeCXXCompilerId.obj
+¦   ¦   ¦       ¦   
+¦   ¦   ¦       L---tmp
+¦   ¦   +---9ca59a5863532aaeac92a04ea0e71561
+¦   ¦   ¦       generate.stamp.rule
+¦   ¦   ¦       
+¦   ¦   +---pkgRedirects
+¦   ¦   L---ShowIncludes
+¦   ¦           foo.h
+¦   ¦           main.c
+¦   ¦           main.obj
+¦   ¦           
+¦   L---x64
+¦       L---Debug
+¦           ¦   InterferometryApp.exe
+¦           ¦   InterferometryApp.pdb
+¦           ¦   opencv_videoio_ffmpeg4120_64.dll
+¦           ¦   opencv_world4120d.dll
+¦           ¦   
+¦           L---obj
+¦               ¦   BoundaryController.obj
+¦               ¦   BoundaryRenderer.obj
+¦               ¦   ChildFrm.obj
+¦               ¦   ClassView.obj
+¦               ¦   EllipseBoundary.obj
+¦               ¦   FileView.obj
+¦               ¦   FringeTracer.obj
+¦               ¦   ImageLoader.obj
+¦               ¦   InterferometryApp.Build.CppClean.log
+¦               ¦   InterferometryApp.exe.recipe
+¦               ¦   InterferometryApp.ilk
+¦               ¦   InterferometryApp.log
+¦               ¦   InterferometryApp.obj
+¦               ¦   InterferometryApp.pch
+¦               ¦   InterferometryApp.res
+¦               ¦   InterferometryAppDoc.obj
+¦               ¦   MainFrm.obj
+¦               ¦   OutputWnd.obj
+¦               ¦   pch.obj
+¦               ¦   PropertiesWnd.obj
+¦               ¦   vc143.idb
+¦               ¦   vc143.pdb
+¦               ¦   ViewTree.obj
+¦               ¦   
+¦               L---Interfer.2E5F2FA6.tlog
+¦                       CL.command.1.tlog
+¦                       Cl.items.tlog
+¦                       CL.read.1.tlog
+¦                       CL.write.1.tlog
+¦                       InterferometryApp.lastbuildstate
+¦                       link.command.1.tlog
+¦                       link.read.1.tlog
+¦                       link.secondary.1.tlog
+¦                       link.write.1.tlog
+¦                       rc.command.1.tlog
+¦                       rc.read.1.tlog
+¦                       rc.write.1.tlog
+¦                       unsuccessfulbuild
+¦                       
++---build_test
+¦   ¦   ALL_BUILD.vcxproj
+¦   ¦   ALL_BUILD.vcxproj.filters
+¦   ¦   CMakeCache.txt
+¦   ¦   cmake_install.cmake
+¦   ¦   pch.h
+¦   ¦   PipelineTest.sln
+¦   ¦   PipelineTest.vcxproj
+¦   ¦   PipelineTest.vcxproj.filters
+¦   ¦   ZERO_CHECK.vcxproj
+¦   ¦   ZERO_CHECK.vcxproj.filters
+¦   ¦   
+¦   +---ALL_BUILD.dir
+¦   ¦   +---Debug
+¦   ¦   +---MinSizeRel
+¦   ¦   +---Release
+¦   ¦   L---RelWithDebInfo
+¦   +---CMakeFiles
+¦   ¦   ¦   cmake.check_cache
+¦   ¦   ¦   CMakeConfigureLog.yaml
+¦   ¦   ¦   generate.stamp
+¦   ¦   ¦   generate.stamp.depend
+¦   ¦   ¦   generate.stamp.list
+¦   ¦   ¦   TargetDirectories.txt
+¦   ¦   ¦   
+¦   ¦   +---4.2.3
+¦   ¦   ¦   ¦   CMakeCXXCompiler.cmake
+¦   ¦   ¦   ¦   CMakeDetermineCompilerABI_CXX.bin
+¦   ¦   ¦   ¦   CMakeRCCompiler.cmake
+¦   ¦   ¦   ¦   CMakeSystem.cmake
+¦   ¦   ¦   ¦   VCTargetsPath.txt
+¦   ¦   ¦   ¦   VCTargetsPath.vcxproj
+¦   ¦   ¦   ¦   
+¦   ¦   ¦   +---CompilerIdCXX
+¦   ¦   ¦   ¦   ¦   CMakeCXXCompilerId.cpp
+¦   ¦   ¦   ¦   ¦   CompilerIdCXX.exe
+¦   ¦   ¦   ¦   ¦   CompilerIdCXX.vcxproj
+¦   ¦   ¦   ¦   ¦   
+¦   ¦   ¦   ¦   +---Debug
+¦   ¦   ¦   ¦   ¦   ¦   CMakeCXXCompilerId.obj
+¦   ¦   ¦   ¦   ¦   ¦   CompilerIdCXX.exe.recipe
+¦   ¦   ¦   ¦   ¦   ¦   
+¦   ¦   ¦   ¦   ¦   L---CompilerIdCXX.tlog
+¦   ¦   ¦   ¦   ¦           CL.command.1.tlog
+¦   ¦   ¦   ¦   ¦           Cl.items.tlog
+¦   ¦   ¦   ¦   ¦           CL.read.1.tlog
+¦   ¦   ¦   ¦   ¦           CL.write.1.tlog
+¦   ¦   ¦   ¦   ¦           CompilerIdCXX.lastbuildstate
+¦   ¦   ¦   ¦   ¦           link.command.1.tlog
+¦   ¦   ¦   ¦   ¦           link.read.1.tlog
+¦   ¦   ¦   ¦   ¦           link.secondary.1.tlog
+¦   ¦   ¦   ¦   ¦           link.write.1.tlog
+¦   ¦   ¦   ¦   ¦           
+¦   ¦   ¦   ¦   L---tmp
+¦   ¦   ¦   +---VCTargetsPath
+¦   ¦   ¦   ¦   L---x64
+¦   ¦   ¦   ¦       L---Debug
+¦   ¦   ¦   ¦           ¦   VCTargetsPath.recipe
+¦   ¦   ¦   ¦           ¦   
+¦   ¦   ¦   ¦           L---VCTargetsPath.tlog
+¦   ¦   ¦   ¦                   VCTargetsPath.lastbuildstate
+¦   ¦   ¦   ¦                   
+¦   ¦   ¦   L---x64
+¦   ¦   ¦       L---Debug
+¦   ¦   +---a0808b9a7ee94ed7adaa3ee7f1719c7a
+¦   ¦   ¦       generate.stamp.rule
+¦   ¦   ¦       
+¦   ¦   L---pkgRedirects
+¦   +---PipelineTest.dir
+¦   ¦   +---Debug
+¦   ¦   +---MinSizeRel
+¦   ¦   +---Release
+¦   ¦   L---RelWithDebInfo
+¦   L---ZERO_CHECK.dir
+¦       +---Debug
+¦       +---MinSizeRel
+¦       +---Release
+¦       L---RelWithDebInfo
 +---docs
+¦   L---html
+¦       ¦   annotated.html
+¦       ¦   annotated_dup.js
+¦       ¦   classes.html
+¦       ¦   class_c_about_dlg-members.html
+¦       ¦   class_c_about_dlg.html
+¦       ¦   class_c_about_dlg.js
+¦       ¦   class_c_about_dlg.png
+¦       ¦   class_c_child_frame-members.html
+¦       ¦   class_c_child_frame.html
+¦       ¦   class_c_child_frame.js
+¦       ¦   class_c_child_frame.png
+¦       ¦   class_c_class_tool_bar-members.html
+¦       ¦   class_c_class_tool_bar.html
+¦       ¦   class_c_class_tool_bar.png
+¦       ¦   class_c_class_view-members.html
+¦       ¦   class_c_class_view.html
+¦       ¦   class_c_class_view.js
+¦       ¦   class_c_class_view.png
+¦       ¦   class_c_class_view_menu_button-members.html
+¦       ¦   class_c_class_view_menu_button.html
+¦       ¦   class_c_class_view_menu_button.js
+¦       ¦   class_c_class_view_menu_button.png
+¦       ¦   class_c_file_view-members.html
+¦       ¦   class_c_file_view.html
+¦       ¦   class_c_file_view.js
+¦       ¦   class_c_file_view.png
+¦       ¦   class_c_file_view_tool_bar-members.html
+¦       ¦   class_c_file_view_tool_bar.html
+¦       ¦   class_c_file_view_tool_bar.png
+¦       ¦   class_c_interferometry_app_app-members.html
+¦       ¦   class_c_interferometry_app_app.html
+¦       ¦   class_c_interferometry_app_app.js
+¦       ¦   class_c_interferometry_app_app.png
+¦       ¦   class_c_interferometry_app_doc-members.html
+¦       ¦   class_c_interferometry_app_doc.html
+¦       ¦   class_c_interferometry_app_doc.js
+¦       ¦   class_c_interferometry_app_doc.png
+¦       ¦   class_c_interferometry_app_view-members.html
+¦       ¦   class_c_interferometry_app_view.html
+¦       ¦   class_c_interferometry_app_view.js
+¦       ¦   class_c_interferometry_app_view.png
+¦       ¦   class_c_main_frame-members.html
+¦       ¦   class_c_main_frame.html
+¦       ¦   class_c_main_frame.js
+¦       ¦   class_c_main_frame.png
+¦       ¦   class_c_output_list-members.html
+¦       ¦   class_c_output_list.html
+¦       ¦   class_c_output_list.js
+¦       ¦   class_c_output_list.png
+¦       ¦   class_c_output_wnd-members.html
+¦       ¦   class_c_output_wnd.html
+¦       ¦   class_c_output_wnd.js
+¦       ¦   class_c_output_wnd.png
+¦       ¦   class_c_properties_tool_bar-members.html
+¦       ¦   class_c_properties_tool_bar.html
+¦       ¦   class_c_properties_tool_bar.js
+¦       ¦   class_c_properties_tool_bar.png
+¦       ¦   class_c_properties_wnd-members.html
+¦       ¦   class_c_properties_wnd.html
+¦       ¦   class_c_properties_wnd.js
+¦       ¦   class_c_properties_wnd.png
+¦       ¦   class_c_view_tree-members.html
+¦       ¦   class_c_view_tree.html
+¦       ¦   class_c_view_tree.js
+¦       ¦   class_c_view_tree.png
+¦       ¦   class_interferometry_1_1_c_boundary_controller-members.html
+¦       ¦   class_interferometry_1_1_c_boundary_controller.html
+¦       ¦   class_interferometry_1_1_c_boundary_controller.js
+¦       ¦   class_interferometry_1_1_c_boundary_renderer-members.html
+¦       ¦   class_interferometry_1_1_c_boundary_renderer.html
+¦       ¦   class_interferometry_1_1_c_boundary_renderer.js
+¦       ¦   class_interferometry_1_1_c_ellipse_boundary-members.html
+¦       ¦   class_interferometry_1_1_c_ellipse_boundary.html
+¦       ¦   class_interferometry_1_1_c_ellipse_boundary.js
+¦       ¦   class_interferometry_1_1_c_fringe_tracer-members.html
+¦       ¦   class_interferometry_1_1_c_fringe_tracer.html
+¦       ¦   class_interferometry_1_1_c_fringe_tracer.js
+¦       ¦   class_interferometry_1_1_image_loader-members.html
+¦       ¦   class_interferometry_1_1_image_loader.html
+¦       ¦   class_interferometry_1_1_image_loader.js
+¦       ¦   clipboard.js
+¦       ¦   cookie.js
+¦       ¦   dir_4e4e2e75df7fa6971448b424c011c8b5.html
+¦       ¦   dir_4e4e2e75df7fa6971448b424c011c8b5.js
+¦       ¦   dir_4e88733bde07f70aee18672f1ff34c79.html
+¦       ¦   dir_4e88733bde07f70aee18672f1ff34c79.js
+¦       ¦   dir_642367913842c014a12dbaecbb53dbe5.html
+¦       ¦   dir_642367913842c014a12dbaecbb53dbe5.js
+¦       ¦   dir_68267d1309a1af8e8297ef4c3efbcdba.html
+¦       ¦   dir_68267d1309a1af8e8297ef4c3efbcdba.js
+¦       ¦   dir_804065237b915a2df7c51a9f59b9a7bc.html
+¦       ¦   dir_804065237b915a2df7c51a9f59b9a7bc.js
+¦       ¦   dir_8213943ce0b792be39d34390845932ae.html
+¦       ¦   dir_8213943ce0b792be39d34390845932ae.js
+¦       ¦   dir_951f43124f8a9985ab7802551d674f01.html
+¦       ¦   dir_951f43124f8a9985ab7802551d674f01.js
+¦       ¦   dir_a19a9286793073b8f7f7da90d2935fb4.html
+¦       ¦   dir_a19a9286793073b8f7f7da90d2935fb4.js
+¦       ¦   dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html
+¦       ¦   dir_a2f0e5642e47e7ed59fe0f0829eafb5f.js
+¦       ¦   dir_cc776f49940853ceea39f4e5e945745e.html
+¦       ¦   dir_cc776f49940853ceea39f4e5e945745e.js
+¦       ¦   dir_d44c64559bbebec7f509842c48db8b23.html
+¦       ¦   dir_d44c64559bbebec7f509842c48db8b23.js
+¦       ¦   dir_e00dbb9a4271d0b98429d33402048107.html
+¦       ¦   dir_e00dbb9a4271d0b98429d33402048107.js
+¦       ¦   dir_f938830485ea5fc932d9051b851477f4.html
+¦       ¦   dir_f938830485ea5fc932d9051b851477f4.js
+¦       ¦   doxygen.css
+¦       ¦   doxygen.svg
+¦       ¦   doxygen_crawl.html
+¦       ¦   dynsections.js
+¦       ¦   files.html
+¦       ¦   files_dup.js
+¦       ¦   formula.repository
+¦       ¦   framework_8h.html
+¦       ¦   framework_8h.js
+¦       ¦   framework_8h_source.html
+¦       ¦   functions.html
+¦       ¦   functions_b.html
+¦       ¦   functions_c.html
+¦       ¦   functions_d.html
+¦       ¦   functions_dup.js
+¦       ¦   functions_e.html
+¦       ¦   functions_eval.html
+¦       ¦   functions_f.html
+¦       ¦   functions_func.html
+¦       ¦   functions_func.js
+¦       ¦   functions_func_b.html
+¦       ¦   functions_func_c.html
+¦       ¦   functions_func_d.html
+¦       ¦   functions_func_e.html
+¦       ¦   functions_func_f.html
+¦       ¦   functions_func_g.html
+¦       ¦   functions_func_h.html
+¦       ¦   functions_func_i.html
+¦       ¦   functions_func_l.html
+¦       ¦   functions_func_n.html
+¦       ¦   functions_func_o.html
+¦       ¦   functions_func_p.html
+¦       ¦   functions_func_r.html
+¦       ¦   functions_func_s.html
+¦       ¦   functions_func_t.html
+¦       ¦   functions_func_u.html
+¦       ¦   functions_func_v.html
+¦       ¦   functions_func_~.html
+¦       ¦   functions_g.html
+¦       ¦   functions_h.html
+¦       ¦   functions_i.html
+¦       ¦   functions_l.html
+¦       ¦   functions_m.html
+¦       ¦   functions_n.html
+¦       ¦   functions_o.html
+¦       ¦   functions_p.html
+¦       ¦   functions_r.html
+¦       ¦   functions_rela.html
+¦       ¦   functions_s.html
+¦       ¦   functions_t.html
+¦       ¦   functions_u.html
+¦       ¦   functions_v.html
+¦       ¦   functions_vars.html
+¦       ¦   functions_w.html
+¦       ¦   functions_x.html
+¦       ¦   functions_y.html
+¦       ¦   functions_~.html
+¦       ¦   globals.html
+¦       ¦   globals_defs.html
+¦       ¦   globals_func.html
+¦       ¦   globals_vars.html
+¦       ¦   hierarchy.html
+¦       ¦   hierarchy.js
+¦       ¦   index.html
+¦       ¦   jquery.js
+¦       ¦   menu.js
+¦       ¦   menudata.js
+¦       ¦   namespacecv.html
+¦       ¦   namespacemembers.html
+¦       ¦   namespacemembers_enum.html
+¦       ¦   namespacemembers_eval.html
+¦       ¦   namespacemembers_vars.html
+¦       ¦   namespaces.html
+¦       ¦   namespaces_dup.js
+¦       ¦   namespace_interferometry.html
+¦       ¦   namespace_interferometry.js
+¦       ¦   namespace_interferometry_1_1_colors.html
+¦       ¦   namespace_interferometry_1_1_defaults.html
+¦       ¦   namespace_interferometry_1_1_physics.html
+¦       ¦   namespace_interferometry_1_1_quality.html
+¦       ¦   navtree.css
+¦       ¦   navtree.js
+¦       ¦   navtreedata.js
+¦       ¦   navtreeindex0.js
+¦       ¦   navtreeindex1.js
+¦       ¦   navtreeindex2.js
+¦       ¦   navtreeindex3.js
+¦       ¦   pch_8cpp.html
+¦       ¦   pch_8h.html
+¦       ¦   pch_8h_source.html
+¦       ¦   struct_interferometry_1_1_boundary_render_params-members.html
+¦       ¦   struct_interferometry_1_1_boundary_render_params.html
+¦       ¦   struct_interferometry_1_1_boundary_render_params.js
+¦       ¦   struct_interferometry_1_1_boundary_status-members.html
+¦       ¦   struct_interferometry_1_1_boundary_status.html
+¦       ¦   struct_interferometry_1_1_boundary_status.js
+¦       ¦   struct_interferometry_1_1_c_tracer_params-members.html
+¦       ¦   struct_interferometry_1_1_c_tracer_params.html
+¦       ¦   struct_interferometry_1_1_c_tracer_params.js
+¦       ¦   struct_interferometry_1_1_c_tracer_point-members.html
+¦       ¦   struct_interferometry_1_1_c_tracer_point.html
+¦       ¦   struct_interferometry_1_1_c_tracer_point.js
+¦       ¦   struct_interferometry_1_1_ellipse-members.html
+¦       ¦   struct_interferometry_1_1_ellipse.html
+¦       ¦   struct_interferometry_1_1_ellipse.js
+¦       ¦   struct_interferometry_1_1_ellipse_params-members.html
+¦       ¦   struct_interferometry_1_1_ellipse_params.html
+¦       ¦   struct_interferometry_1_1_ellipse_params.js
+¦       ¦   struct_interferometry_1_1_fringe_line-members.html
+¦       ¦   struct_interferometry_1_1_fringe_line.html
+¦       ¦   struct_interferometry_1_1_fringe_line.js
+¦       ¦   struct_interferometry_1_1_fringe_point-members.html
+¦       ¦   struct_interferometry_1_1_fringe_point.html
+¦       ¦   struct_interferometry_1_1_fringe_point.js
+¦       ¦   struct_interferometry_1_1_point2_d-members.html
+¦       ¦   struct_interferometry_1_1_point2_d.html
+¦       ¦   struct_interferometry_1_1_point2_d.js
+¦       ¦   struct_interferometry_1_1_row_boundary-members.html
+¦       ¦   struct_interferometry_1_1_row_boundary.html
+¦       ¦   struct_interferometry_1_1_row_boundary.js
+¦       ¦   struct_interferometry_1_1_wavefront_stats-members.html
+¦       ¦   struct_interferometry_1_1_wavefront_stats.html
+¦       ¦   struct_interferometry_1_1_wavefront_stats.js
+¦       ¦   tabs.css
+¦       ¦   targetver_8h.html
+¦       ¦   targetver_8h_source.html
+¦       ¦   _boundary_controller_8cpp.html
+¦       ¦   _boundary_controller_8h.html
+¦       ¦   _boundary_controller_8h.js
+¦       ¦   _boundary_controller_8h_source.html
+¦       ¦   _boundary_renderer_8cpp.html
+¦       ¦   _boundary_renderer_8h.html
+¦       ¦   _boundary_renderer_8h.js
+¦       ¦   _boundary_renderer_8h_source.html
+¦       ¦   _child_frm_8cpp.html
+¦       ¦   _child_frm_8h.html
+¦       ¦   _child_frm_8h.js
+¦       ¦   _child_frm_8h_source.html
+¦       ¦   _class_view_8cpp.html
+¦       ¦   _class_view_8cpp.js
+¦       ¦   _class_view_8h.html
+¦       ¦   _class_view_8h.js
+¦       ¦   _class_view_8h_source.html
+¦       ¦   _constants_8h.html
+¦       ¦   _constants_8h.js
+¦       ¦   _constants_8h_source.html
+¦       ¦   _ellipse_boundary_8cpp.html
+¦       ¦   _ellipse_boundary_8h.html
+¦       ¦   _ellipse_boundary_8h.js
+¦       ¦   _ellipse_boundary_8h_source.html
+¦       ¦   _file_view_8cpp.html
+¦       ¦   _file_view_8h.html
+¦       ¦   _file_view_8h.js
+¦       ¦   _file_view_8h_source.html
+¦       ¦   _form0_dark_tmp.ps
+¦       ¦   _form0_tmp.epsi
+¦       ¦   _form0_tmp.ps
+¦       ¦   _form1_dark_tmp.ps
+¦       ¦   _form1_tmp.epsi
+¦       ¦   _form1_tmp.ps
+¦       ¦   _fringe_tracer_8cpp.html
+¦       ¦   _fringe_tracer_8h.html
+¦       ¦   _fringe_tracer_8h.js
+¦       ¦   _fringe_tracer_8h_source.html
+¦       ¦   _image_loader_8cpp.html
+¦       ¦   _image_loader_8h.html
+¦       ¦   _image_loader_8h.js
+¦       ¦   _image_loader_8h_source.html
+¦       ¦   _interferometry_app_8cpp.html
+¦       ¦   _interferometry_app_8cpp.js
+¦       ¦   _interferometry_app_8h.html
+¦       ¦   _interferometry_app_8h.js
+¦       ¦   _interferometry_app_8h_source.html
+¦       ¦   _interferometry_app_doc_8cpp.html
+¦       ¦   _interferometry_app_doc_8h.html
+¦       ¦   _interferometry_app_doc_8h.js
+¦       ¦   _interferometry_app_doc_8h_source.html
+¦       ¦   _interferometry_app_view_8cpp.html
+¦       ¦   _interferometry_app_view_8h.html
+¦       ¦   _interferometry_app_view_8h.js
+¦       ¦   _interferometry_app_view_8h_source.html
+¦       ¦   _main_frm_8cpp.html
+¦       ¦   _main_frm_8cpp.js
+¦       ¦   _main_frm_8h.html
+¦       ¦   _main_frm_8h.js
+¦       ¦   _main_frm_8h_source.html
+¦       ¦   _output_wnd_8cpp.html
+¦       ¦   _output_wnd_8h.html
+¦       ¦   _output_wnd_8h.js
+¦       ¦   _output_wnd_8h_source.html
+¦       ¦   _properties_wnd_8cpp.html
+¦       ¦   _properties_wnd_8h.html
+¦       ¦   _properties_wnd_8h.js
+¦       ¦   _properties_wnd_8h_source.html
+¦       ¦   _resource_8h.html
+¦       ¦   _resource_8h.js
+¦       ¦   _resource_8h_source.html
+¦       ¦   _tracing_types_8h.html
+¦       ¦   _tracing_types_8h.js
+¦       ¦   _tracing_types_8h_source.html
+¦       ¦   _types_8h.html
+¦       ¦   _types_8h.js
+¦       ¦   _types_8h_source.html
+¦       ¦   _view_tree_8cpp.html
+¦       ¦   _view_tree_8h.html
+¦       ¦   _view_tree_8h.js
+¦       ¦   _view_tree_8h_source.html
+¦       ¦   
+¦       L---search
+¦               all_0.js
+¦               all_1.js
+¦               all_10.js
+¦               all_11.js
+¦               all_12.js
+¦               all_13.js
+¦               all_14.js
+¦               all_15.js
+¦               all_16.js
+¦               all_17.js
+¦               all_18.js
+¦               all_19.js
+¦               all_1a.js
+¦               all_1b.js
+¦               all_1c.js
+¦               all_1d.js
+¦               all_1e.js
+¦               all_1f.js
+¦               all_2.js
+¦               all_20.js
+¦               all_3.js
+¦               all_4.js
+¦               all_5.js
+¦               all_6.js
+¦               all_7.js
+¦               all_8.js
+¦               all_9.js
+¦               all_a.js
+¦               all_b.js
+¦               all_c.js
+¦               all_d.js
+¦               all_e.js
+¦               all_f.js
+¦               classes_0.js
+¦               classes_1.js
+¦               classes_2.js
+¦               classes_3.js
+¦               classes_4.js
+¦               classes_5.js
+¦               classes_6.js
+¦               classes_7.js
+¦               defines_0.js
+¦               defines_1.js
+¦               defines_2.js
+¦               enums_0.js
+¦               enums_1.js
+¦               enumvalues_0.js
+¦               enumvalues_1.js
+¦               enumvalues_2.js
+¦               enumvalues_3.js
+¦               files_0.js
+¦               files_1.js
+¦               files_2.js
+¦               files_3.js
+¦               files_4.js
+¦               files_5.js
+¦               files_6.js
+¦               files_7.js
+¦               files_8.js
+¦               files_9.js
+¦               files_a.js
+¦               functions_0.js
+¦               functions_1.js
+¦               functions_10.js
+¦               functions_11.js
+¦               functions_12.js
+¦               functions_2.js
+¦               functions_3.js
+¦               functions_4.js
+¦               functions_5.js
+¦               functions_6.js
+¦               functions_7.js
+¦               functions_8.js
+¦               functions_9.js
+¦               functions_a.js
+¦               functions_b.js
+¦               functions_c.js
+¦               functions_d.js
+¦               functions_e.js
+¦               functions_f.js
+¦               namespaces_0.js
+¦               namespaces_1.js
+¦               pages_0.js
+¦               pages_1.js
+¦               pages_2.js
+¦               pages_3.js
+¦               pages_4.js
+¦               pages_5.js
+¦               pages_6.js
+¦               pages_7.js
+¦               pages_8.js
+¦               pages_9.js
+¦               related_0.js
+¦               search.css
+¦               search.js
+¦               searchdata.js
+¦               variables_0.js
+¦               variables_1.js
+¦               variables_10.js
+¦               variables_11.js
+¦               variables_12.js
+¦               variables_2.js
+¦               variables_3.js
+¦               variables_4.js
+¦               variables_5.js
+¦               variables_6.js
+¦               variables_7.js
+¦               variables_8.js
+¦               variables_9.js
+¦               variables_a.js
+¦               variables_b.js
+¦               variables_c.js
+¦               variables_d.js
+¦               variables_e.js
+¦               variables_f.js
+¦               
 +---external
 ¦   L---opencv
 ¦       +---bin
@@ -498,7 +1191,13 @@ D:.
 ¦   ¦       Types.h
 ¦   ¦       
 ¦   +---Core
+¦   ¦       BoundaryController.h
+¦   ¦       BoundaryRenderer.h
+¦   ¦       EllipseBoundary.h
+¦   ¦       FringeTracer.h
 ¦   ¦       ImageLoader.h
+¦   ¦       PolynomialApproximator.h
+¦   ¦       TracingTypes.h
 ¦   ¦       
 ¦   +---Dialogs
 ¦   +---GUI
@@ -518,20 +1217,13 @@ D:.
 ¦   ¦           
 ¦   +---Math
 ¦   L---Utils
-+---Interfer.2E5F2FA6
-¦   L---x64
-¦       L---Debug
-¦           ¦   InterferometryApp.log
-¦           ¦   
-¦           L---Interfer.2E5F2FA6.tlog
-¦                   CL.command.1.tlog
-¦                   InterferometryApp.lastbuildstate
-¦                   unsuccessfulbuild
-¦                   
 +---lib
 +---resources
+¦   ¦   InterferometryApp.aps
 ¦   ¦   InterferometryApp.rc
 ¦   ¦   InterferometryApp.rc2
+¦   ¦   RDa05008
+¦   ¦   resource.h
 ¦   ¦   
 ¦   +---bitmaps
 ¦   ¦       classview.bmp
@@ -563,12 +1255,47 @@ D:.
 ¦   ¦       properties_wnd_hc.ico
 ¦   ¦       
 ¦   L---test_images
++---SCAN360
+¦       3DAPPROX.C
+¦       A1
+¦       APPROXIM.C
+¦       EGAVGA.BGI
+¦       ESIN.C
+¦       FILTER.C
+¦       GREY_COL.EXE
+¦       KEYS.H
+¦       LIN.C
+¦       MARKER.C
+¦       MOUS_MRK.C
+¦       README.TXT
+¦       REZULT.DAT
+¦       R_W_FILE.C
+¦       SHAPCA.DAT
+¦       STEP.C
+¦       T3
+¦       TEST.C
+¦       TEST.CPP
+¦       TEST.EXE
+¦       WORK.C
+¦       WORK.DSK
+¦       WORK.EXE
+¦       WORK.H
+¦       WORK.PIF
+¦       WORK.PRJ
+¦       
 +---src
 ¦   +---App
 ¦   ¦       InterferometryApp.cpp
 ¦   ¦       pch.cpp
 ¦   ¦       
 ¦   +---Core
+¦   ¦       BoundaryController.cpp
+¦   ¦       BoundaryRenderer.cpp
+¦   ¦       EllipseBoundary.cpp
+¦   ¦       FringeTracer.cpp
+¦   ¦       ImageLoader.cpp
+¦   ¦       PolynomialApproximator.cpp
+¦   ¦       
 ¦   +---Dialogs
 ¦   +---GUI
 ¦   ¦   ¦   ChildFrm.cpp
@@ -587,5 +1314,9 @@ D:.
 ¦   ¦           
 ¦   +---Math
 ¦   L---Utils
-L---x64
-    L---Debug
+L---tests
+    L---PipelineTest
+            bat2v31.bmp
+            CMakeLists.txt
+            PipelineTest.cpp
+            

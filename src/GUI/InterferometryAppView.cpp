@@ -44,18 +44,22 @@ ON_COMMAND(ID_PROCESS_CLEAR, &CInterferometryAppView::OnProcessClear)
 // События
 ON_WM_LBUTTONDOWN()
 ON_WM_KEYDOWN()
+ON_WM_MOUSEMOVE()
 
 END_MESSAGE_MAP()
 
 // CInterferometryAppView construction/destruction
 
 CInterferometryAppView::CInterferometryAppView() noexcept
-    : m_currentMode(Interferometry::EditMode::MODE_NONE)
-{
-  // TODO: add construction code here
-}
+    : m_currentMode(Interferometry::EditMode::MODE_NONE),
+      m_imageOffsetX(10),
+      m_imageOffsetY(60),
+      m_cacheBitmap(NULL) {}
 
-CInterferometryAppView::~CInterferometryAppView() {}
+CInterferometryAppView::~CInterferometryAppView()
+{
+  InvalidateChachedBitmap();
+}
 
 BOOL CInterferometryAppView::PreCreateWindow(CREATESTRUCT &cs)
 {
@@ -63,6 +67,39 @@ BOOL CInterferometryAppView::PreCreateWindow(CREATESTRUCT &cs)
   //  the CREATESTRUCT cs
 
   return CView::PreCreateWindow(cs);
+}
+
+// ========================
+// Преобразование координат окна -> координат изображения
+// ===============================
+CPoint CInterferometryAppView::WindowToImage(CPoint windowPt) const
+{
+  return CPoint(windowPt.x - m_imageOffsetX, windowPt.y - m_imageOffsetY);
+}
+
+// ========================
+// Кэширование HBITMAP
+// ========================
+void CInterferometryAppView::InvalidateCachedBitmap()
+{
+  if (m_chachedBitmap)
+  {
+    ::DeleteObject(m_chacheBitmap);
+    m_chacheBitmap = NULL;
+  }
+}
+
+void CInterferometryAppView::EnsureCachedBitmap()
+{
+  if (m_cachedBitmap)
+    return;
+
+  CInterferometryAppDoc *pDoc = GetDocument();
+  if (!pDoc || !pDoc->HasImage())
+    return;
+
+  const Interferometry::ImageLoader &loader = pDoc->GetImageLoader();
+  m_cachedBitmap = loader.CreateHBITMAP();
 }
 
 // CInterferometryAppView drawing
@@ -74,42 +111,77 @@ void CInterferometryAppView::OnDraw(CDC *pDC)
   if (!pDoc)
     return;
 
-  // TODO: add draw code for native data here
   CRect rect;
   GetClientRect(&rect);
 
   if (pDoc->HasImage())
   {
     const Interferometry::ImageLoader &loader = pDoc->GetImageLoader();
+    int width = loader.GetWidth();
+    int height = loader.GetHeight();
 
     // Информация о размере
     CString info;
     info.Format(
-        _T("Image Loaded: %d x %d pixels\nPress Cntrl+O to load another"),
-        loader.GetWidth(), loader.GetHeight());
-
-    // Нарисовать текст сверху
+        _T("Image: %d x %d | Mode: %s"),
+        width, height, (LPCTSTR)GetModeText());
     CRect textRect = rect;
-    textRect.bottom = 50;
-    pDC->DrawText(info, &textRect, DT_CENTER | DT_TOP);
+    textRect.bottom = m_imageOffsetY - 5;
+    pDC->DrawText(info, &textRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
-    // Рисуем изображение
-    HBITMAP hBitmap = loader.CreateHBITMAP();
-    if (hBitmap)
+    // Рисуем изображение с кэшированием
+    EnsureCachedBitmap();
+    if (m_cachedBitmap)
     {
       CDC dcMem;
       dcMem.CreateCompatibleDC(pDC);
-      HBITMAP holdBitmap = (HBITMAP)dcMem.SelectObject(hBitmap);
+      HBITMAP holdBitmap = (HBITMAP)dcMem.SelectObject(m_cachedBitmap);
 
-      int width = loader.GetWidth();
-      int height = loader.GetHeight();
-
-      // Рисуем изобравжение под текстом
-      pDC->BitBlt(10, 60, width, height, &dcMem, 0, 0, SRCCOPY);
+      pDC->BitBlt(m_imageOffsetX, m_imageOffsetY, width, height, &dcMem, 0, 0,
+                  SRCCOPY);
 
       dcMem.SelectObject(holdBitmap);
-      DeleteObject(hBitmap);
+      // НЕ удаляем m_cachedBitmap — он кэширован!
     }
+
+    // === Все дальнейшие координаты в пространстве изображения ===
+    // Сдвигаем начало координат DC на offset изображения
+    pDC->SetViewportOrg(m_imageOffsetX, m_imageOffsetY);
+
+    // === 2. Рисуем точки границ ===
+    // ИСПРАВЛЕНО: первое условие теперь MODE_SET_OUTER_BOUNDARY (был баг — оба
+    // были INNER)
+    if (m_currentMode == Interferometry::EditMode::MODE_SET_OUTER_BOUNDARY)
+    {
+      DrawBoundaryPoints(pDC, pDoc->GetOuterEllipsePoints(),
+                         RGB(255, 0, 0)); // Красный
+    }
+    else if (m_currentMode ==
+             Interferometry::EditMode::MODE_SET_INNER_BOUNDARY)
+    {
+      DrawBoundaryPoints(pDC, pDoc->GetInnerEllipsePoints(),
+                         RGB(0, 0, 255)); // Синий
+    }
+
+    // === 3. Рисуем эллипсы границ ===
+    if (pDoc->HasOuterBoundary())
+    {
+      DrawEllipseBoundary(pDC, true);
+    }
+    if (pDoc->HasInnerBoundary())
+    {
+      DrawEllipseBoundary(pDC, false);
+    }
+
+    // === 4. Рисуем трассированные линии ===
+    const auto &lines = pDoc->GetFringeLines();
+    for (const auto &line : lines)
+    {
+      DrawFringeLine(pDC, line);
+    }
+
+    // Восстановить начало координат
+    pDC->SetViewportOrg(0, 0);
   }
   else
   {
@@ -121,38 +193,7 @@ void CInterferometryAppView::OnDraw(CDC *pDC)
 
     pDC->DrawText(msg, &rect, DT_CENTER | DT_VCENTER);
   }
-
-  // === 2. Рисуем точки границ ===
-  if (m_currentMode == Interferometry::EditMode::MODE_SET_INNER_BOUNDARY)
-  {
-    DrawBoundaryPoints(pDC, pDoc->GetOuterEllipsePoints(),
-                       RGB(255, 0, 0)); // Красынй
-  }
-  else if (m_currentMode ==
-           Interferometry::EditMode::MODE_SET_INNER_BOUNDARY)
-  {
-    DrawBoundaryPoints(pDC, pDoc->GetInnerEllipsePoints(),
-                       RGB(0, 0, 255)); // Синий
-  }
-
-  // === 3. Рисуем элипсы ===
-  if (pDoc->HasOuterBoundary())
-  {
-    DrawEllipseBoundary(pDC, true);
-  }
-  if (pDoc->HasInnerBoundary())
-  {
-    DrawEllipseBoundary(pDC, false);
-  }
-
-  // === 4. Рисуем трассированные линии ===
-  const auto &lines = pDoc->GetFringeLines();
-  for (const auto &line : lines)
-  {
-    DrawFringeLine(pDC, line);
-  }
 }
-
 // CInterferometryAppView printing
 
 void CInterferometryAppView::OnFilePrintPreview()
@@ -228,6 +269,9 @@ void CInterferometryAppView::OnFileOpen()
     CString filePath = dlg.GetPathName();
     std::wstring wFilePath(filePath);
 
+    // Сбросить кэш при загрузке нового изображения
+    InvalidateCachedBitmap();
+
     if (pDoc->LoadImage(wFilePath))
     {
       // Сбросить режим
@@ -237,11 +281,12 @@ void CInterferometryAppView::OnFileOpen()
       const Interferometry::ImageLoader &loader = pDoc->GetImageLoader();
       CString msg;
       msg.Format(
-          _T("Image loaded successfully!\n\n")
-          _T("Width:  %d pixels\n")
-          _T("Height: %d pixels\n"),
-          loader.GetWidth(),
-          loader.GetHeight());
+          _T("Image loaded: %d x %d pixels\n\n")
+          _T("Next steps:\n")
+          _T("1. Set outer boundary (Boundary -> Set Outer)\n")
+          _T("2. Set inner boundary (Boundary -> Set Inner)\n")
+          _T("3. Trace fringes (Process -> Trace)"),
+          loader.GetWidth(), loader.GetHeight());
       AfxMessageBox(msg);
     }
     else
@@ -286,6 +331,7 @@ void CInterferometryAppView::OnBoundarySetInner()
   // Переключить в режим установки внутренней границы
   m_currentMode = Interferometry::EditMode::MODE_SET_INNER_BOUNDARY;
   UpdateStatusBar();
+  Invalidate();
 
   AfxMessageBox(_T("Click 8-12 points on the inner boundary.\nPress ENTER when done."));
 }
@@ -322,6 +368,7 @@ void CInterferometryAppView::OnProcessTrace()
   // Переключить в режим трассировки
   m_currentMode = Interferometry::EditMode::MODE_TRACE_FRINGE;
   UpdateStatusBar();
+  Invalidate();
 
   AfxMessageBox(_T("CLick on fringe to trace in."));
 }
@@ -349,27 +396,54 @@ void CInterferometryAppView::OnLButtonDown(UINT nFlags, CPoint point)
   if (!pDoc)
     return;
 
+  // Преобразуем координаты окна в координаты изобравжения
+  CPoint imagePt = WindowToImage(point);
+
+  // Проверка что клик внутри изобравжения
+  if (pDoc->HasImage())
+  {
+    int w = pDoc->GetImageLoader().GetWidth();
+    int h = pDoc->GetImageLoader().GetHeight();
+    if (imagePt.x < 0 || imagePt.x >= w || imagePt.y < 0 || imagePt.y >= h)
+    {
+      // Клик вне изобравжения - игнорируем в рабочих режимах
+      if (m_currentMode != Interferometry::EditMode::MODE_NONE)
+      {
+        CView::OnLButtonDown(nFlags, point);
+        return;
+      }
+    }
+  }
+
   switch (m_currentMode)
   {
   case Interferometry::EditMode::MODE_SET_OUTER_BOUNDARY:
     // Добавить точку для внешней границы
-    pDoc->AddBoundaryPoint(point, true);
+    pDoc->AddBoundaryPoint(imagePt, true);
     UpdateStatusBar();
+    Invalidate();
     break;
 
   case Interferometry::EditMode::MODE_SET_INNER_BOUNDARY:
     // Добавить точку для внутренней границы
-    pDoc->AddBoundaryPoint(point, false);
+    pDoc->AddBoundaryPoint(imagePt, false);
     UpdateStatusBar();
+    Invalidate();
     break;
 
   case Interferometry::EditMode::MODE_TRACE_FRINGE:
     // Трассировать полосу
-    if (pDoc->TraceFringe(point))
+    if (pDoc->TraceFringe(imagePt))
     {
       CString msg;
-      msg.Format(_T("Line %d traced successfully!"), pDoc->GetFringeLineCount());
-      UpdateStatusBar();
+      msg.Format(_T("Line %d traced (%d points)"),
+                 pDoc->GetFringeLineCount(),
+                 (int)pDoc->GetFringeLines().back().GetPointCount());
+      // Показываем в статусбаре вместо MessageBox
+      CMainFrame *pMainFrame = (CMainFrame *)AfxGetMainWnd();
+      if (pMainFrame)
+        pMainFrame->SetMessageText(msg);
+      Invalidate();
     }
     break;
 
@@ -379,6 +453,34 @@ void CInterferometryAppView::OnLButtonDown(UINT nFlags, CPoint point)
   }
 
   CView::OnLButtonDown(nFlags, point);
+}
+
+void CInterferometryAppView::OnMouseMove(UINT nFlags, CPoint point)
+{
+  CInterferometryAppDoc *pDoc = GetDocument();
+  if (pDoc && pDoc->HasImage())
+  {
+    CPoint imagePt = WindowToImage(point);
+    int w = pDoc->GetImageLoader().GetWidth();
+    int h = pDoc->GetImageLoader().GetHeight();
+
+    if (imagePt.x >= 0 && imagePt.x < w && imagePt.y >= 0 && imagePt.y < h)
+    {
+      // Показать координаты и интенсивность пикселя в статусбаре
+      unsigned char pixel = pDoc->GetImageLoader().GetPixel(imagePt.x, imagePt.y);
+      CString info;
+      info.Format(_T("X:%d Y:%d I:%d"), imagePt.x, imagePt.y, (int)pixel);
+
+      CMainFrame *pMainFrame = (CMainFrame *)AfxGetMainWnd();
+      if (pMainFrame)
+      {
+        // Показывать в правой панели статусбара
+        pMainFrame->SetMessageText(GetModeText() + _T(" | ") + info);
+      }
+    }
+  }
+
+  CView::OnMouseMove(nFlags, point);
 }
 
 void CInterferometryAppView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -408,7 +510,9 @@ void CInterferometryAppView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
         {
           m_currentMode = Interferometry::EditMode::MODE_NONE;
           UpdateStatusBar();
-          AfxMessageBox(_T("Outer boundary set!\n\nNext: Set inner boundary (Ctrl+2)"));
+          Invalidate();
+          AfxMessageBox(_T("Outer boundary set!\n\nNext: Set inner boundary")
+                        _T("(Boundary -> Set Inner)"));
         }
       }
     }
@@ -430,7 +534,9 @@ void CInterferometryAppView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
         {
           m_currentMode = Interferometry::EditMode::MODE_NONE;
           UpdateStatusBar();
-          AfxMessageBox(_T("Inner boundary set!\n\nReady to trace! (Ctrl+T)"));
+          Invalidate();
+          AfxMessageBox(_T("Inner boundary set!\n\nReady to trace!")
+                        _T("Process -> Trace"));
         }
       }
     }
@@ -447,7 +553,9 @@ void CInterferometryAppView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 }
 
 // === Вспомогательные методы
-void CInterferometryAppView::DrawBoundaryPoints(CDC *pDC, const std::vector<CPoint> &points, COLORREF color)
+void CInterferometryAppView::DrawBoundaryPoints(CDC *pDC,
+                                                const std::vector<CPoint> &points,
+                                                COLORREF color)
 {
   if (points.empty())
     return;
@@ -490,48 +598,63 @@ void CInterferometryAppView::DrawEllipseBoundary(CDC *pDC, bool isOuter)
   const Interferometry::CEllipseBoundary &boundary = pDoc->GetBoundary();
   const auto &rows = boundary.GetAllBoundaries();
 
-  // CEllipseBoundary хранит границы по строкам:
-  // Каждая строка y знает: outerLeft, outerRight (внешний эллипс)
-  //                         innerLeft, innerRight (внутренний эллипс)
-  //
-  // Чтобы нарисовать КОНТУР эллипса мы рисуем:
-  // - Левые точки (x=outerLeft для каждой строки) - левая дуга
-  // - Правые точки (x=outerRight для каждой строки) - правая дуга
-
   if (rows.empty())
     return;
 
   // Выбрать цвет
   COLORREF color = isOuter ? RGB(255, 255, 255) : RGB(0, 255, 255); // Белый / Cyan
-  CPen pen(PS_SOLID, 2, color);
+  CPen pen(PS_SOLID, 1, color);
   CPen *poldPen = pDC->SelectObject(&pen);
 
   int height = (int)rows.size();
 
-  // RowBoundary содержит:
-  //   leftOuter,  rightOuter  - внешний эллипс
-  //   leftInner,  rightInner  - внутренний эллипс
-
-  // --- Левая дуга ---
-  pDC->MoveTo(isOuter ? rows[0].leftOuter : rows[0].leftInner, 0);
-  for (int y = 1; y < height; y++)
+  int firstY = -1;
+  for (int y = 0; y < height; y++)
   {
-    int x = isOuter ? rows[y].leftOuter : rows[y].leftInner;
-    pDC->LineTo(x, y);
+    bool hasBoundary = isOuter ? rows[y].HasOuterBoundary() : rows[y].HasInnerBoundary();
+    if (hasBoundary)
+    {
+      int leftX = isOuter ? rows[y].LeftOuter : rows[y].leftInner;
+      int rightX = isOuter ? rows[y].rightOuter : rows[y].rightInner;
+      if (leftX > 0 || rightX > 0)
+      {
+        if (firstY < 0)
+        {
+          firstY = y;
+          pDC->MoveTo(leftX, y);
+        }
+        // Левая дуга
+        pDC->LineTo(leftX, y);
+      }
+    }
   }
 
-  // --- Правая дуга ---
-  pDC->MoveTo(isOuter ? rows[0].rightOuter : rows[0].rightInner, 0);
-  for (int y = 1; y < height; y++)
+  // Правая дуга
+  firstY = -1;
+  for (int y = 0; y < height; y++)
   {
-    int x = isOuter ? rows[y].rightOuter : rows[y].rightInner;
-    pDC->LineTo(x, y);
+    bool hasBoundary =
+        isOuter ? rows[y].HasOuterBoundary() : rows[y].HasInnerBoundary();
+    if (hasBoundary)
+    {
+      int rightX = isOuter ? rows[y].rightOuter : rows[y].rightInner;
+      if (rightX > 0)
+      {
+        if (firstY < 0)
+        {
+          firstY = y;
+          pDC->MoveTo(rightX, y);
+        }
+        pDC->LineTo(rightX, y);
+      }
+    }
   }
 
   pDC->SelectObject(poldPen);
 }
 
-void CInterferometryAppView::DrawFringeLine(CDC *pDC, const Interferometry::FringeLine &line)
+void CInterferometryAppView::DrawFringeLine(CDC *pDC,
+   const Interferometry::FringeLine &line)
 {
   if (line.IsEmpty())
     return;
@@ -539,7 +662,6 @@ void CInterferometryAppView::DrawFringeLine(CDC *pDC, const Interferometry::Frin
   CPen pen(PS_SOLID, 2, line.color);
   CPen *pOldPen = pDC->SelectObject(&pen);
 
-  // Нарисовать линию по точкам
   const auto &points = line.points;
   pDC->MoveTo(points[0].x, points[0].y);
 
@@ -548,6 +670,13 @@ void CInterferometryAppView::DrawFringeLine(CDC *pDC, const Interferometry::Frin
     pDC->LineTo(points[i].x, points[i].y);
   }
 
+  // Нарисовать начальную точку маркером
+  CBrush brush(line.color);
+  CBrush *pOldBrush = pDC->SelectObject(&brush);
+  pDC->Ellipse(points[0].x - 3, points[0].y - 3, points[0].x + 3,
+               points[0].y + 3);
+
+  pDC->SelectObject(pOldBrush);
   pDC->SelectObject(pOldPen);
 }
 
