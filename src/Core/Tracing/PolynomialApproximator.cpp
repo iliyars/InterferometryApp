@@ -433,7 +433,7 @@ namespace Interferometry
    * по схеме Горнера: result = ((c[n]*x + c[n-1])*x + c[n-2])*x + …
    */
   double CPolynomialApproximator::EvalPolynomial(double x, int degree,
-                                                 const double *coeffs)
+                                                 const double *coeffs) const
   {
     if (degree < 0)
       return 0.0;

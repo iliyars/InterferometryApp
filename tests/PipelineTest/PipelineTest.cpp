@@ -445,6 +445,13 @@ static std::vector<std::pair<int, int>> FindStartPoints(
   // Сортируем по x
   std::sort(starts.begin(), starts.end());
 
+  std::cout << "  DEBUG safeLeft=" << safeLeft << " safeRight=" << safeRight << std::endl;
+  int insideCount = 0;
+  for (int x = safeLeft; x <= safeRight; x++)
+    if (boundary.IsInside(x, cy))
+      insideCount++;
+  std::cout << "  DEBUG insideCount=" << insideCount << " allPeaks=" << allPeaks.size() << std::endl;
+
   return starts;
 }
 
@@ -600,6 +607,19 @@ int main(int argc, char *argv[])
     );
 
     boundary.SetEllipse(outerEllipse, true);
+
+    // Сразу после boundary.SetEllipse(outerEllipse, true);
+    std::cout << "  DEBUG boundary check:" << std::endl;
+    std::cout << "    IsInside(174,100)=" << boundary.IsInside(174, 100) << std::endl;
+    std::cout << "    IsInside(10,100)=" << boundary.IsInside(10, 100) << std::endl;
+    std::cout << "    IsInside(174,10)=" << boundary.IsInside(174, 10) << std::endl;
+    // И покажи первые несколько строк границ
+    for (int y = 95; y <= 105; y++)
+    {
+      const auto &row = boundary.GetRowBoundary(y);
+      std::cout << "    row[" << y << "]: left=" << row.leftOuter
+                << " right=" << row.rightOuter << std::endl;
+    }
 
     std::cout << "  Эллипс: центр=(" << outerEllipse.centerX << ","
               << outerEllipse.centerY << ") a=" << outerEllipse.semiAxisA

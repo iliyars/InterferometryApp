@@ -1,2 +1,0 @@
-C:/Ilya/dev/cpp/InterferometryApp/build/CMakeFiles/edit_cache.dir
-C:/Ilya/dev/cpp/InterferometryApp/build/CMakeFiles/rebuild_cache.dir

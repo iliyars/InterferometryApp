@@ -1,3 +1,0 @@
-E:/pc/InterferometryApp/CMakeFiles/PipelineTest.dir
-E:/pc/InterferometryApp/CMakeFiles/ALL_BUILD.dir
-E:/pc/InterferometryApp/CMakeFiles/ZERO_CHECK.dir
