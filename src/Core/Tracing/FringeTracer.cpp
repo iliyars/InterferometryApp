@@ -327,8 +327,8 @@ namespace Interferometry
         break;
       }
 
-      // Добавить прямой ход
-      for (int j = 0; j < (int)forwardLine.size(); j++)
+      // Добавить прямой ход начиная с точки 1
+      for (int j = 1; j < (int)forwardLine.size(); j++)
       {
         m_tempLine.push_back(forwardLine[j]);
       }
@@ -591,17 +591,13 @@ namespace Interferometry
     int predX = x + stepX;
     int predY = y + stepY;
 
-    // inside(x+dx,y+dy) != 0 -> остановка у границы
-    if (!IsInside(predX, predY))
-    {
-      // Не записываем точку за границей — просто останавливаемся
-      return -1;
-    }
-
     // CenterPerpendicular: центрирование на максимуме перпендикулярно движению.
     // Передаём знак шага — CenterPerpendicular сам повернёт на 90°.
     int ndx = sgn(stepX);
     int ndy = sgn(stepY);
+
+    if (!IsInside(predX, predY))
+      return -1;
 
     int cx = predX;
     int cy = predY;
@@ -613,6 +609,13 @@ namespace Interferometry
       line.push_back(p);
       return -2;
     }
+    // inside(x+dx,y+dy) != 0 -> остановка у границы
+    if (!IsInside(cx, cy))
+    {
+      // Не записываем точку за границей — просто останавливаемся
+      std::cout << "STOP at " << predX << "," << predY << std::endl;
+      return -1;
+    }
 
     // Защита от перескока: если CenterPerpendicular сдвинул точку
     // больше чем на wideLine/2 от предсказания — это перескок на
@@ -620,7 +623,7 @@ namespace Interferometry
     {
       float shiftDist = std::sqrt((float)(cx - predX) * (cx - predX) +
                                   (float)(cy - predY) * (cy - predY));
-      if (shiftDist > m_wideLine * 0.6f)
+      if (shiftDist > m_wideLine * 0.4f)
       {
         cx = predX;
         cy = predY;
@@ -646,9 +649,16 @@ namespace Interferometry
       }
       cx = cx2;
       cy = cy2;
+
+      if (!IsInside(cx, cy))
+      {
+        // Не записываем точку за границей — просто останавливаемся
+        std::cout << "STOP at " << predX << "," << predY << std::endl;
+        return -1;
+      }
     }
 
-    // записать новую точку (как curve_line[..][2*num_point+2] = x; ...)
+    // записать новую точку (как curve_line[..][2*num_point+2] = x; ...)40
     CTracerPoint np(cx, cy);
     np.width = m_curWidth;
     np.intensity = AverageIntensity(cx, cy);
@@ -771,7 +781,7 @@ namespace Interferometry
           ss = buf;
         }
       }
-      global_min_aver = std::min(global_min_aver, min_aver);
+      global_min_aver = (std::min)(global_min_aver, min_aver);
     }
 
     m_average = global_min_aver; // перезаписываем — как в оригинале

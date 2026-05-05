@@ -314,7 +314,13 @@ static std::vector<std::pair<int, int>> FindStartPoints(
     }
     profile[x] = (cnt > 0) ? sum / cnt : 0;
   }
-
+  // DEBUG: вывод профиля
+  std::cout << "  DEBUG profile (y=" << cy << "):" << std::endl;
+  for (int x = 0; x < width; x += 3)
+  {
+    std::cout << x << ":" << (int)profile[x] << " ";
+  }
+  std::cout << std::endl;
   // Границы рабочей области
   int xLeft = 0, xRight = width - 1;
   for (int x = 0; x < width; x++)
@@ -486,6 +492,8 @@ int main(int argc, char *argv[])
   int startX = -1, startY = -1; // -1 = автоматический поиск
   int polyDegree = 8;
   int maxLines = 20;
+  // Хардкод эллипса (0 = автоопределение)
+  int ellipseCX = 420, ellipseCY = 360, ellipseA = 310, ellipseB = 320;
 
   // if (argc >= 2) imagePath = argv[1];
   if (argc >= 4)
@@ -607,28 +615,14 @@ int main(int argc, char *argv[])
     );
 
     boundary.SetEllipse(outerEllipse, true);
-
-    // Сразу после boundary.SetEllipse(outerEllipse, true);
-    std::cout << "  DEBUG boundary check:" << std::endl;
-    std::cout << "    IsInside(174,100)=" << boundary.IsInside(174, 100) << std::endl;
-    std::cout << "    IsInside(10,100)=" << boundary.IsInside(10, 100) << std::endl;
-    std::cout << "    IsInside(174,10)=" << boundary.IsInside(174, 10) << std::endl;
-    // И покажи первые несколько строк границ
-    for (int y = 95; y <= 105; y++)
-    {
-      const auto &row = boundary.GetRowBoundary(y);
-      std::cout << "    row[" << y << "]: left=" << row.leftOuter
-                << " right=" << row.rightOuter << std::endl;
-    }
-
-    std::cout << "  Эллипс: центр=(" << outerEllipse.centerX << ","
-              << outerEllipse.centerY << ") a=" << outerEllipse.semiAxisA
-              << " b=" << outerEllipse.semiAxisB
-              << " angle=" << outerEllipse.angle << std::endl;
   }
   else
   {
-    std::cerr << "  ОШИБКА: недостаточно точек для фитирования!" << std::endl;
+    std::cout << "\nВведите параметры эллипса (0 = автоопределение):" << std::endl;
+    std::cout << "  centerX centerY semiA semiB: ";
+    std::cin >> ellipseCX >> ellipseCY >> ellipseA >> ellipseB;
+    outerEllipse = EllipseParams(ellipseCX, ellipseCY, ellipseA, ellipseB);
+    boundary.SetEllipse(outerEllipse, true);
   }
 
   bool valid = boundary.Validate();

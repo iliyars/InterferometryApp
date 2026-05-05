@@ -1,28 +1,28 @@
 {
     "version": "0.2.0",
     "configurations": [
-      {
-        "name": "PipelineTest (A1)",
-        "type": "cppvsdbg",
-        "request": "launch",
-        "program": "${workspaceFolder}/build_test/Debug/PipelineTest.exe",
-        "args": ["${workspaceFolder}/test_images/A1"],
-        "stopAtEntry": false,
-        "cwd": "${workspaceFolder}/build_test/Debug",
-        "environment": [],
-        "console": "integratedTerminal"
-      },
-      {
-        "name": "PipelineTest (BPM)",
-        "type": "cppvsdbg",
-        "request": "launch",
-        "program": "${workspaceRoot}/build_test/Debug/PipelineTest.exe",
-        "args": ["${workspaceFolder}/test_images/bat2v31.bmp"],
-        "stopAtEntry": false,
-        "cwd": "${workspaceFolder}/build_test/Debug",
-        "environment": [],
-        "console": "integratedTerminal"
-      },
+        {
+            "name": "PipelineTest (A1)",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/tests/PipelineTest/Debug/PipelineTest.exe",
+            "args": ["${workspaceFolder}/test_images/A1"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build/tests/PipelineTest/Debug",
+            "environment": [],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "PipelineTest (BMP)",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/tests/PipelineTest/Debug/PipelineTest.exe",
+            "args": ["${workspaceFolder}/test_images/bat2v31.bmp"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build/tests/PipelineTest/Debug",
+            "environment": [],
+            "console": "integratedTerminal"
+        },
         {
             "name": "Debug x64",
             "type": "cppvsdbg",
@@ -57,18 +57,6 @@
             "environment": [],
             "console": "externalTerminal",
             "preLaunchTask": "Build Release x64"
-        },
-        {
-            "name": "Debug Win32",
-            "type": "cppvsdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/Build/Debug/InterferometryApp.exe",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
-            "environment": [],
-            "console": "externalTerminal",
-            "preLaunchTask": "Build Debug Win32"
         },
         {
             "name": "Присоединиться к процессу",

@@ -1,126 +1,103 @@
 {
     "version": "2.0.0",
     "tasks": [
-      {
-        "label": "Build PipelineTest",
-        "type": "shell",
-        "command": "cmake",
-        "args": [
-          "--build",
-          "${workspaceFolder}\\build_test",
-          "--config",
-          "Debug"
-        ],
-        "group": {
-          "kind": "build",
-          "isDefault": true
+        {
+            "label": "CMake Configure",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "-S", "${workspaceFolder}",
+                "-B", "${workspaceFolder}\\build",
+                "-G", "Visual Studio 17 2022",
+                "-A", "x64"
+            ],
+            "group": "build",
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
         },
-        "problemMatcher": "$msCompile",
-        "presentation": {
-          "reveal": "always",
-          "panel": "shared"
+        {
+            "label": "Build PipelineTest",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build", "${workspaceFolder}\\build",
+                "--target", "PipelineTest",
+                "--config", "Debug"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Rebuild PipelineTest (clean)",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build", "${workspaceFolder}\\build",
+                "--target", "PipelineTest",
+                "--config", "Debug",
+                "--clean-first"
+            ],
+            "group": "build",
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Build Debug x64",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build", "${workspaceFolder}\\build",
+                "--config", "Debug"
+            ],
+            "group": "build",
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Build Release x64",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build", "${workspaceFolder}\\build",
+                "--config", "Release"
+            ],
+            "group": "build",
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Clean",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build", "${workspaceFolder}\\build",
+                "--config", "Debug",
+                "--target", "clean"
+            ],
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
         }
-      },
-      {
-        "label": "Rebuild PipelineTest (clean)",
-        "type": "shell",
-        "command": "cmake",
-        "args": [
-          "--build",
-          "${workspaceFolder}\\build_test",
-          "--config",
-          "Debug",
-          "--clean-first"
-        ],
-        "group": "build",
-        "problemMatcher": "$msCompile",
-        "presentation": {
-          "reveal": "always",
-          "panel": "shared"
-        }
-      },
-      {
-        "label": "Build Debug x64",
-        "type": "shell",
-        "command": "msbuild",
-        "args": [
-          "${workspaceFolder}\\InterferometryApp.sln",
-          "/p:Configuration=Debug",
-          "/p:Platform=x64",
-          "/m",
-          "/v:minimal"
-        ],
-        "group": "build",
-        "problemMatcher": "$msCompile",
-        "presentation": {
-          "reveal": "always",
-          "panel": "shared"
-        }
-      },
-      {
-        "label": "Build Release x64",
-        "type": "shell",
-        "command": "msbuild",
-        "args": [
-          "${workspaceFolder}\\InterferometryApp.sln",
-          "/p:Configuration=Release",
-          "/p:Platform=x64",
-          "/m",
-          "/v:minimal"
-        ],
-        "group": "build",
-        "problemMatcher": "$msCompile",
-        "presentation": {
-          "reveal": "always",
-          "panel": "shared"
-        }
-      },
-      {
-        "label": "Build Debug Win32",
-        "type": "shell",
-        "command": "msbuild",
-        "args": [
-          "${workspaceFolder}\\InterferometryApp.sln",
-          "/p:Configuration=Debug",
-          "/p:Platform=Win32",
-          "/m",
-          "/v:minimal"
-        ],
-        "group": "build",
-        "problemMatcher": "$msCompile",
-        "presentation": {
-          "reveal": "always",
-          "panel": "shared"
-        }
-      },
-      {
-        "label": "Clean Debug x64",
-        "type": "shell",
-        "command": "msbuild",
-        "args": [
-          "${workspaceFolder}\\InterferometryApp.sln",
-          "/t:Clean",
-          "/p:Configuration=Debug",
-          "/p:Platform=x64"
-        ],
-        "problemMatcher": "$msCompile"
-      },
-      {
-        "label": "Rebuild Debug x64",
-        "type": "shell",
-        "command": "msbuild",
-        "args": [
-          "${workspaceFolder}\\InterferometryApp.sln",
-          "/t:Rebuild",
-          "/p:Configuration=Debug",
-          "/p:Platform=x64",
-          "/m"
-        ],
-        "problemMatcher": "$msCompile",
-        "presentation": {
-          "reveal": "always",
-          "panel": "shared"
-        }
-      }
     ]
 }
