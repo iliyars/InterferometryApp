@@ -1200,16 +1200,16 @@ namespace Interferometry
     // --- Фаза 2: Поиск максимума в пределах полосы (с порогом average) ---
     // Оригинал max_perp (STEP.C:462-494): ищем максимум перпендикулярно,
     // но ОСТАНАВЛИВАЕМСЯ когда интенсивность падает ниже average.
-    float maxIntensity = AverageIntensity(predictedX, predictedY);
-    int maxX = predictedX, maxY = predictedY;
+    float maxIntensity = AverageIntensity(xx, yy);
+    int maxX = xx, maxY = yy;
 
     int halfWidth = (int)(m_wideLine / 2.0f);
 
     // Положительное направление — идём пока >= average
     for (int i = 1; i < halfWidth; i++)
     {
-      int testX = predictedX + perpDx * i;
-      int testY = predictedY + perpDy * i;
+      int testX = xx + perpDx * i;
+      int testY = yy + perpDy * i;
 
       if (!IsInside(testX, testY))
         return false; // как return(-1) в оригинале
@@ -1229,11 +1229,11 @@ namespace Interferometry
     // Отрицательное направление — идём пока >= average
     for (int i = 1; i < halfWidth; i++)
     {
-      int testX = predictedX - perpDx * i;
-      int testY = predictedY - perpDy * i;
+      int testX = xx - perpDx * i;
+      int testY = yy - perpDy * i;
 
       if (!IsInside(testX, testY))
-        return false;
+        break;
 
       float intensity = AverageIntensity(testX, testY);
       if (intensity < m_average)
