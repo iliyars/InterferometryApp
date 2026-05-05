@@ -373,9 +373,7 @@ namespace Interferometry
     // Измеряем ширину в начальной точек
     int direction;
     if (!MeasureWidth(x, y, m_curWidth, direction))
-    {
       return false;
-    }
 
     if (m_curWidth < 5)
       m_curWidth = 5;
@@ -392,15 +390,12 @@ namespace Interferometry
     // полосу
     int xx = x, yy = y;
     if (!FindMaxAlong(xx, yy, dx, dy, m_curWidth / 2.0f))
-    {
       return false;
-    }
 
     // Уточняем ширину в точке максимум
     if (!MeasureWidth(xx, yy, m_curWidth, direction))
-    {
       return false;
-    }
+
     if (m_curWidth < 5)
       m_curWidth = 5;
 
@@ -415,25 +410,25 @@ namespace Interferometry
     switch (direction)
     {
     case DIR_VERTICAL:
-      perpDx = (int)(m_curWidth + 0.5f);
+      perpDx = (std::max)(2, (int)(m_curWidth / 4.0f));
       perpDy = 0;
       break;
     case DIR_DIAGONAL_45:
-      perpDx = (int)(0.707f * m_curWidth + 0.5f);
+      perpDx = (std::max)(2, (int)(0.707f * m_curWidth / 4.0f));
       perpDy = -perpDx;
       break;
     case DIR_HORIZONTAL:
       perpDx = 0;
-      perpDy = (int)(m_curWidth + 0.5f);
+      perpDy = (std::max)(2, (int)(m_curWidth / 4.0f));
       break;
     case DIR_DIAGONAL_135:
-      perpDx = (int)(0.707f * m_curWidth + 0.5f);
+      perpDx = (std::max)(2, (int)(0.707f * m_curWidth / 4.0f));
       perpDy = perpDx;
       break;
     }
 
-    xx = x + perpDx;
-    yy = y + perpDy;
+    xx = point1.x + perpDx;
+    yy = point1.y + perpDy;
 
     if (!IsInside(xx, yy))
     {
