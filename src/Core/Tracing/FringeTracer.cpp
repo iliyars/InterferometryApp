@@ -407,23 +407,22 @@ namespace Interferometry
 
     // Ищем вторую точку перпендикулярно направлению
     int perpDx, perpDy;
-    // TODO: Проверить горизонталь и вертикаль
     switch (direction)
     {
     case DIR_VERTICAL:
-      perpDx = (std::max)(2, (int)(m_curWidth / 4.0f));
+      perpDx = (int)(m_curWidth + 0.5f);
       perpDy = 0;
       break;
     case DIR_DIAGONAL_45:
-      perpDx = (std::max)(2, (int)(0.707f * m_curWidth / 4.0f));
+      perpDx = (int)(0.707f * m_curWidth + 0.5f);
       perpDy = -perpDx;
       break;
     case DIR_HORIZONTAL:
       perpDx = 0;
-      perpDy = (std::max)(2, (int)(m_curWidth / 4.0f));
+      perpDy = (int)(m_curWidth + 0.5f);
       break;
     case DIR_DIAGONAL_135:
-      perpDx = (std::max)(2, (int)(0.707f * m_curWidth / 4.0f));
+      perpDx = (int)(0.707f * m_curWidth + 0.5f);
       perpDy = perpDx;
       break;
     }
@@ -537,6 +536,14 @@ namespace Interferometry
       m_wideLine = m_curWidth * coeff_wide;
 
     m_curWidth = m_wideLine;
+
+    // Ограничение: ширина не может быть больше 2.5× начальной
+    float maxAllowedWidth = m_params.initialWidth * 2.5f;
+    if (m_wideLine > maxAllowedWidth)
+    {
+      m_wideLine = maxAllowedWidth;
+      m_curWidth = m_wideLine;
+    }
 
     // dx/dy по двум последним точкам (как в STEP.C)
     int dx = x - line[num_point - 1].x;
@@ -838,136 +845,6 @@ namespace Interferometry
     std::cout << " DEBUG: Ширина линии " << m_wideLine << " Средняя интенсивность:  " << m_curAverage << " в точке: " << x << "," << y << std::endl;
 
     return true;
-
-    // // В оригинале wide() (STEP.C:539-643) делает две вещи:
-    // // 1) Находит average (минимальное среднее по профилю — "дно" между
-    // полосами)
-    // // 2) Находит ширину полосы как расстояние до точек ниже average
-    // //
-    // // Фаза 1: определение порога (average) — сканируем от центра наружу,
-    // // отслеживая падение среднего значения. coef_aver = 1.5 в оригинале.
-    // const float coef_aver = 1.5f;
-    // float minAverage = AverageIntensity(x, y) / coef_aver;
-
-    // for (int dir = 0; dir < 4; dir++)
-    // {
-    //   int dx = 0, dy = 0;
-    //   DirectionToVector(dir, dx, dy);
-
-    //   int ddx = dx, ddy = dy;
-    //   int n = 1;
-    //   float s = (float)GetPixel(x, y);
-
-    //   if (IsInside(x + dx, y + dy))
-    //   {
-    //     s += (float)GetPixel(x + dx, y + dy);
-    //     n++;
-    //   }
-    //   if (IsInside(x - dx, y - dy))
-    //   {
-    //     s += (float)GetPixel(x - dx, y - dy);
-    //     n++;
-    //   }
-
-    //   float ss = s / (float)n;
-    //   int r = 1, k = 0;
-    //   float maxWide = m_wideLine * 1.41f;
-    //   int step = 3;
-
-    //   while ((k < step && r < m_width / 6) || r < (int)maxWide)
-    //   {
-    //     r++;
-    //     ddx += dx;
-    //     ddy += dy;
-
-    //     if (IsInside(x + ddx, y + ddy))
-    //     {
-    //       s += (float)GetPixel(x + ddx, y + ddy);
-    //       n++;
-    //     }
-    //     if (IsInside(x - ddx, y - ddy))
-    //     {
-    //       s += (float)GetPixel(x - ddx, y - ddy);
-    //       n++;
-    //     }
-
-    //     float buf = s / (float)n;
-    //     if (ss > buf)
-    //     {
-    //       ss = buf;
-    //       k = 0;
-    //     }
-    //     else
-    //     {
-    //       k++;
-    //       minAverage = ss;
-    //       ss = buf;
-    //     }
-    //   }
-
-    //   m_average = minAverage;
-    // }
-
-    // // Фаза 2: определение ширины — ищем минимальную ширину по 4 направлениям
-    // float minWidth = FLT_MAX;
-    // int bestDirection = 0;
-
-    // for (int dir = 0; dir < 4; dir++)
-    // {
-    //   int dx = 0, dy = 0;
-    //   DirectionToVector(dir, dx, dy);
-
-    //   // Измеряем ширину в обе стороны от центра
-    //   float width = (dir == DIR_DIAGONAL_45 || dir == DIR_DIAGONAL_135) ? 1.42f
-    //   : 1.0f;
-
-    //   // Вперёд
-    //   int ddx = dx, ddy = dy;
-    //   while (IsInside(x + ddx, y + ddy) &&
-    //          AverageIntensity(x + ddx, y + ddy) > minAverage &&
-    //          width < minWidth + 3)
-    //   {
-    //     if (dir == DIR_DIAGONAL_45 || dir == DIR_DIAGONAL_135)
-    //       width += 1.42f;
-    //     else
-    //       width += 1.0f;
-    //     ddx += dx;
-    //     ddy += dy;
-    //   }
-
-    //   // Назад
-    //   ddx = -dx;
-    //   ddy = -dy;
-    //   while (IsInside(x + ddx, y + ddy) &&
-    //          AverageIntensity(x + ddx, y + ddy) > minAverage &&
-    //          width < minWidth + 3)
-    //   {
-    //     if (dir == DIR_DIAGONAL_45 || dir == DIR_DIAGONAL_135)
-    //       width += 1.42f;
-    //     else
-    //       width += 1.0f;
-    //     ddx -= dx;
-    //     ddy -= dy;
-    //   }
-
-    //   if (width < minWidth)
-    //   {
-    //     minWidth = width;
-    //     bestDirection = dir;
-    //   }
-    // }
-
-    // if (minWidth == FLT_MAX || minWidth < 2)
-    // {
-    //   return false;
-    // }
-
-    // outWidth = minWidth;
-    // outDirection = bestDirection;
-    // m_curAverage = AverageIntensity(x, y);
-    // m_wideLine = minWidth;
-
-    // return true;
   }
 
   /**
@@ -1148,18 +1025,17 @@ namespace Interferometry
     // Оригинал max_perp (STEP.C:424-458): если pnt(xx,yy) < average,
     // сканируем перпендикулярно в обе стороны, пока не найдём точку >= average,
     // затем пересчитываем направление и повторяем (goto again).
-    if (AverageIntensity(xx, yy) < m_average)
+    int maxRetries = 3;
+    while (AverageIntensity(xx, yy) < m_average && maxRetries-- > 0)
     {
-      int halfWidth = (int)(m_wideLine / 3.0f);
-
+      bool found = false;
+      int halfWidth = (int)(m_wideLine / 2.0f);
       for (int i = 1; i <= halfWidth; i++)
       {
-        // Положительное перпендикулярное направление
         if (AverageIntensity(xx + perpDx * i, yy + perpDy * i) >= m_average)
         {
           xx += perpDx * i;
           yy += perpDy * i;
-          // Пересчитать направление от исходной точки (как goto again)
           dx = xx - x;
           dy = yy - y;
           if (dx != 0)
@@ -1168,9 +1044,9 @@ namespace Interferometry
             dy = (dy > 0) ? 1 : -1;
           perpDx = -dy;
           perpDy = dx;
+          found = true;
           break;
         }
-        // Отрицательное перпендикулярное направление
         if (AverageIntensity(xx - perpDx * i, yy - perpDy * i) >= m_average)
         {
           xx -= perpDx * i;
@@ -1183,9 +1059,12 @@ namespace Interferometry
             dy = (dy > 0) ? 1 : -1;
           perpDx = -dy;
           perpDy = dx;
+          found = true;
           break;
         }
       }
+      if (!found)
+        break;
     }
 
     // --- Фаза 2: Поиск максимума в пределах полосы (с порогом average) ---
@@ -1194,7 +1073,7 @@ namespace Interferometry
     float maxIntensity = AverageIntensity(xx, yy);
     int maxX = xx, maxY = yy;
 
-    int halfWidth = (int)(m_wideLine / 3.0f);
+    int halfWidth = (int)(m_wideLine / 2.0f);
 
     // Положительное направление — идём пока >= average
     for (int i = 1; i < halfWidth; i++)
