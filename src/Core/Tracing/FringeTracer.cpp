@@ -407,6 +407,7 @@ namespace Interferometry
 
     // Ищем вторую точку перпендикулярно направлению
     int perpDx, perpDy;
+    // TODO: Проверить горизонталь и вертикаль
     switch (direction)
     {
     case DIR_VERTICAL:
@@ -515,7 +516,10 @@ namespace Interferometry
     {
       return -3;
     }
-
+    // После MeasureWidth:
+    std::cout << "  step x=" << x << " y=" << y
+              << " avg=" << m_average
+              << " width=" << m_wideLine << std::endl;
     // Сохраняем направление (direct) — оно нужно для CenterPerpendicular
     m_curDirection = dir;
 
@@ -705,6 +709,8 @@ namespace Interferometry
    * - m_curAverage ← средняя яркость в точке (x, y)
    * - m_wideLine ← измеренная ширина
    */
+  // TODO: т_wideLine, m_average, global_min_aver
+
   bool CFringeTracer::MeasureWidth(int x, int y, float &outWidth,
                                    int &outDirection)
   {
@@ -714,10 +720,6 @@ namespace Interferometry
     // ================================================================
     // Фаза 1: определение average (порог "дна")
     // Оригинал wide() STEP.C:546-603
-    //
-    // ВАЖНО: average перезаписывается на каждом направлении —
-    // в итоге берётся значение от последнего направления {1,-1}.
-    // Так работает оригинал.
     // ================================================================
     float max_wide = m_wideLine * 1.41f;
     int step = 3;
@@ -779,7 +781,7 @@ namespace Interferometry
       global_min_aver = (std::min)(global_min_aver, min_aver);
     }
 
-    m_average = global_min_aver; // перезаписываем — как в оригинале
+    m_average = global_min_aver;
 
     // ================================================================
     // Фаза 2: измерение ширины по 4 направлениям, берём минимум.
@@ -833,6 +835,7 @@ namespace Interferometry
     outDirection = bestDirection;
     m_curAverage = AverageIntensity(x, y);
     m_wideLine = min_wide;
+    std::cout << " DEBUG: Ширина линии " << m_wideLine << " Средняя интенсивность:  " << m_curAverage << " в точке: " << x << "," << y << std::endl;
 
     return true;
 
@@ -985,7 +988,6 @@ namespace Interferometry
                                    float searchDist)
   {
     // Ограничение: ищем только в пределах half-width от стартовой точки
-    // Это предотвращает перескок на соседнюю полосу
     int halfSteps = (int)(searchDist + 0.5f);
     if (halfSteps < 2)
       halfSteps = 2;
@@ -1146,11 +1148,9 @@ namespace Interferometry
     // Оригинал max_perp (STEP.C:424-458): если pnt(xx,yy) < average,
     // сканируем перпендикулярно в обе стороны, пока не найдём точку >= average,
     // затем пересчитываем направление и повторяем (goto again).
-    int maxRetries = 3;
-    while (AverageIntensity(xx, yy) < m_average && maxRetries-- > 0)
+    if (AverageIntensity(xx, yy) < m_average)
     {
-      bool found = false;
-      int halfWidth = (int)(m_wideLine / 2.0f);
+      int halfWidth = (int)(m_wideLine / 3.0f);
 
       for (int i = 1; i <= halfWidth; i++)
       {
@@ -1168,7 +1168,6 @@ namespace Interferometry
             dy = (dy > 0) ? 1 : -1;
           perpDx = -dy;
           perpDy = dx;
-          found = true;
           break;
         }
         // Отрицательное перпендикулярное направление
@@ -1184,12 +1183,9 @@ namespace Interferometry
             dy = (dy > 0) ? 1 : -1;
           perpDx = -dy;
           perpDy = dx;
-          found = true;
           break;
         }
       }
-      if (!found)
-        break;
     }
 
     // --- Фаза 2: Поиск максимума в пределах полосы (с порогом average) ---
@@ -1198,7 +1194,7 @@ namespace Interferometry
     float maxIntensity = AverageIntensity(xx, yy);
     int maxX = xx, maxY = yy;
 
-    int halfWidth = (int)(m_wideLine / 2.0f);
+    int halfWidth = (int)(m_wideLine / 3.0f);
 
     // Положительное направление — идём пока >= average
     for (int i = 1; i < halfWidth; i++)
@@ -1207,7 +1203,7 @@ namespace Interferometry
       int testY = yy + perpDy * i;
 
       if (!IsInside(testX, testY))
-        return false; // как return(-1) в оригинале
+        break; // как return(-1) в оригинале
 
       float intensity = AverageIntensity(testX, testY);
       if (intensity < m_average)

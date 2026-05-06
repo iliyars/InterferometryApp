@@ -318,7 +318,7 @@ static std::vector<std::pair<int, int>> FindStartPoints(
   std::cout << "  DEBUG profile (y=" << cy << "):" << std::endl;
   for (int x = 0; x < width; x += 3)
   {
-    std::cout << x << ":" << (int)profile[x] << " ";
+    std::cout << x << ":" << (int)profile[x] << std::endl;
   }
   std::cout << std::endl;
   // Границы рабочей области
@@ -340,7 +340,7 @@ static std::vector<std::pair<int, int>> FindStartPoints(
     }
   }
 
-  // Без отступа — трассировщик сам остановится у границы эллипса
+  
   int safeLeft = xLeft + 3;
   int safeRight = xRight - 3;
 
@@ -480,9 +480,11 @@ int main(int argc, char *argv[])
     std::cerr << "Файл не выбран. Выход." << std::endl;
     return 0;
   }
+
   std::string outputDir;
   if (!CreateOutputDir(imagePath, outputDir))
     return 1;
+
   std::string imageFileName =
       imagePath.substr(imagePath.find_last_of("\\/") + 1);
   CopyFileA(imagePath.c_str(), (outputDir + imageFileName).c_str(), FALSE);
@@ -568,7 +570,7 @@ int main(int argc, char *argv[])
     return (cnt > 0) ? sum / cnt : 0;
   };
 
-  // Сканируем лучи из центра по 36 направлениям (каждые 10)
+  // Сканируем лучи из центра по 36 направлениям (каждые 10 градусов)
   const int NUM_RAYS = 36;
   std::vector<cv::Point2f> edgePoints;
 
@@ -636,13 +638,18 @@ int main(int argc, char *argv[])
         color,
         cv::Point(outerEllipse.centerX, outerEllipse.centerY), // ← исправлено
         cv::Size(outerEllipse.semiAxisA, outerEllipse.semiAxisB),
-        outerEllipse.angle, 0, 360, cv::Scalar(0, 255, 0), 1);
-    cv::line(color, cv::Point(outerEllipse.centerX - 5, outerEllipse.centerY),
+        outerEllipse.angle,
+        0, 360, cv::Scalar(0, 255, 0), 2);
+    cv::line(color,
+             cv::Point(outerEllipse.centerX - 5, outerEllipse.centerY),
              cv::Point(outerEllipse.centerX + 5, outerEllipse.centerY),
-             cv::Scalar(0, 0, 255), 1);
-    cv::line(color, cv::Point(outerEllipse.centerX, outerEllipse.centerY - 5),
+             cv::Scalar(0, 0, 255),
+             2);
+    cv::line(color,
+             cv::Point(outerEllipse.centerX, outerEllipse.centerY - 5),
              cv::Point(outerEllipse.centerX, outerEllipse.centerY + 5),
-             cv::Scalar(0, 0, 255), 1);
+             cv::Scalar(0, 0, 255),
+             2);
     cv::imwrite(outputDir + "debug_boundary.png", color);
     std::cout << "  Граница → debug_boundary.png" << std::endl;
   }
