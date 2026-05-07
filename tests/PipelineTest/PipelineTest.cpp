@@ -258,7 +258,7 @@ static bool SaveDebugImage(
       if (i > 0)
       {
         cv::line(color, cv::Point(pts[i - 1].x, pts[i - 1].y),
-                 cv::Point(pts[i].x, pts[i].y), col, 1);
+                 cv::Point(pts[i].x, pts[i].y), col, 3);
       }
     }
 
@@ -340,7 +340,6 @@ static std::vector<std::pair<int, int>> FindStartPoints(
     }
   }
 
-  
   int safeLeft = xLeft + 3;
   int safeRight = xRight - 3;
 
@@ -632,25 +631,25 @@ int main(int argc, char *argv[])
 
   // Сохранить debug-картинку с эллипсом
   {
-    cv::Mat color;
-    cv::cvtColor(loader.GetImage(), color, cv::COLOR_GRAY2BGR);
+    cv::Mat img;
+    cv::cvtColor(loader.GetImage(), img, cv::COLOR_GRAY2BGR);
     cv::ellipse(
-        color,
+        img,
         cv::Point(outerEllipse.centerX, outerEllipse.centerY), // ← исправлено
         cv::Size(outerEllipse.semiAxisA, outerEllipse.semiAxisB),
         outerEllipse.angle,
         0, 360, cv::Scalar(0, 255, 0), 2);
-    cv::line(color,
+    cv::line(img,
              cv::Point(outerEllipse.centerX - 5, outerEllipse.centerY),
              cv::Point(outerEllipse.centerX + 5, outerEllipse.centerY),
              cv::Scalar(0, 0, 255),
              2);
-    cv::line(color,
+    cv::line(img,
              cv::Point(outerEllipse.centerX, outerEllipse.centerY - 5),
              cv::Point(outerEllipse.centerX, outerEllipse.centerY + 5),
              cv::Scalar(0, 0, 255),
              2);
-    cv::imwrite(outputDir + "debug_boundary.png", color);
+    cv::imwrite(outputDir + "debug_boundary.png", img);
     std::cout << "  Граница → debug_boundary.png" << std::endl;
   }
 
