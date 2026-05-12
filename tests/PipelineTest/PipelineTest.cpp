@@ -56,9 +56,8 @@ using namespace Interferometry;
 // Вспомогательные функции
 //=============================================================================
 
-static bool OpenImageDialog(std::string &outPath,
-                            const char *title = "Открыть интерферограмму")
-{
+static bool OpenImageDialog(std::string& outPath,
+                            const char* title = "Открыть интерферограмму") {
   char szFile[MAX_PATH] = {0};
 
   OPENFILENAMEA ofn = {};
@@ -75,15 +74,13 @@ static bool OpenImageDialog(std::string &outPath,
   ofn.lpstrTitle = title;
   ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
 
-  if (!GetOpenFileNameA(&ofn))
-    return false;
+  if (!GetOpenFileNameA(&ofn)) return false;
 
   outPath = szFile;
   return true;
 }
 
-static bool CreateOutputDir(const std::string &imagePath, std::string &outDir)
-{
+static bool CreateOutputDir(const std::string& imagePath, std::string& outDir) {
   size_t slashPos = imagePath.find_last_of("\\/");
   size_t dotPos = imagePath.find_last_of('.');
 
@@ -104,18 +101,15 @@ static bool CreateOutputDir(const std::string &imagePath, std::string &outDir)
   // с самим файлом (Windows не разрешает файл и папку с одним именем)
   std::string folderName = baseName;
   DWORD attr = GetFileAttributesA((dir + baseName).c_str());
-  if (attr != INVALID_FILE_ATTRIBUTES && !(attr & FILE_ATTRIBUTE_DIRECTORY))
-  {
+  if (attr != INVALID_FILE_ATTRIBUTES && !(attr & FILE_ATTRIBUTE_DIRECTORY)) {
     // Существует файл с таким именем — добавляем суффикс
     folderName = baseName + "_results";
   }
 
   outDir = dir + folderName + "\\";
 
-  if (!CreateDirectoryA(outDir.c_str(), nullptr))
-  {
-    if (GetLastError() != ERROR_ALREADY_EXISTS)
-    {
+  if (!CreateDirectoryA(outDir.c_str(), nullptr)) {
+    if (GetLastError() != ERROR_ALREADY_EXISTS) {
       std::cerr << "  Ошибка: не удалось создать папку " << outDir << std::endl;
       return false;
     }
@@ -127,8 +121,7 @@ static bool CreateOutputDir(const std::string &imagePath, std::string &outDir)
 /**
  * @brief Вывод информации об изображении.
  */
-static void PrintImageInfo(const ImageLoader &loader)
-{
+static void PrintImageInfo(const ImageLoader& loader) {
   std::cout << "  Размер:    " << loader.GetWidth() << " x "
             << loader.GetHeight() << std::endl;
   std::cout << "  Grayscale: " << (loader.IsGrayscale() ? "да" : "нет")
@@ -148,19 +141,16 @@ static void PrintImageInfo(const ImageLoader &loader)
  * @param points   Точки одной линии.
  * @param lineId   Номер линии.
  */
-static bool SavePointsCSV(const std::string &filename,
-                          const std::vector<CTracerPoint> &points, int lineId)
-{
+static bool SavePointsCSV(const std::string& filename,
+                          const std::vector<CTracerPoint>& points, int lineId) {
   std::ofstream out(filename);
-  if (!out.is_open())
-  {
+  if (!out.is_open()) {
     std::cerr << "  Ошибка: не удалось открыть " << filename << std::endl;
     return false;
   }
 
   out << "line_id,point_idx,x,y,width,intensity" << std::endl;
-  for (int i = 0; i < (int)points.size(); i++)
-  {
+  for (int i = 0; i < (int)points.size(); i++) {
     out << lineId << "," << i << "," << points[i].x << "," << points[i].y << ","
         << std::fixed << std::setprecision(2) << points[i].width << ","
         << points[i].intensity << std::endl;
@@ -176,12 +166,10 @@ static bool SavePointsCSV(const std::string &filename,
  * @param result   Результат аппроксимации.
  * @param lineId   Номер линии.
  */
-static bool SaveApproxCSV(const std::string &filename,
-                          const ApproximationResult &result, int lineId)
-{
+static bool SaveApproxCSV(const std::string& filename,
+                          const ApproximationResult& result, int lineId) {
   std::ofstream out(filename);
-  if (!out.is_open())
-  {
+  if (!out.is_open()) {
     std::cerr << "  Ошибка: не удалось открыть " << filename << std::endl;
     return false;
   }
@@ -189,8 +177,7 @@ static bool SaveApproxCSV(const std::string &filename,
   // Заголовок с коэффициентами
   out << "# Линия " << lineId << ", степень " << result.degree << std::endl;
   out << "# Коэффициенты:";
-  for (int i = 0; i < (int)result.coefficients.size(); i++)
-  {
+  for (int i = 0; i < (int)result.coefficients.size(); i++) {
     out << " c[" << i << "]=" << std::scientific << std::setprecision(8)
         << result.coefficients[i];
   }
@@ -198,8 +185,7 @@ static bool SaveApproxCSV(const std::string &filename,
 
   // Кривая с шагом 1 пиксель
   out << "line_id,x,y_approx" << std::endl;
-  for (double x = result.xMin; x <= result.xMax; x += 1.0)
-  {
+  for (double x = result.xMin; x <= result.xMax; x += 1.0) {
     double y = result.Evaluate(x);
     out << lineId << "," << std::fixed << std::setprecision(1) << x << ","
         << std::setprecision(2) << y << std::endl;
@@ -213,16 +199,14 @@ static bool SaveApproxCSV(const std::string &filename,
  * @brief Сохранение изображения с эллипсом границы и линиями трассировки.
  */
 static bool SaveDebugImage(
-    const std::string &filename, const cv::Mat &image,
-    const std::vector<std::vector<CTracerPoint>> &allPoints,
-    const EllipseParams &ellipse = EllipseParams())
-{
+    const std::string& filename, const cv::Mat& image,
+    const std::vector<std::vector<CTracerPoint>>& allPoints,
+    const EllipseParams& ellipse = EllipseParams()) {
   cv::Mat color;
   cv::cvtColor(image, color, cv::COLOR_GRAY2BGR);
 
   // Эллипс границы (зелёный)
-  if (ellipse.IsValid())
-  {
+  if (ellipse.IsValid()) {
     cv::ellipse(color, cv::Point(ellipse.centerX, ellipse.centerY),
                 cv::Size(ellipse.semiAxisA, ellipse.semiAxisB), 0, 0, 360,
                 cv::Scalar(0, 255, 0), 1);
@@ -237,34 +221,30 @@ static bool SaveDebugImage(
 
   // Цвета для разных линий
   const cv::Scalar colors[] = {
-      cv::Scalar(0, 255, 255),   // жёлтый
-      cv::Scalar(0, 255, 0),     // зелёный
-      cv::Scalar(255, 100, 100), // голубой
-      cv::Scalar(0, 165, 255),   // оранжевый
-      cv::Scalar(255, 0, 255),   // пурпурный
-      cv::Scalar(0, 200, 200),   // тёмно-жёлтый
+      cv::Scalar(0, 255, 255),    // жёлтый
+      cv::Scalar(0, 255, 0),      // зелёный
+      cv::Scalar(255, 100, 100),  // голубой
+      cv::Scalar(0, 165, 255),    // оранжевый
+      cv::Scalar(255, 0, 255),    // пурпурный
+      cv::Scalar(0, 200, 200),    // тёмно-жёлтый
   };
   int numColors = sizeof(colors) / sizeof(colors[0]);
 
-  for (int lineIdx = 0; lineIdx < (int)allPoints.size(); lineIdx++)
-  {
-    const auto &pts = allPoints[lineIdx];
+  for (int lineIdx = 0; lineIdx < (int)allPoints.size(); lineIdx++) {
+    const auto& pts = allPoints[lineIdx];
     cv::Scalar col = colors[lineIdx % numColors];
 
-    for (int i = 0; i < (int)pts.size(); i++)
-    {
+    for (int i = 0; i < (int)pts.size(); i++) {
       cv::circle(color, cv::Point(pts[i].x, pts[i].y), 1, col, -1);
 
-      if (i > 0)
-      {
+      if (i > 0) {
         cv::line(color, cv::Point(pts[i - 1].x, pts[i - 1].y),
                  cv::Point(pts[i].x, pts[i].y), col, 3);
       }
     }
 
     // Маркер старта
-    if (!pts.empty())
-    {
+    if (!pts.empty()) {
       cv::circle(color, cv::Point(pts[0].x, pts[0].y), 4, cv::Scalar(0, 0, 255),
                  1);
     }
@@ -289,9 +269,8 @@ static bool SaveDebugImage(
  * @return Вектор стартовых координат {x, y}.
  */
 static std::vector<std::pair<int, int>> FindStartPoints(
-    const cv::Mat &image, const CEllipseBoundary &boundary,
-    int maxPoints = 20)
-{
+    const cv::Mat& image, const CEllipseBoundary& boundary,
+    int maxPoints = 20) {
   std::vector<std::pair<int, int>> starts;
 
   int cy = image.rows / 2;
@@ -299,15 +278,12 @@ static std::vector<std::pair<int, int>> FindStartPoints(
 
   // Профиль яркости (усреднение 5 строк)
   std::vector<float> profile(width, 0.0f);
-  for (int x = 0; x < width; x++)
-  {
+  for (int x = 0; x < width; x++) {
     float sum = 0;
     int cnt = 0;
-    for (int dy = -2; dy <= 2; dy++)
-    {
+    for (int dy = -2; dy <= 2; dy++) {
       int yy = cy + dy;
-      if (yy >= 0 && yy < image.rows)
-      {
+      if (yy >= 0 && yy < image.rows) {
         sum += image.at<uchar>(yy, x);
         cnt++;
       }
@@ -316,25 +292,20 @@ static std::vector<std::pair<int, int>> FindStartPoints(
   }
   // DEBUG: вывод профиля
   std::cout << "  DEBUG profile (y=" << cy << "):" << std::endl;
-  for (int x = 0; x < width; x += 3)
-  {
+  for (int x = 0; x < width; x += 3) {
     std::cout << x << ":" << (int)profile[x] << std::endl;
   }
   std::cout << std::endl;
   // Границы рабочей области
   int xLeft = 0, xRight = width - 1;
-  for (int x = 0; x < width; x++)
-  {
-    if (boundary.IsInside(x, cy))
-    {
+  for (int x = 0; x < width; x++) {
+    if (boundary.IsInside(x, cy)) {
       xLeft = x;
       break;
     }
   }
-  for (int x = width - 1; x >= 0; x--)
-  {
-    if (boundary.IsInside(x, cy))
-    {
+  for (int x = width - 1; x >= 0; x--) {
+    if (boundary.IsInside(x, cy)) {
       xRight = x;
       break;
     }
@@ -347,8 +318,7 @@ static std::vector<std::pair<int, int>> FindStartPoints(
   // Алгоритм: идём по профилю, ищем участки «подъём → плато/пик → спад».
   // Пик = точка (или центр плато), у которой минимум в окне ±8
   // значительно ниже самого пика.
-  struct Peak
-  {
+  struct Peak {
     int x;
     float intensity;
     float contrast;
@@ -357,61 +327,47 @@ static std::vector<std::pair<int, int>> FindStartPoints(
 
   int minPeakDist = 5;
 
-  for (int x = safeLeft; x <= safeRight; x++)
-  {
-    if (!boundary.IsInside(x, cy))
-      continue;
+  for (int x = safeLeft; x <= safeRight; x++) {
+    if (!boundary.IsInside(x, cy)) continue;
 
     float val = profile[x];
 
     // Найти минимумы слева и справа в окне ±8
     float leftMin = val, rightMin = val;
-    for (int d = 1; d <= 8; d++)
-    {
-      if (x - d >= 0)
-        leftMin = (std::min)(leftMin, profile[x - d]);
-      if (x + d < width)
-        rightMin = (std::min)(rightMin, profile[x + d]);
+    for (int d = 1; d <= 8; d++) {
+      if (x - d >= 0) leftMin = (std::min)(leftMin, profile[x - d]);
+      if (x + d < width) rightMin = (std::min)(rightMin, profile[x + d]);
     }
     float dip = (std::min)(leftMin, rightMin);
     float contrast = val - dip;
 
     // Значимый перепад? (> 15 уровней яркости)
-    if (contrast < 15)
-      continue;
+    if (contrast < 15) continue;
 
     // Это пик или плато? Проверяем что мы на вершине.
     bool atTop = true;
-    for (int d = 1; d <= 3; d++)
-    {
-      if (x - d >= 0 && profile[x - d] > val + 1)
-      {
+    for (int d = 1; d <= 3; d++) {
+      if (x - d >= 0 && profile[x - d] > val + 1) {
         atTop = false;
         break;
       }
-      if (x + d < width && profile[x + d] > val + 1)
-      {
+      if (x + d < width && profile[x + d] > val + 1) {
         atTop = false;
         break;
       }
     }
-    if (!atTop)
-      continue;
+    if (!atTop) continue;
 
     // Центрирование на плато: найти начало и конец плато (±1 от val)
     int pStart = x, pEnd = x;
-    while (pStart > 0 && profile[pStart - 1] >= val - 1)
-      pStart--;
-    while (pEnd < width - 1 && profile[pEnd + 1] >= val - 1)
-      pEnd++;
+    while (pStart > 0 && profile[pStart - 1] >= val - 1) pStart--;
+    while (pEnd < width - 1 && profile[pEnd + 1] >= val - 1) pEnd++;
     int center = (pStart + pEnd) / 2;
 
     // Проверить минимальное расстояние от предыдущего пика
-    if (!allPeaks.empty() && center - allPeaks.back().x < minPeakDist)
-    {
+    if (!allPeaks.empty() && center - allPeaks.back().x < minPeakDist) {
       // Если текущий контрастнее — заменяем
-      if (contrast > allPeaks.back().contrast)
-      {
+      if (contrast > allPeaks.back().contrast) {
         allPeaks.back() = {center, val, contrast};
       }
       continue;
@@ -424,38 +380,35 @@ static std::vector<std::pair<int, int>> FindStartPoints(
   }
 
   // Сортируем по контрасту (самые чёткие полосы — надёжнее)
-  std::sort(allPeaks.begin(), allPeaks.end(), [](const Peak &a, const Peak &b)
-            { return a.contrast > b.contrast; });
+  std::sort(allPeaks.begin(), allPeaks.end(), [](const Peak& a, const Peak& b) {
+    return a.contrast > b.contrast;
+  });
 
   // Берём maxPoints, с минимальным расстоянием между ними
-  for (const auto &peak : allPeaks)
-  {
+  for (const auto& peak : allPeaks) {
     bool tooClose = false;
-    for (const auto &existing : starts)
-    {
-      if (std::abs(peak.x - existing.first) < minPeakDist)
-      {
+    for (const auto& existing : starts) {
+      if (std::abs(peak.x - existing.first) < minPeakDist) {
         tooClose = true;
         break;
       }
     }
-    if (!tooClose)
-    {
+    if (!tooClose) {
       starts.push_back({peak.x, cy});
-      if ((int)starts.size() >= maxPoints)
-        break;
+      if ((int)starts.size() >= maxPoints) break;
     }
   }
 
   // Сортируем по x
   std::sort(starts.begin(), starts.end());
 
-  std::cout << "  DEBUG safeLeft=" << safeLeft << " safeRight=" << safeRight << std::endl;
+  std::cout << "  DEBUG safeLeft=" << safeLeft << " safeRight=" << safeRight
+            << std::endl;
   int insideCount = 0;
   for (int x = safeLeft; x <= safeRight; x++)
-    if (boundary.IsInside(x, cy))
-      insideCount++;
-  std::cout << "  DEBUG insideCount=" << insideCount << " allPeaks=" << allPeaks.size() << std::endl;
+    if (boundary.IsInside(x, cy)) insideCount++;
+  std::cout << "  DEBUG insideCount=" << insideCount
+            << " allPeaks=" << allPeaks.size() << std::endl;
 
   return starts;
 }
@@ -464,8 +417,7 @@ static std::vector<std::pair<int, int>> FindStartPoints(
 // Main
 //=============================================================================
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char* argv[]) {
   // UTF-8 вывод в консоль
   SetConsoleOutputCP(65001);
   setlocale(LC_ALL, "ru_RU.UTF-8");
@@ -474,15 +426,13 @@ int main(int argc, char *argv[])
   // --- Параметры ---
   std::string imagePath;
 
-  if (!OpenImageDialog(imagePath))
-  {
+  if (!OpenImageDialog(imagePath)) {
     std::cerr << "Файл не выбран. Выход." << std::endl;
     return 0;
   }
 
   std::string outputDir;
-  if (!CreateOutputDir(imagePath, outputDir))
-    return 1;
+  if (!CreateOutputDir(imagePath, outputDir)) return 1;
 
   std::string imageFileName =
       imagePath.substr(imagePath.find_last_of("\\/") + 1);
@@ -490,20 +440,18 @@ int main(int argc, char *argv[])
 
   std::cout << "\n[1] Загрузка: " << imagePath << std::endl;
 
-  int startX = -1, startY = -1; // -1 = автоматический поиск
+  int startX = -1, startY = -1;  // -1 = автоматический поиск
   int polyDegree = 8;
   int maxLines = 20;
   // Хардкод эллипса (0 = автоопределение)
   int ellipseCX = 420, ellipseCY = 360, ellipseA = 310, ellipseB = 320;
 
   // if (argc >= 2) imagePath = argv[1];
-  if (argc >= 4)
-  {
+  if (argc >= 4) {
     startX = std::atoi(argv[2]);
     startY = std::atoi(argv[3]);
   }
-  if (argc >= 5)
-    polyDegree = std::atoi(argv[4]);
+  if (argc >= 5) polyDegree = std::atoi(argv[4]);
 
   // ===================================================================
   // Этап 1: Загрузка изображения
@@ -511,14 +459,12 @@ int main(int argc, char *argv[])
   std::cout << "\n[1] Загрузка: " << imagePath << std::endl;
 
   ImageLoader loader;
-  if (!loader.Load(imagePath))
-  {
+  if (!loader.Load(imagePath)) {
     std::cerr << "  ОШИБКА: не удалось загрузить " << imagePath << std::endl;
     return 1;
   }
 
-  if (!loader.IsGrayscale())
-  {
+  if (!loader.IsGrayscale()) {
     std::cout << "  Конвертация в grayscale..." << std::endl;
     loader.ConvertToGrayscale();
   }
@@ -549,18 +495,14 @@ int main(int argc, char *argv[])
   int threshold = (int)(maxVal * 0.10);
 
   // Вспомогательная лямбда: средняя яркость в прямоугольнике
-  auto avgBrightness = [&](int x, int y) -> float
-  {
+  auto avgBrightness = [&](int x, int y) -> float {
     const int R = 15;
     float sum = 0;
     int cnt = 0;
-    for (int dy = -R; dy <= R; dy++)
-    {
-      for (int dx = -R; dx <= R; dx++)
-      {
+    for (int dy = -R; dy <= R; dy++) {
+      for (int dx = -R; dx <= R; dx++) {
         int px = x + dx, py = y + dy;
-        if (px >= 0 && px < imgW && py >= 0 && py < imgH)
-        {
+        if (px >= 0 && px < imgW && py >= 0 && py < imgH) {
           sum += loader.GetPixel(px, py);
           cnt++;
         }
@@ -573,24 +515,20 @@ int main(int argc, char *argv[])
   const int NUM_RAYS = 36;
   std::vector<cv::Point2f> edgePoints;
 
-  for (int i = 0; i < NUM_RAYS; i++)
-  {
+  for (int i = 0; i < NUM_RAYS; i++) {
     double angle = i * 2.0 * CV_PI / NUM_RAYS;
     double dx = cos(angle);
     double dy = sin(angle);
 
     // Идём от центра наружу
     int maxR = (int)(sqrt((double)(imgW * imgW + imgH * imgH)) / 2.0);
-    for (int r = 10; r < maxR; r++)
-    {
+    for (int r = 10; r < maxR; r++) {
       int x = cx + (int)(dx * r);
       int y = cy + (int)(dy * r);
 
-      if (x < 0 || x >= imgW || y < 0 || y >= imgH)
-        break;
+      if (x < 0 || x >= imgW || y < 0 || y >= imgH) break;
 
-      if (avgBrightness(x, y) <= threshold)
-      {
+      if (avgBrightness(x, y) <= threshold) {
         // Нашли край — берём точку чуть раньше
         int ex = cx + (int)(dx * (r - 2));
         int ey = cy + (int)(dy * (r - 2));
@@ -604,22 +542,20 @@ int main(int argc, char *argv[])
 
   EllipseParams outerEllipse;
   // Фитируем эллипс по найденным точкам (нужно минимум 5)
-  if (edgePoints.size() >= 5)
-  {
+  if (edgePoints.size() >= 5) {
     cv::RotatedRect fittedEllipse = cv::fitEllipse(edgePoints);
 
     outerEllipse = EllipseParams(
         (int)fittedEllipse.center.x, (int)fittedEllipse.center.y,
-        (int)(fittedEllipse.size.width / 2.0f) - 2, // полуось A, -2 запас
+        (int)(fittedEllipse.size.width / 2.0f) - 2,  // полуось A, -2 запас
         (int)(fittedEllipse.size.height / 2.0f) - 2,
-        (float)(fittedEllipse.angle) // угол наклона!
+        (float)(fittedEllipse.angle)  // угол наклона!
     );
 
     boundary.SetEllipse(outerEllipse, true);
-  }
-  else
-  {
-    std::cout << "\nВведите параметры эллипса (0 = автоопределение):" << std::endl;
+  } else {
+    std::cout << "\nВведите параметры эллипса (0 = автоопределение):"
+              << std::endl;
     std::cout << "  centerX centerY semiA semiB: ";
     std::cin >> ellipseCX >> ellipseCY >> ellipseA >> ellipseB;
     outerEllipse = EllipseParams(ellipseCX, ellipseCY, ellipseA, ellipseB);
@@ -635,20 +571,15 @@ int main(int argc, char *argv[])
     cv::cvtColor(loader.GetImage(), img, cv::COLOR_GRAY2BGR);
     cv::ellipse(
         img,
-        cv::Point(outerEllipse.centerX, outerEllipse.centerY), // ← исправлено
+        cv::Point(outerEllipse.centerX, outerEllipse.centerY),  // ← исправлено
         cv::Size(outerEllipse.semiAxisA, outerEllipse.semiAxisB),
-        outerEllipse.angle,
-        0, 360, cv::Scalar(0, 255, 0), 2);
-    cv::line(img,
-             cv::Point(outerEllipse.centerX - 5, outerEllipse.centerY),
+        outerEllipse.angle, 0, 360, cv::Scalar(0, 255, 0), 2);
+    cv::line(img, cv::Point(outerEllipse.centerX - 5, outerEllipse.centerY),
              cv::Point(outerEllipse.centerX + 5, outerEllipse.centerY),
-             cv::Scalar(0, 0, 255),
-             2);
-    cv::line(img,
-             cv::Point(outerEllipse.centerX, outerEllipse.centerY - 5),
+             cv::Scalar(0, 0, 255), 2);
+    cv::line(img, cv::Point(outerEllipse.centerX, outerEllipse.centerY - 5),
              cv::Point(outerEllipse.centerX, outerEllipse.centerY + 5),
-             cv::Scalar(0, 0, 255),
-             2);
+             cv::Scalar(0, 0, 255), 2);
     cv::imwrite(outputDir + "debug_boundary.png", img);
     std::cout << "  Граница → debug_boundary.png" << std::endl;
   }
@@ -661,8 +592,7 @@ int main(int argc, char *argv[])
   CFringeTracer tracer;
   tracer.Initialize(loader.GetImage(), boundary);
 
-  if (!tracer.IsInitialize())
-  {
+  if (!tracer.IsInitialize()) {
     std::cerr << "  ОШИБКА: " << tracer.GetLastError() << std::endl;
     return 1;
   }
@@ -676,31 +606,18 @@ int main(int argc, char *argv[])
   // Определить стартовые точки
   std::vector<std::pair<int, int>> startPoints;
 
-  if (startX >= 0 && startY >= 0)
-  {
-    // Одна точка задана вручную
-    startPoints.push_back({startX, startY});
-    std::cout << "  Стартовая точка (ручная): (" << startX << ", " << startY
-              << ")" << std::endl;
-  }
-  else
-  {
-    // Автоматический поиск
-    startPoints = FindStartPoints(loader.GetImage(), boundary, maxLines);
-    std::cout << "  Найдено стартовых точек: " << startPoints.size()
-              << std::endl;
-    for (int i = 0; i < (int)startPoints.size(); i++)
-    {
-      std::cout << "    [" << i << "] (" << startPoints[i].first << ", "
-                << startPoints[i].second << ")" << std::endl;
-    }
+  // Автоматический поиск
+  startPoints = FindStartPoints(loader.GetImage(), boundary, maxLines);
+  std::cout << "  Найдено стартовых точек: " << startPoints.size() << std::endl;
+  for (int i = 0; i < (int)startPoints.size(); i++) {
+    std::cout << "    [" << i << "] (" << startPoints[i].first << ", "
+              << startPoints[i].second << ")" << std::endl;
   }
 
   // Трассировка каждой полосы
   std::vector<std::vector<CTracerPoint>> allLines;
 
-  for (int i = 0; i < (int)startPoints.size(); i++)
-  {
+  for (int i = 0; i < (int)startPoints.size(); i++) {
     int sx = startPoints[i].first;
     int sy = startPoints[i].second;
 
@@ -709,8 +626,7 @@ int main(int argc, char *argv[])
 
     auto points = tracer.TraceLine(sx, sy);
 
-    if (points.empty())
-    {
+    if (points.empty()) {
       std::cout << "    ОШИБКА: " << tracer.GetLastError() << std::endl;
       continue;
     }
@@ -723,8 +639,7 @@ int main(int argc, char *argv[])
 
     // Средняя ширина полосы
     float avgWidth = 0;
-    for (const auto &p : points)
-      avgWidth += p.width;
+    for (const auto& p : points) avgWidth += p.width;
     avgWidth /= points.size();
     std::cout << "    Ср. ширина: " << std::fixed << std::setprecision(1)
               << avgWidth << " px" << std::endl;
@@ -732,16 +647,14 @@ int main(int argc, char *argv[])
     // Сохранить точки в CSV
     std::string csvName =
         outputDir + "line_" + std::to_string(i) + "_points.csv";
-    if (SavePointsCSV(csvName, points, i))
-    {
+    if (SavePointsCSV(csvName, points, i)) {
       std::cout << "    Точки → " << csvName << std::endl;
     }
 
     allLines.push_back(points);
   }
 
-  if (allLines.empty())
-  {
+  if (allLines.empty()) {
     std::cerr << "\n  Ни одна линия не трассирована!" << std::endl;
     return 1;
   }
@@ -754,15 +667,13 @@ int main(int argc, char *argv[])
 
   CPolynomialApproximator approximator;
 
-  for (int i = 0; i < (int)allLines.size(); i++)
-  {
+  for (int i = 0; i < (int)allLines.size(); i++) {
     std::cout << "\n  --- Линия " << i << " (" << allLines[i].size()
               << " точек) ---" << std::endl;
 
     auto result = approximator.Approximate(allLines[i], polyDegree);
 
-    if (!result.valid)
-    {
+    if (!result.valid) {
       std::cout << "    ОШИБКА: " << approximator.GetLastError() << std::endl;
       continue;
     }
@@ -771,8 +682,7 @@ int main(int argc, char *argv[])
     std::cout << "    Диапазон x: [" << result.xMin << " .. " << result.xMax
               << "]" << std::endl;
     std::cout << "    Коэффициенты:" << std::endl;
-    for (int j = 0; j < (int)result.coefficients.size(); j++)
-    {
+    for (int j = 0; j < (int)result.coefficients.size(); j++) {
       std::cout << "      c[" << j << "] = " << std::scientific
                 << std::setprecision(6) << result.coefficients[j] << std::endl;
     }
@@ -787,8 +697,7 @@ int main(int argc, char *argv[])
     // Сохранить аппроксимацию в CSV
     std::string csvName =
         outputDir + "line_" + std::to_string(i) + "_approx.csv";
-    if (SaveApproxCSV(csvName, result, i))
-    {
+    if (SaveApproxCSV(csvName, result, i)) {
       std::cout << "    Кривая → " << csvName << std::endl;
     }
   }
@@ -799,12 +708,9 @@ int main(int argc, char *argv[])
   std::string debugPath = outputDir + "debug_traced.png";
   std::cout << "\n[5] Debug-изображение → " << debugPath << std::endl;
 
-  if (SaveDebugImage(debugPath, loader.GetImage(), allLines, outerEllipse))
-  {
+  if (SaveDebugImage(debugPath, loader.GetImage(), allLines, outerEllipse)) {
     std::cout << "  OK" << std::endl;
-  }
-  else
-  {
+  } else {
     std::cout << "  Ошибка сохранения" << std::endl;
   }
 
@@ -814,8 +720,7 @@ int main(int argc, char *argv[])
   std::cout << "\n=== Готово ===" << std::endl;
   std::cout << "  Линий трассировано: " << allLines.size() << std::endl;
   std::cout << "  Файлы:" << std::endl;
-  for (int i = 0; i < (int)allLines.size(); i++)
-  {
+  for (int i = 0; i < (int)allLines.size(); i++) {
     std::cout << "    line_" << i << "_points.csv  — точки трассировки"
               << std::endl;
     std::cout << "    line_" << i << "_approx.csv  — аппроксимированная кривая"

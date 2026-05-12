@@ -8,61 +8,67 @@
 #define DBG(x) x
 #endif
 
-namespace Interferometry
-{
+namespace Interferometry {
 
-  // Точка на изображении
-  struct Point2D
-  {
-    int x;
-    int y;
+// Точка на изображении
+struct Point2D {
+  int x;
+  int y;
 
-    Point2D() : x(0), y(0) {}
-    Point2D(int _x, int _y) : x(_x), y(_y) {}
-  };
+  Point2D() : x(0), y(0) {}
+  Point2D(int _x, int _y) : x(_x), y(_y) {}
+};
 
-  // Точка трассированной полосы
-  struct FringePoint
-  {
-    int x;
-    int y;
-    float width;     // Ширина полосы в точке
-    float intensity; // Средняя интенсивность
-    int order;       // Порядок интерференции
+// Точка трассированной полосы
+struct FringePoint {
+  int x;
+  int y;
+  float width;      // Ширина полосы в точке
+  float intensity;  // Средняя интенсивность
+  int order;        // Порядок интерференции
 
-    FringePoint() : x(0), y(0), width(0), intensity(0), order(-1) {}
-    FringePoint(int _x, int _y)
-        : x(_x), y(_y), width(0), intensity(0), order(-1) {}
-  };
+  FringePoint() : x(0), y(0), width(0), intensity(0), order(-1) {}
+  FringePoint(int _x, int _y)
+      : x(_x), y(_y), width(0), intensity(0), order(-1) {}
+};
 
-  // // Линия полосы
-  // using FringeLine = std::vector<FringePoint>;
+// Точка линии
+struct CTracerPoint {
+  int x;
+  int y;
+  float width = 0.0f;      // Ширина полосы в этой точке
+  float intensity = 0.0f;  // Средняя интенсивность
 
-  // // Набор линий
-  // using FringeSet = std::vector<FringeLine>;
+  CTracerPoint() : x(0), y(0), width(0), intensity(0) {}
+  CTracerPoint(int _x, int _y) : x(_x), y(_y), width(0), intensity(0) {}
+};
 
-  // Параметры элипса
-  struct Ellipse
-  {
-    Point2D center; // Центр
-    int majorAxis;  // Большая полуось
-    int minorAxis;  // Малая полуось
-    double angle;   // Угол поворота (радианы)
+// // Линия полосы
+// using FringeLine = std::vector<FringePoint>;
 
-    Ellipse() : majorAxis(0), minorAxis(0), angle(0) {}
-  };
+// // Набор линий
+// using FringeSet = std::vector<FringeLine>;
 
-  // Статистика волнового фронта
-  struct WavefrontStats
-  {
-    double PV;     // Peak-to-Valley (в длинах волн)
-    double RMS;    // RMS (в длинах волн)
-    double mean;   // Среднее
-    double stddev; // СКО
+// Параметры элипса
+struct Ellipse {
+  Point2D center;  // Центр
+  int majorAxis;   // Большая полуось
+  int minorAxis;   // Малая полуось
+  double angle;    // Угол поворота (радианы)
 
-    // В абсолютных единицах (нм)
-    double PV_nm() const;
-    double RMS_nm() const;
-  };
+  Ellipse() : majorAxis(0), minorAxis(0), angle(0) {}
+};
 
-} // namespace Interferometry
+// Статистика волнового фронта
+struct WavefrontStats {
+  double PV;      // Peak-to-Valley (в длинах волн)
+  double RMS;     // RMS (в длинах волн)
+  double mean;    // Среднее
+  double stddev;  // СКО
+
+  // В абсолютных единицах (нм)
+  double PV_nm() const;
+  double RMS_nm() const;
+};
+
+}  // namespace Interferometry

@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <string>
 #include <vector>
-
+#include "Types.h"
 #include "IFringeExtractor.h"
 
 namespace cv {
@@ -18,16 +18,7 @@ class Mat;
 namespace Interferometry {
 
 class CEllipseBoundary;
-// Точка линии
-struct CTracerPoint {
-  int x;
-  int y;
-  float width = 0.0f;      // Ширина полосы в этой точке
-  float intensity = 0.0f;  // Средняя интенсивность
 
-  CTracerPoint() : x(0), y(0), width(0), intensity(0) {}
-  CTracerPoint(int _x, int _y) : x(_x), y(_y), width(0), intensity(0) {}
-};
 
 // Параметры трассировки
 struct CTracerParams {
