@@ -9,6 +9,8 @@
 #include <string>
 #include <vector>
 
+#include "IFringeExtractor.h"
+
 namespace cv {
 class Mat;
 }
@@ -54,15 +56,23 @@ enum ETraceDirection {
 };
 
 // Класс трассировки полос
-class CFringeTracer {
+class CFringeTracer : public IFringeExtractor {
  public:
   CFringeTracer();
   ~CFringeTracer();
 
   // Инициализация трассировщика с изображением и границами
-  void Initialize(const cv::Mat& image, const CEllipseBoundary& boundary);
+  bool Initialize(const cv::Mat& image,
+                  const CEllipseBoundary& boundary) override;
   // Проверка инициализации
   bool IsInitialize() const { return m_image != nullptr; }
+
+  std::vector<std::vector<CTracerPoint>> Extract(
+      const std::vector<CSeedPoint>& seeds) override;
+
+  std::string GetName() const override { return "SCAN-tracer"; }
+
+  const std::string& GetLastError() const override { return m_lastError; }
 
   std::vector<CTracerPoint> TraceLine(int startX, int startY);
 
@@ -79,9 +89,6 @@ class CFringeTracer {
 
   // Проверка, находится ли точка внутри изображения
   bool IsInside(int x, int y) const;
-
-  // Получение статуса последней операции
-  std::string GetLastError() const { return m_lastError; }
 
  private:
   // Изображение

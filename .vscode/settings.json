@@ -34,5 +34,6 @@
     "terminal.integrated.defaultProfile.windows": "Command Prompt",
 
     // Рекомендуемые расширения будут предложены при открытии проекта
-    "extensions.ignoreRecommendations": false
+    "extensions.ignoreRecommendations": false,
+    "python-envs.defaultEnvManager": "ms-python.python:system"
 }
