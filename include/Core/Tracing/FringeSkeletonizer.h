@@ -17,20 +17,22 @@ struct CSkeletonizerParams {
   int adaptiveBlockSize = 51;
   double adaptiveC = -5.0;
   int morphKernelSize = 3;
-  int minLineLength = 20;
+  int minLineLength = 500;
   bool computeWidth = true;
   bool smoothLines = false;
   int smoothWindow = 3;
+  int pruneLength = 40;
+  int linkDistance = 15;
 };
 
 class CFringeSkeletonizer : public IFringeExtractor {
  public:
   CFringeSkeletonizer() = default;
 
-  void SetParsm(const CSkeletonizerParams& p) { m_params = p; }
+  void SetParams(const CSkeletonizerParams& p) { m_params = p; }
   const CSkeletonizerParams& GetParams() const { return m_params; }
 
-  //=== IFringeExtractor ======
+  // === IFringeExtractor ===
   bool Initialize(const cv::Mat& image,
                   const CEllipseBoundary& boundary) override;
 
@@ -50,6 +52,8 @@ class CFringeSkeletonizer : public IFringeExtractor {
   bool BuildBinary();
   void Skeletonize(const cv::Mat& binary, cv::Mat& skeleton) const;
   int CountNeighbors(const cv::Mat& skel, int x, int y) const;
+  void PruneSkeleton(cv::Mat& skel, int maxBranchLength) const;
+  void LinkBrokenLines(std::vector<std::vector<CTracerPoint>>& lines) const;
 
   std::vector<CTracerPoint> TraceBranch(const cv::Mat& skel, cv::Mat& visited,
                                         int sx, int sy);

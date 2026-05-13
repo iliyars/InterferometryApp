@@ -46,6 +46,7 @@
 
 // --- Core модули ---
 #include "EllipseBoundary.h"
+#include "FringeSkeletonizer.h"
 #include "FringeTracer.h"
 #include "ImageLoader.h"
 #include "PolynomialApproximator.h"
@@ -589,74 +590,97 @@ int main(int argc, char* argv[]) {
   // ===================================================================
   std::cout << "\n[3] Трассировка полос" << std::endl;
 
-  CFringeTracer tracer;
-  tracer.Initialize(loader.GetImage(), boundary);
+  // --- Стартовые точки (нужны для CFringeTracer; для скелетизатора
+  // игнорируются) ---
+  std::vector<std::pair<int, int>> startPoints =
+      FindStartPoints(loader.GetImage(), boundary, maxLines);
 
-  if (!tracer.IsInitialize()) {
-    std::cerr << "  ОШИБКА: " << tracer.GetLastError() << std::endl;
-    return 1;
-  }
-
-  CTracerParams params;
-  params.maxSteps = 200;
-  params.bidirectional = true;
-  params.maxWidthChange = 1.5f;
-  tracer.SetParams(params);
-
-  // Определить стартовые точки
-  std::vector<std::pair<int, int>> startPoints;
-
-  // Автоматический поиск
-  startPoints = FindStartPoints(loader.GetImage(), boundary, maxLines);
   std::cout << "  Найдено стартовых точек: " << startPoints.size() << std::endl;
   for (int i = 0; i < (int)startPoints.size(); i++) {
     std::cout << "    [" << i << "] (" << startPoints[i].first << ", "
               << startPoints[i].second << ")" << std::endl;
   }
 
-  // Трассировка каждой полосы
-  std::vector<std::vector<CTracerPoint>> allLines;
+  // Переупаковать в std::vector<CSeedPoint>
+  std::vector<CSeedPoint> seeds;
+  seeds.reserve(startPoints.size());
+  for (auto& s : startPoints) seeds.push_back({s.first, s.second});
 
-  for (int i = 0; i < (int)startPoints.size(); i++) {
-    int sx = startPoints[i].first;
-    int sy = startPoints[i].second;
+  // --- Параметры для каждого алгоритма ---
+  CTracerParams scanParams;
+  scanParams.maxSteps = 200;
+  scanParams.bidirectional = true;
+  scanParams.maxWidthChange = 1.5f;
 
-    std::cout << "\n  --- Линия " << i << " от (" << sx << ", " << sy << ") ---"
+  CSkeletonizerParams skelParams;
+  skelParams.gaussianKernel = 5;
+  skelParams.adaptiveBlockSize = 51;
+  skelParams.adaptiveC = -5.0;
+  skelParams.morphKernelSize = 3;
+  skelParams.minLineLength = 30;
+  skelParams.computeWidth = true;
+  skelParams.smoothLines = false;
+  skelParams.pruneLength = 40;
+
+  // --- Выбор алгоритма ---
+  std::string algo = "skeleton";  // или "scan"
+
+  std::unique_ptr<IFringeExtractor> extractor;
+  if (algo == "scan") {
+    auto t = std::make_unique<CFringeTracer>();
+    t->SetParams(scanParams);
+    extractor = std::move(t);
+  } else {
+    auto s = std::make_unique<CFringeSkeletonizer>();
+    s->SetParams(skelParams);
+    extractor = std::move(s);
+  }
+
+  std::cout << "  Алгоритм: " << extractor->GetName() << std::endl;
+
+  // --- Запуск ---
+  if (!extractor->Initialize(loader.GetImage(), boundary)) {
+    std::cerr << "  ОШИБКА Initialize: " << extractor->GetLastError()
               << std::endl;
+    return 1;
+  }
 
-    auto points = tracer.TraceLine(sx, sy);
+  auto allLines = extractor->Extract(seeds);
+  if (auto* skel = dynamic_cast<CFringeSkeletonizer*>(extractor.get())) {
+    cv::imwrite(outputDir + "debug_mask.png", skel->GetMask());
+    cv::imwrite(outputDir + "debug_binary.png", skel->GetBinary());
+    cv::imwrite(outputDir + "debug_skeleton.png", skel->GetSkeleton());
+  }
 
-    if (points.empty()) {
-      std::cout << "    ОШИБКА: " << tracer.GetLastError() << std::endl;
-      continue;
-    }
+  std::cout << "  Найдено линий: " << allLines.size() << std::endl;
 
+  if (allLines.empty()) {
+    std::cerr << "  Ни одна линия не трассирована!" << std::endl;
+    return 1;
+  }
+
+  // --- Вывод информации и сохранение CSV ---
+  for (int i = 0; i < (int)allLines.size(); i++) {
+    const auto& points = allLines[i];
+
+    std::cout << "\n  --- Линия " << i << " ---" << std::endl;
     std::cout << "    Точек: " << points.size() << std::endl;
     std::cout << "    Начало: (" << points.front().x << ", " << points.front().y
               << ")" << std::endl;
     std::cout << "    Конец:  (" << points.back().x << ", " << points.back().y
               << ")" << std::endl;
 
-    // Средняя ширина полосы
     float avgWidth = 0;
     for (const auto& p : points) avgWidth += p.width;
     avgWidth /= points.size();
     std::cout << "    Ср. ширина: " << std::fixed << std::setprecision(1)
               << avgWidth << " px" << std::endl;
 
-    // Сохранить точки в CSV
     std::string csvName =
         outputDir + "line_" + std::to_string(i) + "_points.csv";
     if (SavePointsCSV(csvName, points, i)) {
       std::cout << "    Точки → " << csvName << std::endl;
     }
-
-    allLines.push_back(points);
-  }
-
-  if (allLines.empty()) {
-    std::cerr << "\n  Ни одна линия не трассирована!" << std::endl;
-    return 1;
   }
 
   // ===================================================================

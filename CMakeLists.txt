@@ -28,6 +28,7 @@ add_library(InterferometryCore STATIC
     src/Core/Tracing/FringeTracer.cpp
     src/Core/Tracing/ImageLoader.cpp
     src/Core/Tracing/PolynomialApproximator.cpp
+    src/Core/Tracing/FringeSkeletonizer.cpp
 )
 
 target_include_directories(InterferometryCore PUBLIC
